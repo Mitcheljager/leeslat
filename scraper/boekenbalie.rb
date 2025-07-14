@@ -1,13 +1,7 @@
-require "httparty"
+require_relative "base"
 require "nokogiri"
 
-response = HTTParty.get("https://boekenbalie.nl/a-line-to-kill/9781529124309", {
-  headers: {
-		"User-Agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
-	},
-})
-
-document = Nokogiri::HTML(response.body)
+document = get_document("https://boekenbalie.nl/a-line-to-kill/9781529124309")
 
 title = document.css("h1").text.strip
 isbn = document.css(".product-detail-properties-value").first.text.strip
