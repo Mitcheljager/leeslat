@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   root "books#index"
 
   resources :sources, param: :slug
+  resources :listings
 
   resources :books, param: :slug_and_isbn, path: "boek", except: [:index]
 end

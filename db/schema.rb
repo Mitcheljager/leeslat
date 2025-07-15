@@ -10,13 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_15_193615) do
-  create_table "books", primary_key: "isbn", id: :string, force: :cascade do |t|
+ActiveRecord::Schema[8.0].define(version: 2025_07_15_204626) do
+  create_table "books", force: :cascade do |t|
     t.string "title"
     t.string "author"
+    t.string "isbn"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["isbn"], name: "index_books_on_isbn", unique: true
+  end
+
+  create_table "listings", force: :cascade do |t|
+    t.integer "book_id"
+    t.integer "source_id"
+    t.float "price"
+    t.string "currency"
+    t.string "url"
+    t.datetime "last_scraped_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sources", force: :cascade do |t|

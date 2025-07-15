@@ -41,7 +41,7 @@ class SourcesController < ApplicationController
   private
 
   def set_source
-    @source = Source.find(params.expect(:slug))
+    @source = Source.find_by_slug(params.expect(:slug))
   end
 
   def source_params

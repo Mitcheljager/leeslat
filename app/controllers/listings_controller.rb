@@ -1,0 +1,50 @@
+class ListingsController < ApplicationController
+  before_action :set_listing, only: [:show, :edit, :update, :destroy]
+
+  def index
+    @listings = Listing.all
+  end
+
+  def show
+  end
+
+  def new
+    @listing = Listing.new
+  end
+
+  def edit
+  end
+
+  def create
+    @listing = Listing.new(listing_params)
+
+    if @listing.save
+      redirect_to @listing, notice: "Listing was successfully created."
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @listing.update(listing_params)
+      redirect_to @listing, notice: "Listing was successfully updated.", status: :see_other
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @listing.destroy!
+    redirect_to listings_path, notice: "Listing was successfully destroyed.", status: :see_other
+  end
+
+  private
+
+  def set_listing
+    @listing = Listing.find(params.expect(:id))
+  end
+
+  def listing_params
+    params.expect(listing: [:book_id, :source_id, :price, :currency, :url, :last_scraped_at])
+  end
+end

@@ -6,6 +6,7 @@ class BooksController < ApplicationController
   end
 
   def show
+    @listings = @book.listings
   end
 
   def new
@@ -42,7 +43,7 @@ class BooksController < ApplicationController
 
   def set_book
     isbn = params.expect([:slug_and_isbn]).split("-").last
-    @book = Book.find(isbn)
+    @book = Book.find_by_isbn(isbn)
   end
 
   def book_params
