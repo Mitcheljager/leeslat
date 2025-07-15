@@ -40,12 +40,12 @@ class BooksController < ApplicationController
 
   private
 
-    def set_book
-      @book = Book.find(params.expect(:isbn))
-    end
+  def set_book
+    @book = Book.find(params.expect(:isbn))
+  end
 
 
-    def book_params
-      params.expect(book: [:title, :author, :isbn])
-    end
+  def book_params
+    params.expect(book: [:title, :author, :isbn])
+  end
 end

@@ -11,5 +11,6 @@ Rails.application.routes.draw do
 
   root "books#index"
 
+  resources :sources
   resources :books, param: :isbn
 end
