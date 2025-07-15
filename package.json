@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "vite-plugin-full-reload": "^1.1.0",
+    "vite": "^5.0.0",
+    "vite-plugin-ruby": "^5.1.0"
+  }
+}

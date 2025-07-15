@@ -14,7 +14,9 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= vite_client_tag %>
+    <%= vite_typescript_tag "application" %>
+    <%= vite_stylesheet_tag "application.css" %>
 
     <%# Prevent flashbangs %>
     <style> body { background: #232323; color: #ccc; }</style>
