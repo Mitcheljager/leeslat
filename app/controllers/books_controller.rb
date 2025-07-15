@@ -35,13 +35,14 @@ class BooksController < ApplicationController
 
   def destroy
     @book.destroy!
-    redirect_to books_path, notice: "Book was successfully destroyed.", status: :see_other
+    redirect_to root_path, notice: "Book was successfully destroyed.", status: :see_other
   end
 
   private
 
   def set_book
-    @book = Book.find(params.expect(:isbn))
+    isbn = params.expect([:slug_and_isbn]).split("-").last
+    @book = Book.find(isbn)
   end
 
   def book_params
