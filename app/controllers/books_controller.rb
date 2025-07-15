@@ -41,7 +41,7 @@ class BooksController < ApplicationController
   private
 
     def set_book
-      @book = Book.find(params.expect(:id))
+      @book = Book.find(params.expect(:isbn))
     end
 
 
