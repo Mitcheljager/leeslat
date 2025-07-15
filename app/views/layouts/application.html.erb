@@ -19,6 +19,9 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+
+    <%# Prevent flashbangs %>
+    <style> body { background: #232323; color: #ccc; }</style>
   </head>
 
   <body>
