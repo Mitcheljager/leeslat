@@ -44,7 +44,6 @@ class SourcesController < ApplicationController
     @source = Source.find(params.expect(:id))
   end
 
-
   def source_params
     params.expect(source: [:name, :slug, :base_url])
   end
