@@ -16,8 +16,8 @@ def get_document(url)
   end
 end
 
-def save_result(source_name, isbn, title, author, price, currency, url)
-  book = get_book(isbn, title, author)
+def save_result(source_name, isbn, price, currency, url)
+  book = get_book(isbn)
   source = Source.find_by_name!(source_name)
 
   listing = Listing.find_or_initialize_by(book_id: book.id, source_id: source.id)
@@ -29,12 +29,20 @@ def save_result(source_name, isbn, title, author, price, currency, url)
   listing.save
 end
 
-def get_book(isbn, title, author)
+def get_book(isbn)
   book = Book.find_or_initialize_by(isbn: isbn)
 
   if book.title.blank? || book.author.blank?
-    book.title = title if book.title.blank?
-    book.author = author if book.author.blank?
+    book_data_response = HTTParty.get('https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbn)
+    parsed_response = JSON.parse(book_data_response.body)
+    volume_info = parsed_response["items"][0]["volumeInfo"]
+    title = volume_info["title"]
+    author = volume_info["authors"][0]
+
+    abort if title.blank? || !author.blank?
+
+    book.title = title
+    book.author = author
 
     book.save!
   end
