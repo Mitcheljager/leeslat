@@ -21,8 +21,6 @@ document.css(".views-row a").each do |node|
   next if isbn.blank?
   next if isbn_list.include?(isbn)
 
-  puts "Adding: #{isbn}"
-
   isbn_list << isbn
 end
 

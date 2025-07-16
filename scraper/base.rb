@@ -32,7 +32,7 @@ end
 def get_book(isbn)
   book = Book.find_or_initialize_by(isbn: isbn)
 
-  if book.title.blank?
+  if book.title.blank? || book.authors.empty?
     google_api_url = "https://www.googleapis.com/books/v1/volumes?q=isbn:#{isbn}"
 
     puts "Running Google API for: #{google_api_url}"
@@ -40,7 +40,7 @@ def get_book(isbn)
     book_data_response = HTTParty.get(google_api_url)
     parsed_response = JSON.parse(book_data_response.body)
 
-    return if parsed_response["totalItems"] === 0
+    return if parsed_response["totalItems"] === 0 || parsed_response["items"].blank?
 
     volume_info = parsed_response["items"][0]["volumeInfo"]
     title = volume_info["title"]
@@ -48,6 +48,16 @@ def get_book(isbn)
     throw if title.blank?
 
     book.title = title
+
+    if volume_info["authors"].present?
+      volume_info["authors"].each do |author_name|
+        author_name = author_name.sub(/\s*\(.*\)\s*$/, '')
+
+        author = Author.find_or_create_by!(name: author_name)
+
+        book.authors << author unless book.authors.include?(author)
+      end
+    end
 
     book.save!
   end
