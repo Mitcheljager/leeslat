@@ -6,6 +6,8 @@ class Book < ApplicationRecord
   validates :title, presence: true
   validates :isbn, presence: true, uniqueness: true, format: { with: /\A[0-9]+\z/ }
 
+  accepts_nested_attributes_for :book_authors, allow_destroy: true
+
   def to_param
     "#{title.parameterize}-#{isbn}"
   end

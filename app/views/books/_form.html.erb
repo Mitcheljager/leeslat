@@ -17,8 +17,8 @@
   </div>
 
   <div>
-    <%= form.label :author, style: "display: block" %>
-    <%= form.text_field :author %>
+    <%= form.label :author_ids, "Authors", style: "display: block" %>
+    <%= form.collection_select :author_ids, Author.all, :id, :name, {}, { multiple: true, size: 5 } %>
   </div>
 
   <div>

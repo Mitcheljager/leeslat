@@ -6,8 +6,8 @@
 
   <p>
     <strong>Authors:</strong>
-    <% book.authors do |author| %>
-      <br><%= author.name %>
+    <% book.authors.each do |author| %>
+      <%= author.name %>
     <% end %>
   </p>
 
