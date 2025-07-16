@@ -43,7 +43,7 @@ def get_book(isbn)
     title = volume_info["title"]
     author = volume_info["authors"][0]
 
-    abort if title.blank? || !author.blank?
+    throw if title.blank? || author.blank?
 
     book.title = title
     book.author = author
