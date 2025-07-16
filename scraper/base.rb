@@ -32,7 +32,7 @@ end
 def get_book(isbn)
   book = Book.find_or_initialize_by(isbn: isbn)
 
-  if book.title.blank? || book.authors.empty?
+  if book.new_record?
     google_api_url = "https://www.googleapis.com/books/v1/volumes?q=isbn:#{isbn}"
 
     puts "Running Google API for: #{google_api_url}"
@@ -42,7 +42,11 @@ def get_book(isbn)
 
     return if parsed_response["totalItems"] === 0 || parsed_response["items"].blank?
 
-    volume_info = parsed_response["items"][0]["volumeInfo"]
+    item = parsed_response["items"][0]
+    volume_info = item["volumeInfo"]
+    sale_info = item["saleInfo"]
+
+    return if sale_info["isEbook"] === true
 
     parse_authors_for_book(book, volume_info["authors"]) if volume_info["authors"].present?
 
@@ -62,3 +66,4 @@ def parse_authors_for_book(book, authors)
     book.authors << author unless book.authors.include?(author)
   end
 end
+
