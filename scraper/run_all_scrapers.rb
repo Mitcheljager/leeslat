@@ -1,4 +1,4 @@
-require_relative "boeken"
+require_relative "boekennl"
 require_relative "boekenbalie"
 require_relative "amazon"
 
@@ -16,4 +16,5 @@ ensure
 end
 
 run_scraper("Boekenbalie", isbn, title) { scrape_boekenbalie(isbn, title) }
+run_scraper("Boeken.nl", isbn, title)   { scrape_boekennl(isbn, title) }
 run_scraper("Amazon", isbn, title)      { scrape_amazon(isbn) }

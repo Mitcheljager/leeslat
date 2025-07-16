@@ -9,7 +9,6 @@ def scrape_boekenbalie(isbn, title)
 
   document = get_document(url)
 
-  isbn = document.css(".product-detail-properties-value").first.text.strip
   price = document.css(".product-detail-price").first.text.strip.gsub(",", ".")
   image = document.css(".product-detail-media-gallery img").first.attribute("src").value.strip
 
@@ -18,5 +17,5 @@ def scrape_boekenbalie(isbn, title)
   puts price
   puts image
 
-  save_result("Boekenbalie", isbn, price, "EUR", "some-url")
+  save_result("Boekenbalie", isbn, price, "EUR", url)
 end
