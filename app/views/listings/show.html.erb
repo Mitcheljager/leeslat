@@ -7,8 +7,10 @@
 <h2>Price history</h2>
 
 <% @listing.versions.each do |version| %>
-  <%= version.reify.price %>
+  <%= version.reify&.price %>
 <% end %>
+
+<%= @listing.price %>
 
 <div>
   <%= link_to "Edit this listing", edit_listing_path(@listing) %> |
