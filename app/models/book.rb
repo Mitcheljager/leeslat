@@ -1,8 +1,9 @@
 class Book < ApplicationRecord
   has_many :listings, dependent: :destroy
+  has_many :book_authors
+  has_many :authors, through: :book_authors
 
   validates :title, presence: true
-  validates :author, presence: true
   validates :isbn, presence: true, uniqueness: true, format: { with: /\A[0-9]+\z/ }
 
   def to_param

@@ -5,8 +5,10 @@
   </p>
 
   <p>
-    <strong>Author:</strong>
-    <%= book.author %>
+    <strong>Authors:</strong>
+    <% book.authors do |author| %>
+      <br><%= author.name %>
+    <% end %>
   </p>
 
   <p>
