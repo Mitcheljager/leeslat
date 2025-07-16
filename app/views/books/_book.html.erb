@@ -5,6 +5,11 @@
   </p>
 
   <p>
+    <strong>Subtitle:</strong>
+    <%= book.subtitle %>
+  </p>
+
+  <p>
     <strong>Authors:</strong>
     <% book.authors.each do |author| %>
       <span><%= author.name %></span>
@@ -12,8 +17,28 @@
   </p>
 
   <p>
+    <strong>Description:</strong>
+    <%= book.description %>
+  </p>
+
+  <p>
     <strong>Isbn:</strong>
     <%= book.isbn %>
+  </p>
+
+  <p>
+    <strong>Number of pages:</strong>
+    <%= book.number_of_pages.zero? ? "-" : book.number_of_pages %>
+  </p>
+
+  <p>
+    <strong>Language:</strong>
+    <%= book.language %>
+  </p>
+
+  <p>
+    <strong>Format:</strong>
+    <%= book.format %>
   </p>
 
   <p>

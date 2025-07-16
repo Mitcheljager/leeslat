@@ -17,6 +17,16 @@
   </div>
 
   <div>
+    <%= form.label :subtitle, style: "display: block" %>
+    <%= form.text_field :subtitle %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
     <%= form.label :author_ids, "Authors", style: "display: block" %>
     <%= form.collection_select :author_ids, Author.all, :id, :name, {}, { multiple: true, size: 5 } %>
   </div>
@@ -24,6 +34,21 @@
   <div>
     <%= form.label :isbn, style: "display: block" %>
     <%= form.text_field :isbn %>
+  </div>
+
+  <div>
+    <%= form.label :number_of_pages, style: "display: block" %>
+    <%= form.number_field :number_of_pages %>
+  </div>
+
+  <div>
+    <%= form.label :format, "Format", style: "display: block" %>
+    <%= form.select :format, Book.formats.keys.map { |f| [f.titleize, f] }, prompt: "Select a format" %>
+  </div>
+
+  <div>
+    <%= form.label :language, "Language", style: "display: block" %>
+    <%= form.select :language, Book.languages.keys.map { |f| [f.titleize, f] }, prompt: "Select a language" %>
   </div>
 
   <div>

@@ -29,7 +29,7 @@ def save_result(source_name, isbn, price, currency, url)
   listing.save
 end
 
-def get_book(isbn)
+def get_book(isbn, format: nil)
   book = Book.find_or_initialize_by(isbn: isbn)
 
   if book.new_record?
@@ -51,10 +51,9 @@ def get_book(isbn)
     parse_authors_for_book(book, volume_info["authors"]) if volume_info["authors"].present?
 
     book.title = volume_info["title"]
-    book.save!
   end
 
-  book
+  book.save!
 end
 
 def parse_authors_for_book(book, authors)
