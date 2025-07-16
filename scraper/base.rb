@@ -43,24 +43,22 @@ def get_book(isbn)
     return if parsed_response["totalItems"] === 0 || parsed_response["items"].blank?
 
     volume_info = parsed_response["items"][0]["volumeInfo"]
-    title = volume_info["title"]
 
-    throw if title.blank?
+    parse_authors_for_book(book, volume_info["authors"]) if volume_info["authors"].present?
 
-    book.title = title
-
-    if volume_info["authors"].present?
-      volume_info["authors"].each do |author_name|
-        author_name = author_name.sub(/\s*\(.*\)\s*$/, '')
-
-        author = Author.find_or_create_by!(name: author_name)
-
-        book.authors << author unless book.authors.include?(author)
-      end
-    end
-
+    book.title = volume_info["title"]
     book.save!
   end
 
   book
+end
+
+def parse_authors_for_book(book, authors)
+  authors.each do |author_name|
+    author_name = author_name.sub(/\s*\(.*\)\s*$/, '')
+
+    author = Author.find_or_create_by!(name: author_name)
+
+    book.authors << author unless book.authors.include?(author)
+  end
 end
