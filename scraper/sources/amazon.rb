@@ -11,7 +11,14 @@ def scrape_amazon(isbn)
 
   document = get_document(url)
 
-  price = document.css(".priceToPay span").first.text.strip.gsub("€", "").gsub(",", ".")
+  price_text = document.at_css("#tmm-grid-swatch-PAPERBACK")&.text
+  price = price_text.to_s.gsub(/[[:space:]]/, "").gsub("€", "").strip.gsub(",", ".").gsub("Paperback", "").strip
+
+  if price.blank?
+    price_text = document.at_css(".priceToPay span")&.text
+    price = price_text.to_s.gsub("€", "").gsub(",", ".").strip
+  end
+
   image = document.css("#landingImage").first.attribute("src").value.strip
 
   puts isbn

@@ -39,6 +39,9 @@ def get_book(isbn)
 
     book_data_response = HTTParty.get(google_api_url)
     parsed_response = JSON.parse(book_data_response.body)
+
+    return if parsed_response["totalItems"] === 0
+
     volume_info = parsed_response["items"][0]["volumeInfo"]
     title = volume_info["title"]
 
