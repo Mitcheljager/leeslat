@@ -33,7 +33,11 @@ def get_book(isbn)
   book = Book.find_or_initialize_by(isbn: isbn)
 
   if book.title.blank? || book.author.blank?
-    book_data_response = HTTParty.get('https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbn)
+    google_api_url = "https://www.googleapis.com/books/v1/volumes?q=isbn:#{isbn}"
+
+    puts "Running Google API for: #{google_api_url}"
+
+    book_data_response = HTTParty.get(google_api_url)
     parsed_response = JSON.parse(book_data_response.body)
     volume_info = parsed_response["items"][0]["volumeInfo"]
     title = volume_info["title"]
