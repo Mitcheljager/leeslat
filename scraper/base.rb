@@ -9,7 +9,11 @@ def get_document(url)
     },
   })
 
-  Nokogiri::HTML(response.body)
+  if response.code === 200
+    Nokogiri::HTML(response.body)
+  else
+    puts "Response for #{url} failed with code " + response.code.to_s
+  end
 end
 
 def save_result(source_name, isbn, title, author, price, currency, url)

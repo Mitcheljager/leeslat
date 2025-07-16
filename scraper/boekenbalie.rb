@@ -3,7 +3,11 @@ require "nokogiri"
 
 def scrape_boekenbalie(isbn, title)
   slug = title.parameterize
-  document = get_document("https://boekenbalie.nl/#{slug}/#{isbn}")
+  url = "https://boekenbalie.nl/#{slug}/#{isbn}"
+
+  puts "Running Boekenbalie for: " + url
+
+  document = get_document(url)
 
   title = document.css("h1").text.strip
   isbn = document.css(".product-detail-properties-value").first.text.strip
