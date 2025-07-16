@@ -39,6 +39,7 @@ gem "thruster", require: false
 # gem "image_processing", "~> 1.2"
 
 gem "vite_rails"
+gem "paper_trail"
 
 gem "httparty", require: false
 gem "nokogiri", require: false
