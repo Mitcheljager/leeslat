@@ -1,4 +1,4 @@
-require_relative "base"
+require_relative "../base"
 require "nokogiri"
 
 def scrape_boekennl(isbn, title)

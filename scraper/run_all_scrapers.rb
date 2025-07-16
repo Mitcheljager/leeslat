@@ -1,6 +1,6 @@
-require_relative "boekennl"
-require_relative "boekenbalie"
-require_relative "amazon"
+require_relative "sources/boekennl"
+require_relative "sources/boekenbalie"
+require_relative "sources/amazon"
 
 isbn = ARGV[0]
 title = ARGV[1]
