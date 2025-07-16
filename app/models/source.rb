@@ -1,5 +1,5 @@
 class Source < ApplicationRecord
-  has_many :sources
+  has_many :sources, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
   validates :slug, presence: true, uniqueness: true
