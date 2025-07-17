@@ -45,5 +45,5 @@ def scrape_amazon(isbn)
 end
 
 def clean_url(url)
-  url.sub(/\/[^\/]*$/, "") # Remove referal bits after the final /
+  url.sub(/\/[^\?]*$/, "") # Remove referal bits after the final ?
 end
