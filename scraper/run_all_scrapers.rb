@@ -7,7 +7,9 @@ title = ARGV[1]
 
 def run_scraper(name, isbn, title)
   puts "Running #{name}..."
-  yield
+
+  result = yield
+  save_result(name, isbn, **result)
 rescue => error
   puts "#{name} failed for: #{title} - #{isbn}"
   puts error

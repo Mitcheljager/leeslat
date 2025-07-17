@@ -28,5 +28,5 @@ def scrape_boekenbalie(isbn, title)
   puts description
   puts number_of_pages
 
-  save_result("Boekenbalie", isbn, price, "EUR", url, description, number_of_pages)
+  { url: url, price: price, description: description, number_of_pages: number_of_pages }
 end

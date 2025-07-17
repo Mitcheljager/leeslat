@@ -31,7 +31,7 @@ def get_search_document(source_url, isbn)
   return url, document
 end
 
-def save_result(source_name, isbn, price, currency, url, description = nil, number_of_pages = 0)
+def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description: nil, number_of_pages: 0)
   book = get_book(isbn)
   source = Source.find_by_name!(source_name)
 
@@ -88,5 +88,5 @@ end
 
 def find_listing_for_isbn_and_source_name(isbn, source_name)
   book = Book.find_by_isbn(isbn)
-  listing = book&.listings.joins(:source).find_by(sources: { name: source_name })
+  listing = book&.listings&.joins(:source)&.find_by(sources: { name: source_name })
 end

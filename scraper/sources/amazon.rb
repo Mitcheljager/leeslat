@@ -12,7 +12,7 @@ def scrape_amazon(isbn)
 
     document = get_document("#{base_path}/s?k=#{isbn}")
     first_search_item_path = document.css("[role='listitem'] a").first.attribute("href").value
-    url = base_path + first_search_item_path
+    url = (base_path + first_search_item_path).sub(/\/[^\/]*$/, "") # Remove referal bits after the final /
   end
 
   if url.blank?
@@ -40,6 +40,6 @@ def scrape_amazon(isbn)
     puts price
     puts image
 
-    save_result("Amazon", isbn, price, "EUR", url)
+    { url: url, price: price }
   end
 end
