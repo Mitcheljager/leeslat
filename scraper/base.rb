@@ -4,7 +4,7 @@ require_relative "data/goodreads"
 require "httparty"
 require "nokogiri"
 
-def get_document(url)
+def get_document(url, return_url: false)
   response = HTTParty.get(url, {
     headers: {
       "User-Agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
@@ -12,7 +12,14 @@ def get_document(url)
   })
 
   if response.code == 200 || response.code == 202
-    Nokogiri::HTML(response.body)
+    body = Nokogiri::HTML(response.body)
+
+    if return_url
+      url = response.request.last_uri.to_s
+      [body, url]
+    else
+      body
+    end
   else
     puts "Response for #{url} failed with code " + response.code.to_s
   end

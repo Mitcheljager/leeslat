@@ -52,5 +52,5 @@ end
 
 def clean_url(url)
   return url unless url.include?("?")
-  url.sub(/\/[^\?]*$/, "") # Remove referal bits after the final ?
+  url.sub(/\/ref=.*/, "") # Remove referal bits after the final ?
 end
