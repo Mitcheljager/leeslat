@@ -11,11 +11,16 @@ def scrape_boekenbalie(isbn, title)
 
   price = document.css(".product-detail-price").first.text.strip.gsub(",", ".")
   image = document.css(".product-detail-media-gallery img").first.attribute("src").value.strip
+  description = document.css(".js-product-detail-description-text").first.text.strip
+  number_of_pages_label = document.at_css(".product-detail-properties-label:contains('Aantal pagina\'s')")
+  number_of_pages = number_of_pages_label&.next_element&.text&.strip
 
   puts title
   puts isbn
   puts price
   puts image
+  puts description
+  puts number_of_pages
 
-  save_result("Boekenbalie", isbn, price, "EUR", url)
+  save_result("Boekenbalie", isbn, price, "EUR", url, description, number_of_pages)
 end

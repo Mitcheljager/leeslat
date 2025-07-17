@@ -9,14 +9,14 @@ def get_document(url)
     },
   })
 
-  if response.code === 200
+  if response.code == 200 || response.code == 202
     Nokogiri::HTML(response.body)
   else
     puts "Response for #{url} failed with code " + response.code.to_s
   end
 end
 
-def save_result(source_name, isbn, price, currency, url)
+def save_result(source_name, isbn, price, currency, url, description = nil, number_of_pages = 0)
   book = get_book(isbn)
   source = Source.find_by_name!(source_name)
 
@@ -24,12 +24,14 @@ def save_result(source_name, isbn, price, currency, url)
   listing.price = Float(price)
   listing.currency = currency
   listing.url = url
+  listing.number_of_pages = number_of_pages if number_of_pages.present?
+  listing.description = description if description.present?
   listing.last_scraped_at = DateTime.now
 
   listing.save
 end
 
-def get_book(isbn, format: nil)
+def get_book(isbn, format = nil, language = nil)
   book = Book.find_or_initialize_by(isbn: isbn)
 
   if book.new_record?
@@ -48,12 +50,15 @@ def get_book(isbn, format: nil)
 
     return if sale_info["isEbook"] === true
 
-    parse_authors_for_book(book, volume_info["authors"]) if volume_info["authors"].present?
-
     book.title = volume_info["title"]
+    book.language = volume_info["language"]
+
+    parse_authors_for_book(book, volume_info["authors"]) if volume_info["authors"].present?
   end
 
   book.save!
+
+  return book
 end
 
 def parse_authors_for_book(book, authors)
@@ -66,3 +71,7 @@ def parse_authors_for_book(book, authors)
   end
 end
 
+def find_listing_for_isbn_and_source_name(isbn, source_name)
+  book = Book.find_by_isbn(isbn)
+  listing = book&.listings.joins(:source).find_by(sources: { name: source_name })
+end
