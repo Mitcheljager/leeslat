@@ -46,7 +46,7 @@ def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description:
 
   throw "Book was nil" if book.nil?
 
-  source = Source.find_by_name!(source_name)
+  source = Source.find_by_name(source_name)
 
   listing = Listing.find_or_initialize_by(book_id: book.id, source_id: source.id)
   listing.price = Float(price)
@@ -54,7 +54,6 @@ def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description:
   listing.url = url
   listing.number_of_pages = number_of_pages if number_of_pages.present?
   listing.description = description if description.present?
-  listing.last_scraped_at = DateTime.now
 
   listing.save
 end

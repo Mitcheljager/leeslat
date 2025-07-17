@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_16_235757) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_17_221011) do
   create_table "authors", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -36,6 +36,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_16_235757) do
     t.string "subtitle"
     t.string "description"
     t.integer "format", default: 0, null: false
+    t.datetime "last_scraped_at"
+    t.datetime "description_last_generated_at"
     t.index ["isbn"], name: "index_books_on_isbn", unique: true
   end
 
@@ -50,6 +52,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_16_235757) do
     t.datetime "updated_at", null: false
     t.integer "number_of_pages"
     t.string "description"
+    t.boolean "was_last_scrape_successful"
   end
 
   create_table "sources", force: :cascade do |t|

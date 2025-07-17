@@ -1,3 +1,4 @@
+require_relative "base"
 require_relative "sources/boekennl"
 require_relative "sources/boekenbalie"
 require_relative "sources/amazon"
@@ -9,14 +10,19 @@ isbn = arguments["isbn"]
 title = arguments["title"]
 scrapers_to_run = arguments["scrapers"]&.split(",") || []
 
-def run_scraper(name, isbn, title)
-  puts "Running #{name}..."
+def run_scraper(source_name, isbn, title)
+  puts "Running #{source_name}..."
 
   result = yield
-  save_result(name, isbn, **result)
+  save_result(source_name, isbn, **result)
+
+  update_listing_scraping_status(source_name, isbn, was_succesful: true)
 rescue => error
-  puts "#{name} failed for: #{title} - #{isbn}"
-  puts error
+  puts "#{source_name} failed for: #{title} - #{isbn}"
+  puts "#{error.class}: #{error.message}"
+  puts error.backtrace.join("\n")
+
+  update_listing_scraping_status(source_name, isbn, was_succesful: false)
 ensure
   puts "---"
 end
@@ -25,14 +31,30 @@ def run_all_scrapers(isbn, title, scrapers_to_run)
   run_scraper("Boekenbalie", isbn, title)             { scrape_boekenbalie(isbn, title) } if is_in_run?(scrapers_to_run, "Boekenbalie")
   run_scraper("Boeken.nl", isbn, title)               { scrape_boekennl(isbn, title) } if is_in_run?(scrapers_to_run, "Boeken.nl")
   run_scraper("Amazon", isbn, title)                  { scrape_amazon(isbn) } if is_in_run?(scrapers_to_run, "Amazon")
-  run_scraper("Voordeelboekenonline.nl", isbn, title)  { scrape_voordeelboekenonline(isbn) } if is_in_run?(scrapers_to_run, "Voordeelboekenonline.nl")
+  run_scraper("Voordeelboekenonline.nl", isbn, title) { scrape_voordeelboekenonline(isbn) } if is_in_run?(scrapers_to_run, "Voordeelboekenonline.nl")
 
-  consolidate_number_of_pages(isbn)
+  update_book(isbn)
 end
 
-def consolidate_number_of_pages(isbn)
-  book = Book.find_by(isbn: isbn)
+def update_listing_scraping_status(source_name, isbn, was_succesful:)
+  book = Book.find_by_isbn(isbn)
+  source = Source.find_by_name(source_name)
+  listing = Listing.find_or_initialize_by(book_id: book.id, source_id: source.id)
 
+  listing.last_scraped_at = DateTime.now
+  listing.was_last_scrape_successful = was_succesful
+
+  listing.save!
+end
+
+def update_book(isbn)
+  book = Book.find_by_isbn(isbn)
+
+  consolidate_number_of_pages(book)
+  book.update(last_scraped_at: DateTime.now)
+end
+
+def consolidate_number_of_pages(book)
   return if book.blank?
 
   number_of_pages_counts = book.listings.where.not(number_of_pages: 0).pluck(:number_of_pages)
