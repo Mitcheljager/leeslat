@@ -6,7 +6,7 @@ class BooksController < ApplicationController
   end
 
   def show
-    @listings = @book.listings
+    @listings = @book.listings_with_price
   end
 
   def new

@@ -1,4 +1,6 @@
 class Book < ApplicationRecord
+  include ActionView::Helpers::NumberHelper
+
   has_many :listings, dependent: :destroy
   has_many :book_authors, dependent: :destroy
   has_many :authors, through: :book_authors
@@ -15,5 +17,13 @@ class Book < ApplicationRecord
 
   def to_param
     "#{title.parameterize}-#{isbn}"
+  end
+
+  def listings_with_price
+    listings.where.not(price: 0)
+  end
+
+  def formatted_number_of_pages
+    self.number_of_pages.zero? ? "-" : number_with_delimiter(self.number_of_pages, delimiter: ""."")
   end
 end
