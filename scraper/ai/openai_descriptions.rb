@@ -17,12 +17,14 @@ response = client.chat(parameters: {
   model: "gpt-3.5-turbo",
   messages: [{
     role: "system",
-    content: "Your task is to clean up and merge a set of book descriptions you are given. The descriptions will be in Dutch or English and should be returned in the language they were given. The descriptions might include quotes, blurb or reviews, which should be removed. The only thing that should be returned is a description of the book, without any extras. The final description should be close to the original text without rewording. If different given descriptions contain vastly different text, they should all be included. The description would be what you might find on the back flap. It's all about cleaning up and concatenating, rather than rewording. Grammatical or formatting errors may be fixed. If no content is relevant please return nothing.
-    Important: Any text mentioning the edition of the book should be removed.
-    Important: Any text regarding the author or translator should be removed."
+    content: "Your task is to clean up and merge a set of book descriptions you are given. The descriptions will be in Dutch or English and should be returned in the language they were given. The descriptions might include quotes, blurb or reviews, which should be removed. The only thing that should remain is a description of the book, without any extras. The description should be close to the original texts without rewording. If different given descriptions contain vastly different text, they should all be included. It's all about cleaning up and concatenating, rather than rewording. Grammatical or formatting errors should be fixed."
   }, {
     role: "user",
-    content: "Please clean up and merge these book descriptions, removing reviews, blurbs, quotes, mentions of the author and translator, and mentions of the edition of this book:\n\n" + descriptions.join("\n\n")
+    content: "Please clean up and merge these book descriptions, removing reviews, blurbs, quotes, mentions of the author and translator, and mentions of the edition of this book:\n
+    - Any text mentioning the edition of the book should be removed.\n
+    - Any text regarding the author or translator should be removed.\n
+    - Any blurbs or opinions about the book or author should be removed.\n
+    \n\n" + descriptions.join("\n\n")
   }],
   temperature: 0.7,
 })
