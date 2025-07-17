@@ -34,6 +34,9 @@ end
 
 def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description: nil, number_of_pages: 0)
   book = get_book(isbn)
+
+  throw "Book was nil" if book.nil?
+
   source = Source.find_by_name!(source_name)
 
   listing = Listing.find_or_initialize_by(book_id: book.id, source_id: source.id)
@@ -51,25 +54,14 @@ def get_book(isbn, format = nil, language = nil)
   book = Book.find_or_initialize_by(isbn: isbn)
 
   if book.new_record?
-    google_api_url = "https://www.googleapis.com/books/v1/volumes?q=isbn:#{isbn}"
+    is_ebook, title, language, authors = get_google_api_data(isbn)
 
-    puts "Running Google API for: #{google_api_url}"
+    return nil if is_ebook === true
 
-    book_data_response = HTTParty.get(google_api_url)
-    parsed_response = JSON.parse(book_data_response.body)
+    book.title = title
+    book.language = language
 
-    return if parsed_response["totalItems"] === 0 || parsed_response["items"].blank?
-
-    item = parsed_response["items"][0]
-    volume_info = item["volumeInfo"]
-    sale_info = item["saleInfo"]
-
-    return if sale_info["isEbook"] === true
-
-    book.title = volume_info["title"]
-    book.language = volume_info["language"]
-
-    parse_authors_for_book(book, volume_info["authors"]) if volume_info["authors"].present?
+    parse_authors_for_book(book, authors) if authors.present?
   end
 
   book.save!
@@ -90,4 +82,26 @@ end
 def find_listing_for_isbn_and_source_name(isbn, source_name)
   book = Book.find_by_isbn(isbn)
   listing = book&.listings&.joins(:source)&.find_by(sources: { name: source_name })
+end
+
+def get_google_api_data(isbn)
+  google_api_url = "https://www.googleapis.com/books/v1/volumes?q=isbn:#{isbn}"
+
+  puts "Running Google API for: #{google_api_url}"
+
+  book_data_response = HTTParty.get(google_api_url)
+  parsed_response = JSON.parse(book_data_response.body)
+
+  return if parsed_response["totalItems"] === 0 || parsed_response["items"].blank?
+
+  item = parsed_response["items"][0]
+  volume_info = item["volumeInfo"]
+  sale_info = item["saleInfo"]
+
+  is_ebook = sale_info["isEbook"] === true
+  title = volume_info["title"]
+  language = volume_info["language"]
+  authors = volume_info["authors"]
+
+  [is_ebook, title, language, authors]
 end
