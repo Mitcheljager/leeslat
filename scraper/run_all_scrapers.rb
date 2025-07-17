@@ -2,9 +2,11 @@ require_relative "sources/boekennl"
 require_relative "sources/boekenbalie"
 require_relative "sources/amazon"
 
-isbn = ARGV[0]
-title = ARGV[1]
-scrapers_to_run = ARGV[2..]
+arguments = ARGV.map { |a| a.split("=", 2) }.to_h
+
+isbn = arguments["isbn"]
+title = arguments["title"]
+scrapers_to_run = arguments["scrapers"]&.split(",") || []
 
 def run_scraper(name, isbn, title)
   puts "Running #{name}..."
