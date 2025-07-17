@@ -2,10 +2,16 @@ require_relative "../base"
 require "nokogiri"
 
 def scrape_boekenbalie(isbn, title)
-  slug = title.parameterize
-  url = "https://boekenbalie.nl/#{slug}/#{isbn}"
+  listing = find_listing_for_isbn_and_source_name(isbn, "Boekenbalie")
 
-  puts "Running Boekenbalie for: " + url
+  slug = title.parameterize
+  url = listing&.url || "https://boekenbalie.nl/#{slug}/#{isbn}"
+
+  if listing&.url
+    puts "Running previously fetched url Boekenbalie for: " + url
+  else
+    puts "Running new url for Boekenbalie for: " + url
+  end
 
   document = get_document(url)
 
