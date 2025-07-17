@@ -34,8 +34,10 @@ class ListingsController < ApplicationController
   end
 
   def destroy
+    book = @listing.book
+
     @listing.destroy!
-    redirect_to listings_path, notice: "Listing was successfully destroyed.", status: :see_other
+    redirect_to book, notice: "Listing was successfully destroyed.", status: :see_other
   end
 
   private
