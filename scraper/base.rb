@@ -16,6 +16,21 @@ def get_document(url)
   end
 end
 
+# Used as a fallback if accessing a URL direct via an inferred path is not possible
+def get_search_document(source_url, isbn)
+  puts "Searching bing for #{isbn}..."
+
+  search_document = get_document("https://www.bing.com/search?q=site%3A#{source_url}+#{isbn}")
+  url = search_document.css("h2 a").first.attribute("href")&.value
+
+  return unless url.include?("boeken.nl")
+
+  puts "Re-running Boeken.nl for: " + url
+  document = get_document(url)
+
+  return url, document
+end
+
 def save_result(source_name, isbn, price, currency, url, description = nil, number_of_pages = 0)
   book = get_book(isbn)
   source = Source.find_by_name!(source_name)

@@ -11,19 +11,11 @@ def scrape_boekennl(isbn, title)
 
   document = get_document(url)
 
-  is_correct_document = document.include?("Beschrijving:")
+  # Document was not an actual page, instead it fell back to some overview page
+  # In this case we use a search engine to find the actual page, if it exists
+  url, document = get_search_document("boeken.nl", isbn) if !document.include?("Beschrijving:")
 
-  if !is_correct_document
-    puts "Searching bing for #{isbn}..."
-
-    search_document = get_document("https://www.bing.com/search?q=site%3Aboeken.nl+#{isbn}")
-    url = search_document.css("h2 a").first.attribute("href")
-
-    if url.include?("boeken.nl")
-      puts "Re-running Boeken.nl for: " + url
-      document = get_document(url)
-    end
-  end
+  return if url.blank? || document.blank?
 
   price = document.css(".product-info .uc-price").first.text.strip.gsub("€", "").gsub(",", ".")
   image = document.css(".group-cover-and-photos .field-name-field-cover img").first.attribute("data-src").value.strip
