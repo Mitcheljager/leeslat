@@ -18,9 +18,10 @@ end
 
 # Used as a fallback if accessing a URL direct via an inferred path is not possible
 def get_search_document(source_url, isbn)
-  puts "Searching bing for #{isbn}..."
+  search_url = "https://www.bing.com/search?q=site%3A#{source_url}+#{isbn}"
+  puts "Searching bing for #{isbn} at #{search_url}"
 
-  search_document = get_document("https://www.bing.com/search?q=site%3A#{source_url}+#{isbn}")
+  search_document = get_document(search_url)
   url = search_document.css("h2 a").first.attribute("href")&.value
 
   return unless url.include?("boeken.nl")

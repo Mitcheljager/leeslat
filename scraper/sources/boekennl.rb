@@ -13,7 +13,7 @@ def scrape_boekennl(isbn, title)
 
   # Document was not an actual page, instead it fell back to some overview page
   # In this case we use a search engine to find the actual page, if it exists
-  url, document = get_search_document("boeken.nl", isbn) if !document.include?("Beschrijving:")
+  url, document = get_search_document("boeken.nl", isbn) unless document.text.include?("Beoordelingen")
 
   return if url.blank? || document.blank?
 
