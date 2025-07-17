@@ -12,7 +12,7 @@ def scrape_amazon(isbn)
 
     document = get_document("#{base_path}/s?k=#{isbn}")
     first_search_item_path = document.css("[role='listitem'] a").first.attribute("href").value
-    url = clean_url(base_path + first_search_item_path).sub(/\/[^\/]*$/, "")
+    url = clean_url(base_path + first_search_item_path)
   end
 
   if url.blank?
@@ -34,16 +34,23 @@ def scrape_amazon(isbn)
       price = price_text.to_s.gsub("€", "").gsub(",", ".").strip
     end
 
+    number_of_pages_label = document.css("#detailBullets_feature_div .a-list-item span:contains('pagina')").first
+    number_of_pages = number_of_pages_label&.text&.gsub("pagina's", "")&.strip
+
+    description = document.css("#bookDescription_feature_div .a-expander-content").first.text.strip
     image = document.css("#landingImage").first.attribute("src").value.strip
 
     puts isbn
     puts price
     puts image
+    puts description
+    puts number_of_pages
 
-    { url: url, price: price }
+    { url: url, price: price, description: description, number_of_pages: number_of_pages }
   end
 end
 
 def clean_url(url)
+  return url unless url.include?("?")
   url.sub(/\/[^\?]*$/, "") # Remove referal bits after the final ?
 end
