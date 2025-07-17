@@ -5,21 +5,21 @@ def scrape_amazon(isbn)
   listing = find_listing_for_isbn_and_source_name(isbn, "Amazon")
 
   base_path = "https://www.amazon.nl"
-  url = listing&.url
+  url = clean_url(listing&.url || "")
 
   if url.blank?
     puts "Running Amazon for search page for #{isbn}"
 
     document = get_document("#{base_path}/s?k=#{isbn}")
     first_search_item_path = document.css("[role='listitem'] a").first.attribute("href").value
-    url = (base_path + first_search_item_path).sub(/\/[^\/]*$/, "") # Remove referal bits after the final /
+    url = clean_url(base_path + first_search_item_path).sub(/\/[^\/]*$/, "")
   end
 
   if url.blank?
     puts "No valid url was found on Amazon for #{isbn}"
   else
     if listing&.url
-      puts "Using previous set url #{listing.url}"
+      puts "Using previous set url #{url}"
     else
       puts "Using newly fetched url #{url}"
     end
@@ -42,4 +42,8 @@ def scrape_amazon(isbn)
 
     { url: url, price: price }
   end
+end
+
+def clean_url(url)
+  url.sub(/\/[^\/]*$/, "") # Remove referal bits after the final /
 end
