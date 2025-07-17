@@ -4,6 +4,7 @@ require_relative "sources/amazon"
 
 isbn = ARGV[0]
 title = ARGV[1]
+scrapers_to_run = ARGV[2..]
 
 def run_scraper(name, isbn, title)
   puts "Running #{name}..."
@@ -17,10 +18,10 @@ ensure
   puts "---"
 end
 
-def run_all_scrapers(isbn, title)
-  run_scraper("Boekenbalie", isbn, title) { scrape_boekenbalie(isbn, title) }
-  run_scraper("Boeken.nl", isbn, title)   { scrape_boekennl(isbn, title) }
-  run_scraper("Amazon", isbn, title)      { scrape_amazon(isbn) }
+def run_all_scrapers(isbn, title, scrapers_to_run)
+  run_scraper("Boekenbalie", isbn, title) { scrape_boekenbalie(isbn, title) } if is_in_run?(scrapers_to_run, "Boekenbalie")
+  run_scraper("Boeken.nl", isbn, title)   { scrape_boekennl(isbn, title) } if is_in_run?(scrapers_to_run, "Boeken.nl")
+  run_scraper("Amazon", isbn, title)      { scrape_amazon(isbn) } if is_in_run?(scrapers_to_run, "Amazon")
 
   consolidate_number_of_pages(isbn)
 end
@@ -40,10 +41,14 @@ def consolidate_number_of_pages(isbn)
   end
 end
 
+def is_in_run?(scrapers_to_run, name)
+  scrapers_to_run.blank? || scrapers_to_run.include?(name)
+end
+
 if isbn && title
-  run_all_scrapers(isbn, title)
+  run_all_scrapers(isbn, title, scrapers_to_run)
 else
   Book.all.each do |book|
-    run_all_scrapers(isbn, title)
+    run_all_scrapers(isbn, title, scrapers_to_run)
   end
 end
