@@ -2,20 +2,29 @@ require_relative "../base"
 require "nokogiri"
 
 def scrape_amazon(isbn)
+  listing = find_listing_for_isbn_and_source_name(isbn, "Amazon")
+
   base_path = "https://www.amazon.nl"
-  url = "#{base_path}/s?k=#{isbn}"
+  url = listing&.url
 
-  document = get_document(url)
+  if url.blank?
+    puts "Running Amazon for search page for #{isbn}"
 
-  puts "Running Amazon for: " + url
-
-  is_ebook = document.at_css(".s-price-instructions-style")&.text.include?("Kindle")
-
-  if is_ebook
-    puts "Search price was listed as ebook, entering page instead"
-
+    document = get_document("#{base_path}/s?k=#{isbn}")
     first_search_item_path = document.css("[role='listitem'] a").first.attribute("href").value
-    document = get_document(base_path + first_search_item_path)
+    url = base_path + first_search_item_path
+  end
+
+  if url.blank?
+    puts "No valid url was found on Amazon for #{isbn}"
+  else
+    if listing&.url
+      puts "Using previous set url #{listing.url}"
+    else
+      puts "Using newly fetched url #{url}"
+    end
+
+    document = get_document(url)
 
     price_text = document.at_css("#tmm-grid-swatch-PAPERBACK")&.text
     price = price_text.to_s.gsub(/[[:space:]]/, "").gsub("€", "").strip.gsub(",", ".").gsub("Paperback", "").strip
@@ -26,16 +35,11 @@ def scrape_amazon(isbn)
     end
 
     image = document.css("#landingImage").first.attribute("src").value.strip
-  else
-    price_text = document.at_css(".a-price .a-offscreen")&.text
-    price = price_text.to_s.gsub(/[[:space:]]/, "").gsub("€", "").gsub(",", ".").strip
 
-    image = document.css(".s-image").first.attribute("src").value.strip
+    puts isbn
+    puts price
+    puts image
+
+    save_result("Amazon", isbn, price, "EUR", url)
   end
-
-  puts isbn
-  puts price
-  puts image
-
-  save_result("Amazon", isbn, price, "EUR", url)
 end
