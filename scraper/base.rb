@@ -98,7 +98,7 @@ def get_google_api_data(isbn)
   volume_info = item["volumeInfo"]
   sale_info = item["saleInfo"]
 
-  is_ebook = sale_info["isEbook"] === true
+  is_ebook = sale_info["isEbook"] == true
   title = volume_info["title"]
   language = volume_info["language"]
   authors = volume_info["authors"]
