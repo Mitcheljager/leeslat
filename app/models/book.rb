@@ -24,6 +24,6 @@ class Book < ApplicationRecord
   end
 
   def formatted_number_of_pages
-    self.number_of_pages.zero? ? "-" : number_with_delimiter(self.number_of_pages, delimiter: ""."")
+    self.number_of_pages.zero? ? "-" : number_with_delimiter(self.number_of_pages, delimiter: ".")
   end
 end
