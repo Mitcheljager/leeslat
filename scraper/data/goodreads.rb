@@ -16,7 +16,3 @@ def get_goodreads_data(isbn)
 
   [genres, format]
 end
-
-isbn = ARGV[0]
-
-get_goodreads_data(isbn) if isbn

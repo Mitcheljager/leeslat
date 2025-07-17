@@ -1,5 +1,6 @@
 require_relative "../config/environment"
 require_relative "data/google_api"
+require_relative "data/goodreads"
 require "httparty"
 require "nokogiri"
 
@@ -59,8 +60,11 @@ def get_book(isbn, format = nil, language = nil)
 
     return nil if is_ebook === true
 
+    genres, format = get_goodreads_data(isbn)
+
     book.title = title
     book.language = language
+    book.format = format
 
     parse_authors_for_book(book, authors) if authors.present?
   end
