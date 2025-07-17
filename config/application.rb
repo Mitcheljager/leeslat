@@ -18,6 +18,14 @@ module GewoonBoeken
 
     config.active_record.yaml_column_permitted_classes = [Symbol, Date, Time, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]
 
+    config.before_configuration do
+      env_file = File.join(Rails.root, "config", "local_env.yml")
+
+      YAML.safe_load(File.open(env_file)).each do |key, value|
+        ENV[key.to_s] = value
+      end if File.exist?(env_file)
+    end
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
