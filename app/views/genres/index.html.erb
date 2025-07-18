@@ -5,11 +5,8 @@
 <h1>Genres</h1>
 
 <div id="genres">
-  <% @genres.each do |genre| %>
+  <% @genres.where(parent_genre: nil).each do |genre| %>
     <%= render genre %>
-    <p>
-      <%= link_to "Show this genre", genre %>
-    </p>
   <% end %>
 </div>
 
