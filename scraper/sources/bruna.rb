@@ -17,8 +17,6 @@ def scrape_bruna(isbn, title)
 
   return if url.blank? || document.blank?
 
-  json =
-
   price = document.css(".price-block .colored").first.text.strip
   description = document.css(".description .line-clamp-8").first.text.strip
   number_of_pages_label = document.css(".product-meta-description div:nth-child(3)").first
