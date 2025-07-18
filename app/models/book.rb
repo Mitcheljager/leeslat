@@ -20,6 +20,7 @@ class Book < ApplicationRecord
   validates :isbn, presence: true, uniqueness: true, format: { with: /\A[0-9]+\z/ }
   validates :language, inclusion: { in: Book.languages.keys }, allow_nil: true
   validates :format, inclusion: { in: Book.formats.keys }
+  validates :published_date_text, format: { with: /\A[0-9\-]+\z/ }, allow_nil: true
 
   accepts_nested_attributes_for :book_authors, allow_destroy: true
   accepts_nested_attributes_for :book_genres, allow_destroy: true
@@ -39,7 +40,7 @@ class Book < ApplicationRecord
   def formatted_published_date
     return if self.published_date_text.blank?
 
-    return self.formatted_published_date if self.published_date_text.length === 4 # It's probably a year
+    return self.published_date_text if self.published_date_text.length === 4 # It's probably a year
 
     parts = self.published_date_text.split("-").map(&:to_i)
     I18n.l(Date.new(parts[0], parts[1], parts[2]), format: "%-d %B, %Y")
