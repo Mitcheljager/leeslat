@@ -18,6 +18,7 @@ def get_google_api_data(isbn)
   title = volume_info["title"]
   language = volume_info["language"]
   authors = volume_info["authors"]
+  published_date = volume_info["publishedDate"]
 
-  [is_ebook, title, language, authors]
+  [is_ebook, title, language, authors, published_date]
 end

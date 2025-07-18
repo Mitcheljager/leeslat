@@ -35,4 +35,13 @@ class Book < ApplicationRecord
   def formatted_number_of_pages
     self.number_of_pages.zero? ? "-" : number_with_delimiter(self.number_of_pages, delimiter: ".")
   end
+
+  def formatted_published_date
+    return if self.published_date_text.blank?
+
+    parts = self.published_date_text.split("-").map(&:to_i)
+    I18n.l(Date.new(parts[0], parts[1], parts[2]), format: "%-d %B, %Y")
+  rescue ArgumentError
+    self.published_date_text
+  end
 end

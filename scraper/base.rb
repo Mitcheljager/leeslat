@@ -62,7 +62,7 @@ def get_book(isbn, format = nil, language = nil)
   book = Book.find_or_initialize_by(isbn: isbn)
 
   if book.new_record?
-    is_ebook, title, language, authors = get_google_api_data(isbn)
+    is_ebook, title, language, authors, published_date = get_google_api_data(isbn)
 
     return nil if is_ebook === true
 
@@ -71,6 +71,7 @@ def get_book(isbn, format = nil, language = nil)
     book.title = title
     book.language = language
     book.format = format
+    book.published_date_text = published_date if published_date
 
     parse_authors_for_book(book, authors) if authors.present?
   end

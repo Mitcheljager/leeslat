@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_18_015130) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_18_103803) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -75,6 +75,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_18_015130) do
     t.integer "format", default: 0, null: false
     t.datetime "last_scraped_at"
     t.datetime "description_last_generated_at"
+    t.string "published_date_text"
     t.index ["isbn"], name: "index_books_on_isbn", unique: true
   end
 

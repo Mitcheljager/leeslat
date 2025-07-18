@@ -2,7 +2,7 @@
 
 <h1><%= @book.title %></h1>
 
-<% if book.cover_image.attached? %>
+<% if @book.cover_image.attached? %>
   <%= image_tag @book.cover_image.variant(:large), height: 600 %>
   <%= image_tag @book.cover_image.variant(:small), height: 200 %>
 <% end %>
@@ -46,6 +46,14 @@
 <p>
   <strong>Format:</strong>
   <%= @book.format %>
+</p>
+
+<p>
+  <strong>Published date:</strong>
+  <% if @book.published_date_text %>
+    <%= @book.formatted_published_date %>
+    (<%= @book.published_date_text %>)
+  <% end %>
 </p>
 
 <hr>
