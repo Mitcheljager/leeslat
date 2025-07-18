@@ -1,0 +1,13 @@
+<% content_for :title, "Search for #{params[:query]}" %>
+
+<h1><%= params[:query] %></h1>
+
+<div id="books">
+  <% @books.each do |book| %>
+    <%= render book %>
+    <%= link_to "Show this book", book %>
+    <hr>
+  <% end %>
+</div>
+
+<%= link_to "New book", new_book_path %>
