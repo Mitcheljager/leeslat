@@ -4,6 +4,8 @@ class Book < ApplicationRecord
   has_many :listings, dependent: :destroy
   has_many :book_authors, dependent: :destroy
   has_many :authors, through: :book_authors
+  has_many :book_genres, dependent: :destroy
+  has_many :genres, through: :book_genres
 
   enum :format, [:unknown, :paperback, :hardcover], suffix: true
   enum :language, { dutch: "nl", english: "en" }
@@ -14,6 +16,7 @@ class Book < ApplicationRecord
   validates :format, inclusion: { in: Book.formats.keys }
 
   accepts_nested_attributes_for :book_authors, allow_destroy: true
+  accepts_nested_attributes_for :book_genres, allow_destroy: true
 
   def to_param
     "#{title.parameterize}-#{isbn}"

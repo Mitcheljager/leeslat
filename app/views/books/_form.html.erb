@@ -12,6 +12,11 @@
   <% end %>
 
   <div>
+    <%= form.label :isbn, style: "display: block" %>
+    <%= form.text_field :isbn %>
+  </div>
+
+  <div>
     <%= form.label :title, style: "display: block" %>
     <%= form.text_field :title %>
   </div>
@@ -32,8 +37,8 @@
   </div>
 
   <div>
-    <%= form.label :isbn, style: "display: block" %>
-    <%= form.text_field :isbn %>
+    <%= form.label :genre_ids, "Genres", style: "display: block" %>
+    <%= form.collection_select :genre_ids, Genre.all, :id, :name, {}, { multiple: true, size: 5 } %>
   </div>
 
   <div>

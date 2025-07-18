@@ -17,6 +17,13 @@
   </p>
 
   <p>
+    <strong>Genres:</strong>
+    <% book.genres.each do |genre| %>
+      <span><%= genre.name %></span>
+    <% end %>
+  </p>
+
+  <p>
     <strong>Description:</strong>
     <%= book.description %>
   </p>
