@@ -5,7 +5,6 @@ require_relative "sources/amazon"
 require_relative "sources/voordeelboekenonline"
 
 arguments = ARGV.map { |a| a.split("=", 2) }.to_h
-
 isbn = arguments["isbn"]
 title = arguments["title"]
 scrapers_to_run = arguments["scrapers"]&.split(",") || []

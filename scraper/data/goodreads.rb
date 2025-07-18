@@ -7,6 +7,7 @@ def get_goodreads_data(isbn)
   puts "Running Goodreads for: #{goodreads_search_url}"
 
   document = get_document(goodreads_search_url)
+
   genres = document.css("[data-testid='genresList'] a").map(&:text)
   format_text = document.css("[data-testid='pagesFormat']").text
 

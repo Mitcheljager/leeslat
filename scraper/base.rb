@@ -90,6 +90,28 @@ def parse_authors_for_book(book, authors)
   end
 end
 
+def parse_genres_for_book(book, genre_names)
+  genre_names.each do |genre_name|
+    clean_genre = genre_name.strip.downcase
+
+    genre = Genre.find_by('LOWER(name) = ?', clean_genre)
+
+    # Try to find by keywords if not found by name
+    if genre.nil?
+      genre = Genre.all.find do |g|
+        g.separated_keywords.map(&:downcase).include?(clean_genre)
+      end
+    end
+
+    next unless genre
+    next if book.genres.include?(genre)
+
+    puts "Adding genre \"#{genre.name}\" to book \"#{book.title}\""
+
+    book.genres << genre
+  end
+end
+
 def find_listing_for_isbn_and_source_name(isbn, source_name)
   book = Book.find_by_isbn(isbn)
   listing = book&.listings&.joins(:source)&.find_by(sources: { name: source_name })
