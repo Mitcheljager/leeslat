@@ -7,6 +7,12 @@ class Book < ApplicationRecord
   has_many :book_genres, dependent: :destroy
   has_many :genres, through: :book_genres
 
+  has_one_attached :cover_image do |attachable|
+    attachable.variant :large, resize_to_limit: [600, 600], preprocessed: true
+    attachable.variant :small, resize_to_limit: [200, 200], preprocessed: true
+    attachable.variant :tiny,  resize_to_limit: [100, 100], preprocessed: true
+  end
+
   enum :format, [:unknown, :paperback, :hardcover], suffix: true
   enum :language, { dutch: "nl", english: "en" }
 

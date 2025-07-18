@@ -15,5 +15,8 @@ def get_goodreads_data(isbn)
   format = "paperback" if format_text.include?("Paperback")
   format = "hardcover" if format_text.include?("Hardcover")
 
-  [genres, format]
+  image_url = document.css(".BookCover__image img")&.first&.attribute("src").value
+  image_url = nil if image_url.include?("no-cover")
+
+  [genres, format, image_url]
 end
