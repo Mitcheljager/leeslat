@@ -17,13 +17,11 @@ def scrape_boekennl(isbn, title)
 
   return if url.blank? || document.blank?
 
-  price = document.css(".product-info .uc-price").first.text.strip.gsub("€", "").gsub(",", ".")
-  image = document.css(".group-cover-and-photos .field-name-field-cover img").first.attribute("data-src").value.strip
+  price = document.css(".product-info .uc-price").first.text.gsub("€", "").gsub(",", ".").strip
   description = document.css(".field-name-body .nxte-shave-expanding-item").first.text.strip
   number_of_pages = document.css(".field-name-field-page-count .field-item").first.text.strip
 
   puts price
-  puts image
   puts description
   puts number_of_pages
 
