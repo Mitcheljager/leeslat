@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  parent_genre: one
+  keywords: MyString
+
+two:
+  name: MyString
+  parent_genre: two
+  keywords: MyString

@@ -1,0 +1,17 @@
+<div id="<%= dom_id genre %>">
+  <p>
+    <strong>Name:</strong>
+    <%= genre.name %>
+  </p>
+
+  <p>
+    <strong>Parent genre:</strong>
+    <%= genre.parent_genre.name if genre.parent_genre.present? %>
+  </p>
+
+  <p>
+    <strong>Keywords:</strong>
+    <%= genre.keywords %>
+  </p>
+
+</div>
