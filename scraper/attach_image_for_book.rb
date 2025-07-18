@@ -31,5 +31,14 @@ end
 book = get_book(isbn)
 genres, format, image_url = get_goodreads_data(isbn)
 
-attach_remote_image(book, image_url)
+if image_url.present?
+  begin
+    attach_remote_image(book, image_url)
+    puts "Image successfully attached for \"#{book.title}\" (#{isbn})"
+  rescue => error
+    puts error
+  end
+else
+  puts "No valid image url was found for \"#{book.title}\" (#{isbn})"
+end
 
