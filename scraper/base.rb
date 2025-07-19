@@ -4,11 +4,13 @@ require_relative "data/goodreads"
 require "httparty"
 require "nokogiri"
 
-def get_document(url, return_url: false)
+def get_document(url, return_url: false, headers: {})
+  default_headers = {
+    "User-Agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+  }
+
   response = HTTParty.get(url, {
-    headers: {
-      "User-Agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
-    },
+    headers: default_headers.merge(headers)
   })
 
   if response.code == 200 || response.code == 202
@@ -16,7 +18,7 @@ def get_document(url, return_url: false)
 
     if return_url
       url = response.request.last_uri.to_s
-      [body, url]
+      [url, body]
     else
       body
     end
@@ -25,20 +27,24 @@ def get_document(url, return_url: false)
   end
 end
 
-# Used as a fallback if accessing a URL direct via an inferred path is not possible
-def get_search_document(source_url, isbn)
+# Used as a fallback if accessing a URL directly via an inferred path is not possible
+def get_search_document(source_url, isbn, headers: {})
   search_url = "https://www.bing.com/search?q=site%3A#{source_url}+#{isbn}"
   puts "Searching bing for #{isbn} at #{search_url}"
 
   search_document = get_document(search_url)
   url = search_document.css("h2 a").first.attribute("href")&.value
 
-  return unless url.include?("boeken.nl")
+  puts "source " + source_url
+  puts "url " + url
 
-  puts "Re-running Boeken.nl for: " + url
-  document = get_document(url)
+  return unless url.include?(source_url)
 
-  return url, document
+  url, document = get_document(url, return_url: true, headers: headers)
+
+  puts document.present?
+
+  [url, document]
 end
 
 def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description: nil, number_of_pages: 0)

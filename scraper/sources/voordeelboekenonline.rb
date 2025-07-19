@@ -12,7 +12,7 @@ def scrape_voordeelboekenonline(isbn)
     puts "Running new url for Voordeelboekenonline.nl for: " + url
   end
 
-  document, url = get_document(url, return_url: true)
+  url, document = get_document(url, return_url: true)
 
   price = document.css("[data-price-type='finalPrice']").first.attribute("data-price-amount").value.strip
   description = document.css("#descrm .description .value").first.text.strip
