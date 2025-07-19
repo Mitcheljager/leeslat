@@ -1,9 +1,12 @@
 class Book < ApplicationRecord
   include ActionView::Helpers::NumberHelper
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
 
-  settings index: { number_of_shards: 1 }
+  if ENV["BONSAI_URL"]
+    include Elasticsearch::Model
+    include Elasticsearch::Model::Callbacks
+
+    settings index: { number_of_shards: 1 }
+  end
 
   has_many :listings, dependent: :destroy
   has_many :book_authors, dependent: :destroy

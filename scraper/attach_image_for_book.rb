@@ -2,8 +2,7 @@ require_relative "data/goodreads"
 require "httparty"
 require "tempfile"
 
-arguments = ARGV.map { |a| a.split("=", 2) }.to_h
-isbn = arguments["isbn"]
+isbn = ARGV[0]
 
 def attach_remote_image(book, url)
   response = HTTParty.get(url)

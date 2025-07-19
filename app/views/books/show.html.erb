@@ -62,9 +62,11 @@
 
 <hr>
 
+
 <div>
   <%= link_to "Edit this book", edit_book_path(@book) %> |
   <%= link_to "Back to books", root_path %>
 
+  <%= button_to "Get cover image for this book", attach_image_for_book_path, params: { isbn: @book.isbn }, method: :post %>
   <%= button_to "Destroy this book", @book, method: :delete %>
 </div>
