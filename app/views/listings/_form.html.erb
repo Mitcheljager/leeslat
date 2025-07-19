@@ -32,6 +32,11 @@
   </div>
 
   <div>
+    <%= form.label :condition, "Condition", style: "display: block" %>
+    <%= form.select :condition, Listing.conditions.keys.map { |f| [f.titleize, f] }, prompt: "Select a condition" %>
+  </div>
+
+  <div>
     <%= form.label :url, style: "display: block" %>
     <%= form.text_field :url %>
   </div>

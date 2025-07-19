@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_18_103803) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_19_124924) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -101,6 +101,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_18_103803) do
     t.integer "number_of_pages"
     t.string "description"
     t.boolean "was_last_scrape_successful"
+    t.integer "condition", default: 0, null: false
   end
 
   create_table "sources", force: :cascade do |t|
