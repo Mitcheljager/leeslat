@@ -33,6 +33,6 @@ export default class theme_toggle {
     const x = (left + (width / 2)) / window.innerWidth * 100
     const y = (top + (height / 2)) / window.innerWidth * 100
 
-    htmlElement.style.setProperty("--theme-toggle-position", `${x}% ${y}%`);
+    htmlElement.style.setProperty("--theme-toggle-position", `${x.toFixed(2)}% ${y.toFixed(2)}%`);
   }
 }
