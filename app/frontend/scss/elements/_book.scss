@@ -1,0 +1,35 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.cover {
+  position: relative;
+  display: inline-flex;
+  box-shadow: $shadow-huge;
+
+  &::before {
+    @include pseudo-fill();
+    width: 80%;
+    height: 10px;
+    top: auto;
+    bottom: 1.5rem;
+    left: 10%;
+    background: white;
+    box-shadow: 0px 0.75rem 1rem 1rem rgba($white, 1);
+
+    @include dark() {
+      opacity: 0.25;
+    }
+  }
+
+  &::after {
+    @include pseudo-fill();
+    width: 20%;
+    background: linear-gradient(to right, $black, transparent);
+    opacity: 0.2;
+    z-index: 1;
+  }
+
+  img {
+    position: relative;
+  }
+}

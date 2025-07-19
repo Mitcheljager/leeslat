@@ -1,3 +1,5 @@
+@use "../mixins" as *;
+
 @mixin light_variables {
   color-scheme: light;
   --bg-base: #f6f3ea;
@@ -45,4 +47,11 @@ body {
 
 a {
   color: #ff00ff;
+}
+
+a,
+button,
+input,
+textarea {
+  @include focus-visible-outline();
 }

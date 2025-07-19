@@ -1,0 +1,51 @@
+@mixin hover-stack() {
+  &:hover,
+  &:active,
+  &:focus-visible {
+    @content;
+  }
+}
+
+@mixin motion() {
+  @media (prefers-reduced-motion: no-preference) {
+    @content;
+  }
+}
+
+@mixin focus-visible-outline($prepend: '') {
+  outline-offset: 0;
+
+  @include motion {
+    transition: outline-offset 150ms;
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+
+    &:not(:active) {
+      @if $prepend == inset {
+        outline-offset: -2px;
+      } @else {
+        outline-offset: 3px;
+      }
+    }
+  }
+}
+
+@mixin pseudo-fill() {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@mixin dark() {
+  @media (prefers-color-scheme: dark) {
+    html:not([style*="color-scheme: light"]) & {
+      @content;
+    }
+  }
+}
