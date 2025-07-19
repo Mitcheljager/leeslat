@@ -13,14 +13,29 @@ class ActionsController < ApplicationController
   end
 
   def attach_image_for_book
+    @book = Book.find_by_isbn!(params[:isbn])
+
     begin
-      output = `ruby #{Rails.root.join("scraper/attach_image_for_book.rb")} #{params[:isbn]}`
+      output = `ruby #{Rails.root.join("scraper/attach_image_for_book.rb")} #{@book.isbn}`
       Rails.logger.info output
 
-      @book = Book.find_by_isbn(params[:isbn])
-      throw unless @book.cover_image.attached?
+      raise "No image was attached" unless @book.cover_image.attached?
 
       redirect_to @book, notice: "Image was successfully attached", status: :see_other
+    rescue => error
+      flash[:alert] = error
+      redirect_to @book, status: :unprocessable_entity
+    end
+  end
+
+  def run_all_scrapers_for_isbn
+    @book = Book.find_by_isbn!(params[:isbn])
+
+    begin
+      output = `ruby #{Rails.root.join("scraper/run_all_scrapers.rb")} isbn=#{@book.isbn} title="#{@book.title}"`
+      Rails.logger.info output
+
+      redirect_to @book, notice: "Scrapers completed successfully", status: :see_other
     rescue => error
       flash[:alert] = error
       redirect_to @book, status: :unprocessable_entity

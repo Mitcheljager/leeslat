@@ -16,4 +16,5 @@ Rails.application.routes.draw do
 
   get "actions/index_by_isbn/:isbn", to: "actions#index_by_isbn"
   post "actions/attach_image_for_book", to: "actions#attach_image_for_book", as: :attach_image_for_book
+  post "actions/run_all_scrapers_for_isbn", to: "actions#run_all_scrapers_for_isbn", as: :run_all_scrapers_for_isbn
 end

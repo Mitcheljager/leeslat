@@ -10,6 +10,8 @@ isbn = arguments["isbn"]
 title = arguments["title"]
 scrapers_to_run = arguments["scrapers"]&.split(",") || []
 
+puts "Running scrapers..."
+
 def run_scraper(source_name, isbn, title)
   puts "Running #{source_name}..."
 

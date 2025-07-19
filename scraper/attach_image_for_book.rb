@@ -4,6 +4,8 @@ require "tempfile"
 
 isbn = ARGV[0]
 
+puts "Finding and attaching image for #{isbn}..."
+
 def attach_remote_image(book, url)
   response = HTTParty.get(url)
 
