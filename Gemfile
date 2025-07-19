@@ -40,6 +40,7 @@ gem "ruby-openai"
 gem "vite_rails"
 gem "paper_trail"
 gem "kaminari"
+gem "inline_svg"
 
 gem "httparty", require: false
 gem "nokogiri", require: false
