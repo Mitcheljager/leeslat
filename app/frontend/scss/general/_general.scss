@@ -1,9 +1,11 @@
 @mixin light_variables {
+  color-scheme: light;
   --bg-base: #f6f3ea;
   --text-color-base: #5d4037;
 }
 
 @mixin dark_variables {
+  color-scheme: dark;
   --bg-base: #232323;
   --text-color-base: #ccc;
 }
