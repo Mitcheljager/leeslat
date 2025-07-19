@@ -47,6 +47,6 @@ class ListingsController < ApplicationController
   end
 
   def listing_params
-    params.expect(listing: [:book_id, :source_id, :price, :condition, :currency, :url, :last_scraped_at])
+    params.expect(listing: [:book_id, :source_id, :price, :condition, :condition_details, :currency, :url, :last_scraped_at])
   end
 end

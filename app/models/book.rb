@@ -24,7 +24,7 @@ class Book < ApplicationRecord
   validates :isbn, presence: true, uniqueness: true, format: { with: /\A[0-9]+\z/ }
   validates :format, inclusion: { in: Book.formats.keys }
   validates :language, inclusion: { in: Book.languages.keys }, allow_nil: true
-  validates :published_date_text, format: { with: /\A[0-9\-]+\z/ }, allow_nil: true
+  validates :published_date_text, format: { with: /\A[0-9\-]+\z/ }, allow_nil: true, allow_blank: true
 
   accepts_nested_attributes_for :book_authors, allow_destroy: true
   accepts_nested_attributes_for :book_genres, allow_destroy: true

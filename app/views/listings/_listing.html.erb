@@ -22,6 +22,7 @@
   <p>
     <strong>Condition:</strong>
     <%= listing.condition %>
+    <%= tag.span "(#{listing.condition_details})" if listing.condition_details.present? %>
   </p>
 
   <p>
