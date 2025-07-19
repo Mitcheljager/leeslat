@@ -6,5 +6,5 @@ export function fallback_view_transition(callback: Function, condition: boolean)
 
   document.startViewTransition(() => {
     callback();
-  })
+  });
 }

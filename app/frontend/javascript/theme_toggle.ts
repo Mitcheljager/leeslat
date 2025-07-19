@@ -27,7 +27,7 @@ export default class theme_toggle {
     });
   }
 
-  set_position(htmlElement: HTMLHtmlElement, toggleButton: HTMLButtonElement) {
+  set_position(htmlElement: HTMLHtmlElement, toggleButton: HTMLButtonElement): void {
     const { width, height, left, top } = toggleButton.getBoundingClientRect();
 
     const x = (left + (width / 2)) / window.innerWidth * 100;
