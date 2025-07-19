@@ -1,0 +1,16 @@
+@use "../variables" as *;
+
+h1 {
+  font-family: $font-stack-serif;
+  font-style: italic;
+  font-weight: normal;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-stack-serif;
+  font-weight: bold;
+}

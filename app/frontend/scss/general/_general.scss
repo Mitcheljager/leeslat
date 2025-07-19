@@ -1,30 +1,23 @@
 @use "../mixins" as *;
-
-@mixin light_variables {
-  color-scheme: light;
-  --bg-base: #f6f3ea;
-  --text-color-base: #5d4037;
-}
-
-@mixin dark_variables {
-  color-scheme: dark;
-  --bg-base: #232323;
-  --text-color-base: #ccc;
-}
+@use "../variables" as *;
 
 :root {
+  color-scheme: light;
   @include light_variables();
 
   @media (prefers-color-scheme: dark) {
+    color-scheme: dark;
     @include dark_variables();
   }
 }
 
 [style*="color-scheme: light"] {
+  color-scheme: light;
   @include light_variables();
 }
 
 [style*="color-scheme: dark"] {
+  color-scheme: dark;
   @include dark_variables();
 }
 
@@ -39,6 +32,7 @@ body {
   min-height: 100vh;
   background: var(--bg-base);
   color: var(--text-color-base);
+  font-family: $font-stack;
 }
 
 body {
