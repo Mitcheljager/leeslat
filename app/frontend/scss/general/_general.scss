@@ -24,6 +24,7 @@
   @include dark_variables();
 }
 
+html,
 body {
   background: var(--bg-base);
   color: var(--text-color-base);
