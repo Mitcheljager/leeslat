@@ -1,0 +1,34 @@
+@mixin light_variables {
+  --bg-base: #f6f3ea;
+  --text-color-base: #5d4037;
+}
+
+@mixin dark_variables {
+  --bg-base: #232323;
+  --text-color-base: #ccc;
+}
+
+:root {
+  @include light_variables();
+
+  @media (prefers-color-scheme: dark) {
+    @include dark_variables();
+  }
+}
+
+[style*="color-scheme: light"] {
+  @include light_variables();
+}
+
+[style*="color-scheme: dark"] {
+  @include dark_variables();
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--text-color-base);
+}
+
+a {
+  color: #ff00ff;
+}

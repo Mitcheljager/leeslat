@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="<%= theme_light? ? "color-scheme: light" : "" %>">
   <head>
     <title><%= content_for(:title) || "Gewoon Boeken" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -15,10 +15,12 @@
 
     <%= vite_client_tag %>
     <%= vite_typescript_tag "application" %>
-    <%= vite_stylesheet_tag "application.css" %>
+    <%= vite_stylesheet_tag "application.scss" %>
 
     <%# Prevent flashbangs %>
-    <style> body { background: #232323; color: #ccc; }</style>
+    <% if !theme_light? %>
+      <style>@media (prefers-color-scheme: dark) { html { background: #232323; color: #ccc; } }</style>
+    <% end %>
   </head>
 
   <body>
@@ -27,6 +29,8 @@
     <%= link_to "Sources", sources_path %>
     <%= link_to "Listings", listings_path %>
     <%= link_to "Genres", genres_path %>
+
+    <%= button_tag "Light/dark toggle", type: "button", data: { action: "toggle_theme" } %>
 
     <%= yield %>
   </body>

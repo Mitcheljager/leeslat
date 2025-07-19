@@ -1,3 +1,6 @@
-import * as Turbo from "@hotwired/turbo-rails"
+import "@hotwired/turbo-rails"
+import theme_toggle from "../javascript/theme_toggle"
 
-Turbo.start()
+document.addEventListener("turbo:load", () => {
+  new theme_toggle().bind();
+});

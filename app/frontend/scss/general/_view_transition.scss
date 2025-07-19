@@ -1,0 +1,18 @@
+@keyframes circle-reveal {
+	from {
+    clip-path: circle(150% at var(--theme-toggle-position));
+	}
+
+	to {
+    clip-path: circle(0% at var(--theme-toggle-position));
+	}
+}
+
+::view-transition-old(changing-theme) {
+	animation: 500ms circle-reveal;
+	z-index: 10;
+}
+
+::view-transition-new(changing-theme) {
+	z-index: 5;
+}
