@@ -4,6 +4,10 @@
 
 <h1>Listings</h1>
 
+<%= page_entries_info @listings %>
+
+<hr>
+
 <div id="listings">
   <% @listings.each do |listing| %>
     <%= render listing %>
@@ -14,3 +18,5 @@
 </div>
 
 <%= link_to "New listing", new_listing_path %>
+
+<%= paginate @listings %>

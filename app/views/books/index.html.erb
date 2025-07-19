@@ -4,6 +4,10 @@
 
 <h1>Books</h1>
 
+<%= page_entries_info @books %>
+
+<hr>
+
 <div id="books">
   <% @books.each do |book| %>
     <%= render book %>
@@ -13,3 +17,5 @@
 </div>
 
 <%= link_to "New book", new_book_path %>
+
+<%= paginate @books, theme: :simple, window: 2 %>

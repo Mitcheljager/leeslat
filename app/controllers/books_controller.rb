@@ -2,7 +2,7 @@ class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
   def index
-    @books = Book.order(created_at: :desc)
+    @books = Book.order(created_at: :desc).page(params[:page]).per(1)
   end
 
   def show
