@@ -42,6 +42,20 @@ class ActionsController < ApplicationController
     end
   end
 
+  def generate_ai_description_for_isbn
+    @book = Book.find_by_isbn!(params[:isbn])
+
+    begin
+      output = `ruby #{Rails.root.join("scraper/ai/openai_descriptions.rb")} #{@book.isbn}`
+      Rails.logger.info output
+
+      redirect_to @book, notice: "AI completed successfully", status: :see_other
+    rescue => error
+      flash[:alert] = error
+      redirect_to @book, status: :unprocessable_entity
+    end
+  end
+
   def generate_ai_keywords_for_isbn
     @book = Book.find_by_isbn!(params[:isbn])
 
@@ -49,7 +63,7 @@ class ActionsController < ApplicationController
       output = `ruby #{Rails.root.join("scraper/ai/openai_keywords.rb")} #{@book.isbn}`
       Rails.logger.info output
 
-      redirect_to @book, notice: "Scrapers completed successfully", status: :see_other
+      redirect_to @book, notice: "AI completed successfully", status: :see_other
     rescue => error
       flash[:alert] = error
       redirect_to @book, status: :unprocessable_entity

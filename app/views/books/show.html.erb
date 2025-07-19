@@ -26,6 +26,11 @@
 <p>
   <strong>Description:</strong>
   <%= @book.description %>
+  <%= button_to "(re)Generate description",
+                generate_ai_description_for_isbn_path,
+                params: { isbn: @book.isbn },
+                data: { turbo_submits_with: "Running..." },
+                method: :post %>
 </p>
 
 <p>

@@ -4,10 +4,16 @@ require "openai"
 isbn = ARGV[0]
 
 book = Book.find_by_isbn(isbn)
-return unless book.present?
+if book.blank?
+  puts "Book with ISBN #{isbn} was not found"
+  return
+end
 
 descriptions = book.listings.pluck(:description).compact.uniq
-return unless descriptions.any?
+if descriptions.none?
+  puts "No descriptions for ISBN #{isbn} were not found"
+  return
+end
 
 client = OpenAI::Client.new(access_token: ENV["OPENAI_API_KEY"], log_errors: true)
 
@@ -21,6 +27,7 @@ response = client.chat(parameters: {
   }, {
     role: "user",
     content: "Please clean up and merge these book descriptions, removing reviews, blurbs, quotes, mentions of the author and translator, and mentions of the edition of this book:\n
+    - Any text mentioning awards or bestseller statuses should be removed.\n
     - Any text mentioning the edition of the book should be removed.\n
     - Any text regarding the author or translator should be removed.\n
     - Any blurbs or opinions about the book or author should be removed.\n
