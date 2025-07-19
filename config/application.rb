@@ -18,6 +18,9 @@ module GewoonBoeken
 
     config.active_record.yaml_column_permitted_classes = [Symbol, Date, Time, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]
 
+    config.active_storage.track_variants = true
+    config.active_storage.variant_processor = :mini_magick
+
     config.before_configuration do
       env_file = File.join(Rails.root, "config", "local_env.yml")
 

@@ -437,6 +437,7 @@ DEPENDENCIES
   importmap-rails
   kamal
   kaminari
+  mini_magick (>= 4.9.5)
   nokogiri
   paper_trail
   propshaft

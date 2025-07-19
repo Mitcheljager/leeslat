@@ -10,8 +10,6 @@ def attach_remote_image(book, url)
   response = HTTParty.get(url)
 
   if response.code == 200
-    extension = File.extname(URI.parse(url).path.presence || ".jpg")
-
     file = Tempfile.new(["downloaded", File.extname(url)])
     file.binmode
     file.write(response.body)
@@ -19,7 +17,7 @@ def attach_remote_image(book, url)
 
     book.public_send(:cover_image).attach(
       io: file,
-      filename: "cover-#{book.isbn}#{extension}",
+      filename: "cover-#{book.isbn}",
       content_type: response.headers["content-type"]
     )
 

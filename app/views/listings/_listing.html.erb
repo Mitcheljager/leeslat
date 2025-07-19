@@ -37,7 +37,7 @@
 
   <p>
     <strong>Url:</strong>
-    <%= listing.url %>
+    <%= link_to listing.url if listing.url.present? %>
   </p>
 
   <p>
