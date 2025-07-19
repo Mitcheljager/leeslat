@@ -73,6 +73,7 @@ class Book < ApplicationRecord
                 fields: [
                   "title^4",
                   "authors^3",
+                  "keywords^2",
                   "genres^2",
                   "genre_keywords"
                 ],
@@ -91,6 +92,7 @@ class Book < ApplicationRecord
                     fields: [
                       "title^3",
                       "authors^2.5",
+                      "keywords^2.5",
                       "genres^1.5",
                       "genre_keywords"
                     ],
@@ -111,6 +113,7 @@ class Book < ApplicationRecord
     {
       isbn: isbn,
       title: title,
+      keywords: keywords,
       authors: authors.map(&:name),
       genres: genres.map(&:name),
       genre_keywords: genres.flat_map { |g| g.keywords.to_s.split(',').map(&:strip) }
