@@ -1,0 +1,16 @@
+<div itemscope itemtype="https://schema.org/WebSite">
+  <meta itemprop="url" content="https://gewoonboeken.nl/"/>
+
+  <%= form_tag search_post_path, itemprop: "potentialAction", itemscope: "", itemtype: "https://schema.org/SearchAction", role: "search", method: :post do %>
+    <meta itemprop="target" content="https://gewoonboeken.nl/zoeken/{query}"/>
+
+    <%= search_field_tag :query, params[:query] ? CGI.unescape(params[:query]) : "", placeholder: " ", itemprop: "query-input", required: "true", autocomplete: "off", id: "query" %>
+    <%= label_tag :query, for: "query" do %>
+      Search
+    <% end %>
+
+    <%= button_tag "", type: :submit, aria: { label: "Zoeken" } do %>
+      &gt;
+    <% end %>
+  <% end %>
+</div>

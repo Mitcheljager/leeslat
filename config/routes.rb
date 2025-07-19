@@ -23,7 +23,8 @@ Rails.application.routes.draw do
   resources :books, param: :slug_and_isbn, path: "boek", except: [:index], concerns: :paginatable
 
   # Search
-  get "zoeken/:query", to: "search#index"
+  post "zoeken", to: "search#post", as: :search_post
+  get "zoeken/(:query)", to: "search#index", as: :search
 
   # Actions
   get "actions/index_by_isbn/:isbn", to: "actions#index_by_isbn"
