@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :books, param: :slug_and_isbn, path: "boek", except: [:index], concerns: :paginatable
 
   get "actions/index_by_isbn/:isbn", to: "actions#index_by_isbn"
-  post "actions/attach_image_for_book", to: "actions#attach_image_for_book", as: :attach_image_for_book
+  post "actions/attach_image_for_isbn", to: "actions#attach_image_for_isbn", as: :attach_image_for_isbn
   post "actions/run_all_scrapers_for_isbn", to: "actions#run_all_scrapers_for_isbn", as: :run_all_scrapers_for_isbn
+  post "actions/generate_ai_keywords_for_isbn", to: "actions#generate_ai_keywords_for_isbn", as: :generate_ai_keywords_for_isbn
 end

@@ -53,6 +53,10 @@ class Book < ApplicationRecord
     I18n.l(Date.new(parts[0], parts[1], parts[2]), format: "%-d %B, %Y")
   end
 
+  def separated_keywords
+    keywords.to_s.split(",").map(&:strip)
+  end
+
   def self.search(query, size: 50)
     is_isbn = query.match?(/\A\d{13}?\z/)
 

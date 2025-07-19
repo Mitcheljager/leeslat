@@ -12,7 +12,7 @@ class ActionsController < ApplicationController
     end
   end
 
-  def attach_image_for_book
+  def attach_image_for_isbn
     @book = Book.find_by_isbn!(params[:isbn])
 
     begin
@@ -33,6 +33,20 @@ class ActionsController < ApplicationController
 
     begin
       output = `ruby #{Rails.root.join("scraper/run_all_scrapers.rb")} isbn=#{@book.isbn} title="#{@book.title}"`
+      Rails.logger.info output
+
+      redirect_to @book, notice: "Scrapers completed successfully", status: :see_other
+    rescue => error
+      flash[:alert] = error
+      redirect_to @book, status: :unprocessable_entity
+    end
+  end
+
+  def generate_ai_keywords_for_isbn
+    @book = Book.find_by_isbn!(params[:isbn])
+
+    begin
+      output = `ruby #{Rails.root.join("scraper/ai/openai_keywords.rb")} #{@book.isbn}`
       Rails.logger.info output
 
       redirect_to @book, notice: "Scrapers completed successfully", status: :see_other

@@ -66,19 +66,28 @@
                 method: :post %>
 </p>
 
+<p>
+  <strong>Keywords:</strong>
+  <%= @book.keywords %>
+  <%= button_to "(re)Generate keywords",
+                generate_ai_keywords_for_isbn_path,
+                params: { isbn: @book.isbn },
+                data: { turbo_submits_with: "Running..." },
+                method: :post %>
+</p>
+
 <hr>
 
 <%= render @listings %>
 
 <hr>
 
-
 <div>
   <%= link_to "Edit this book", edit_book_path(@book) %> |
   <%= link_to "Back to books", root_path %>
 
   <%= button_to "Get cover image for this book",
-                attach_image_for_book_path,
+                attach_image_for_isbn_path,
                 params: { isbn: @book.isbn },
                 data: { turbo_submits_with: "Running..." },
                 method: :post %>
