@@ -11,7 +11,7 @@ client = OpenAI::Client.new(access_token: ENV["OPENAI_API_KEY"], log_errors: tru
 puts "Getting keywords for \"#{book.title}\" (#{book.isbn})..."
 
 response = client.chat(parameters: {
-  model: "gpt-3.5-turbo",
+  model: "gpt-4.1-mini",
   messages: [{
     role: "system",
     content: "You are a summarizer. Your task is to summarize a book by between 10 and 25 keywords in Dutch. These keywords should be comma separated. These keywords should talk about the overall mood, themes, and plot, without spoilers. Avoid general genres like \"Action\" or \"Fantasy\". Titlecase should be used for each keyword, keywords may contain spaces, do not end in a period. The final text should be nothing but comma separated keywords."
