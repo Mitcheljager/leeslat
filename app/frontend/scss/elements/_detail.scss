@@ -12,7 +12,7 @@ $gap: #{calc(map.get($breakpoints, max) / 16)};
   grid-template-columns: 1fr 300px 1fr;
   gap: 0 $gap;
   align-items: flex-start;
-  @include max_width;
+  @include max-width;
 }
 
 .detail__header {
@@ -45,7 +45,7 @@ $gap: #{calc(map.get($breakpoints, max) / 16)};
   }
 
   &::after {
-    @include pseudo_fill;
+    @include pseudo-fill;
     z-index: 0;
     width: 70vw;
     min-height: calc(100% + $margin * 8);

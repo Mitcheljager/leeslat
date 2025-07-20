@@ -13,7 +13,7 @@
   }
 }
 
-@mixin max_width() {
+@mixin max-width() {
   $padding: #{$margin * 3};
   max-width: calc(map.get($breakpoints, max) + $padding * 2);
   margin: 0 auto;
@@ -21,7 +21,7 @@
   padding-right: $padding;
 }
 
-@mixin hover_stack() {
+@mixin hover-stack() {
   &:hover,
   &:active,
   &:focus-visible {
@@ -29,10 +29,10 @@
   }
 }
 
-@mixin hover_grow {
+@mixin hover-grow {
   transition: scale 50ms;
 
-  @include hover_stack {
+  @include hover-stack {
     scale: 1.05;
   }
 
@@ -47,7 +47,7 @@
   }
 }
 
-@mixin focus_visible_outline($prepend: '') {
+@mixin focus-visible-outline($prepend: '') {
   outline-offset: 0;
 
   @include motion {
@@ -67,7 +67,7 @@
   }
 }
 
-@mixin pseudo_fill() {
+@mixin pseudo-fill() {
   content: '';
   display: block;
   position: absolute;

@@ -3,7 +3,7 @@
 @use "../mixins" as *;
 
 .navigation {
-  @include max_width;
+  @include max-width;
   display: grid;
   grid-template-columns: 1fr (map.get($breakpoints, max) * 0.5) 1fr;
   align-items: center;
@@ -30,8 +30,8 @@
   text-decoration: none;
   text-transform: lowercase;
 
-  @include hover_grow;
-  @include hover_stack {
+  @include hover-grow;
+  @include hover-stack {
     background: var(--bg-content--hover);
   }
 }

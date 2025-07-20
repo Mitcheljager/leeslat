@@ -49,7 +49,7 @@ a,
 button,
 input,
 textarea {
-  @include focus_visible_outline;
+  @include focus-visible-outline;
 }
 
 p {
@@ -57,5 +57,5 @@ p {
 }
 
 .layout {
-  @include max_width;
+  @include max-width;
 }

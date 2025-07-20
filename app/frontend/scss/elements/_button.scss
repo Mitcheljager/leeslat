@@ -17,5 +17,5 @@ button {
   text-transform: lowercase;
   color: $white;
 
-  @include hover_grow;
+  @include hover-grow;
 }

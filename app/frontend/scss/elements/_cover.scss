@@ -11,7 +11,7 @@ $fallback-aspect-ratio: 300 / 470;
   background: var(--bg-content);
 
   &::before {
-    @include pseudo_fill;
+    @include pseudo-fill;
     --color: #{$white};
     z-index: -1;
     width: 80%;
@@ -28,7 +28,7 @@ $fallback-aspect-ratio: 300 / 470;
   }
 
   &::after {
-    @include pseudo_fill;
+    @include pseudo-fill;
     z-index: -1;
     width: 20%;
     background: linear-gradient(to right, $black, transparent);

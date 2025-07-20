@@ -10,7 +10,7 @@ $switch-side-size: 3rem;
   background: transparent;
   border-radius: $border-radius-rounded;
 
-  @include hover_stack {
+  @include hover-stack {
     .switch__indicator {
       background: var(--bg-content-alt--hover);
     }
