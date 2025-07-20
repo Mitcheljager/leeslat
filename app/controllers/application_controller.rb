@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  before_action :set_client_hints
+
   helper_method :theme
   helper_method :theme_dark?
   helper_method :current_user
@@ -15,5 +17,16 @@ class ApplicationController < ActionController::Base
     return unless session[:user_id]
 
     @current_user ||= User.find_by(id: session[:user_id])
+  end
+
+  private
+
+  # Allow browsers to include their prefered color scheme. This only works for Chrome.
+  # Will not work for the very first request, as this tells the browser to include it next time.
+  # These headers are used in the theme_dark? method above.
+  def set_client_hints
+    response.set_header('Accept-CH', 'Sec-CH-Prefers-Color-Scheme')
+    response.set_header('Permissions-Policy', 'ch-prefers-color-scheme=(self)')
+    response.set_header('Vary', 'Sec-CH-Prefers-Color-Scheme')
   end
 end
