@@ -16,5 +16,5 @@ button {
   font-family: $font-stack-bold;
   color: $white;
 
-  @include hover-grow;
+  @include hover_grow;
 }

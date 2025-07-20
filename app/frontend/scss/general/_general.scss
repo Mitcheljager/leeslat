@@ -36,7 +36,7 @@ body {
 }
 
 main {
-  @include max-width;
+  @include max_width;
 }
 
 a {
@@ -47,5 +47,5 @@ a,
 button,
 input,
 textarea {
-  @include focus-visible-outline;
+  @include focus_visible_outline;
 }

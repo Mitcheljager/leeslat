@@ -7,7 +7,7 @@
   box-shadow: $shadow-huge;
 
   &::before {
-    @include pseudo-fill();
+    @include pseudo_fill();
     width: 80%;
     height: 10px;
     top: auto;
@@ -22,7 +22,7 @@
   }
 
   &::after {
-    @include pseudo-fill();
+    @include pseudo_fill();
     width: 20%;
     background: linear-gradient(to right, $black, transparent);
     opacity: 0.2;
