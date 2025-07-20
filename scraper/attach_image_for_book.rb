@@ -15,6 +15,19 @@ def attach_remote_image(book, url)
     file.write(response.body)
     file.rewind
 
+    # Get the image width and height, these are later used as an aspect ratio
+    # to display the image correctly before it loads. Not all covers are the
+    # same aspect ratio, after all.
+    image = MiniMagick::Image.read(file)
+    width = image.width
+    height = image.height
+
+    book.cover_original_width = width
+    book.cover_original_height = height
+    book.save
+
+    file.rewind
+
     book.public_send(:cover_image).attach(
       io: file,
       filename: "cover-#{book.isbn}",

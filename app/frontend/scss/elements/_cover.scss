@@ -1,6 +1,8 @@
 @use "../variables" as *;
 @use "../mixins" as *;
 
+$fallback-aspect-ratio: 300 / 470;
+
 .cover {
   position: relative;
   display: inline-flex;
@@ -38,6 +40,7 @@
     background: var(--bg-content);
     width: 100%;
     height: auto;
+    aspect-ratio: var(--aspect-ratio, $fallback-aspect-ratio);
   }
 }
 
@@ -62,7 +65,7 @@
   justify-content: center;
   position: relative;
   width: 100%;
-  aspect-ratio: 300 / 470;
+  aspect-ratio: $fallback-aspect-ratio;
   background: var(--bg-content);
 
   svg {

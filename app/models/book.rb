@@ -63,6 +63,14 @@ class Book < ApplicationRecord
     keywords.to_s.split(",").map(&:strip)
   end
 
+  # When an image is attached it's height and width are saved. This is used to an
+  # aspect ratio so that when an image loads it can show in the correct dimensions
+  # before it has finished loading.
+  def cover_aspect_ratio
+    return "" if cover_original_width.blank? || cover_original_height.blank?
+    "#{cover_original_width} / #{cover_original_height}"
+  end
+
   # Consists of 3 matchers;
   # 1. If the search result consists of nothing but 13 numbers, we assume it's an isbn and search just by that
   # 2. Large weight towards title and no fuzziness. This should prioritize exact matches of the title (or author).
