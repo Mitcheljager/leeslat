@@ -8,6 +8,13 @@ $switch-side-size: 3rem;
   position: relative;
   display: flex;
   background: transparent;
+  border-radius: $border-radius-rounded;
+
+  @include hover-stack {
+    .switch__indicator {
+      background: var(--bg-content-alt--hover);
+    }
+  }
 }
 
 .switch__indicator {
@@ -40,7 +47,7 @@ $switch-side-size: 3rem;
   &--left {
     color: var(--bg-base);
 
-    @include dark() {
+    @include dark {
       color: inherit;
     }
 
@@ -57,7 +64,7 @@ $switch-side-size: 3rem;
       padding-right: $margin;
       color: var(--bg-base);
 
-      @include dark() {
+      @include dark {
         color: inherit;
       }
     }

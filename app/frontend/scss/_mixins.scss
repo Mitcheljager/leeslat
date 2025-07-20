@@ -20,6 +20,18 @@
   }
 }
 
+@mixin hover-grow {
+  transition: scale 50ms;
+
+  @include hover-stack {
+    scale: 1.05;
+  }
+
+  &:active {
+    scale: 1;
+  }
+}
+
 @mixin motion() {
   @media (prefers-reduced-motion: no-preference) {
     @content;
