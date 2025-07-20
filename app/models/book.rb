@@ -40,10 +40,15 @@ class Book < ApplicationRecord
     listings.where.not(price: 0)
   end
 
+  # Returns a - if no number of pages are given, otherwise return a number with "." for the thousands delimiter,
+  # as that is what is used in Dutch rather than commas.
   def formatted_number_of_pages
     self.number_of_pages.zero? ? "-" : number_with_delimiter(self.number_of_pages, delimiter: ".")
   end
 
+  # The published_date_text is nothing but a string, but it only allows numbers and dashes.
+  # Return date either as "5 April, 2025" or only the year "2025", depending on how much is available.
+  # If the string is just 4 characters we assume it's nothing but a year, which is sometimes all we get.
   def formatted_published_date
     return if self.published_date_text.blank?
 
@@ -53,10 +58,15 @@ class Book < ApplicationRecord
     I18n.l(Date.new(parts[0], parts[1], parts[2]), format: "%-d %B, %Y")
   end
 
+  # Keywords are a comma separated list, use this method to get them as an array
   def separated_keywords
     keywords.to_s.split(",").map(&:strip)
   end
 
+  # Consists of 3 matchers;
+  # 1. If the search result consists of nothing but 13 numbers, we assume it's an isbn and search just by that
+  # 2. Large weight towards title and no fuzziness. This should prioritize exact matches of the title (or author).
+  # 3. Fuzzy search for all records by their relevant fields. This includes keywords, genres, and genre keywords.
   def self.search(query, size: 50)
     is_isbn = query.match?(/\A\d{13}?\z/)
 

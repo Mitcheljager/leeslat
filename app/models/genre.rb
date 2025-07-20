@@ -12,6 +12,7 @@ class Genre < ApplicationRecord
     slug
   end
 
+  # Keywords are a comma separated list, use this method to get them as an array
   def separated_keywords
     keywords.to_s.split(",").map(&:strip)
   end
