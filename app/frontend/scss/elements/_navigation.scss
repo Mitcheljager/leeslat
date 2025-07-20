@@ -3,11 +3,10 @@
 @use "../mixins" as *;
 
 .navigation {
+  @include max-width;
   display: grid;
   grid-template-columns: 1fr (map.get($breakpoints, max) * 0.5) 1fr;
   align-items: center;
-  max-width: map.get($breakpoints, max);
-  margin: 0 auto;
 }
 
 .navigation__subtitle {

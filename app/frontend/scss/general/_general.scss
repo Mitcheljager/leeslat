@@ -3,22 +3,22 @@
 
 :root {
   color-scheme: light;
-  @include light_variables();
+  @include light_variables;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
-    @include dark_variables();
+    @include dark_variables;
   }
 }
 
 [style*="color-scheme: light"] {
   color-scheme: light;
-  @include light_variables();
+  @include light_variables;
 }
 
 [style*="color-scheme: dark"] {
   color-scheme: dark;
-  @include dark_variables();
+  @include dark_variables;
 }
 
 * {
@@ -35,6 +35,10 @@ body {
   font-family: $font-stack;
 }
 
+main {
+  @include max-width;
+}
+
 a {
   color: #ff00ff;
 }
@@ -43,5 +47,5 @@ a,
 button,
 input,
 textarea {
-  @include focus-visible-outline();
+  @include focus-visible-outline;
 }

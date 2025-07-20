@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "variables" as *;
 
 @mixin breakpoint($media) {
@@ -10,6 +11,14 @@
   @media (min-width: #{ $value }) {
     @content;
   }
+}
+
+@mixin max-width() {
+  $padding: #{$margin * 3};
+  max-width: calc(map.get($breakpoints, max) + $padding * 2);
+  margin: 0 auto;
+  padding-left: $padding;
+  padding-right: $padding;
 }
 
 @mixin hover-stack() {

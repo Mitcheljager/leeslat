@@ -5,7 +5,8 @@
 .header {
   position: sticky;
   top: 0;
-  margin-top: $margin;
+  top: -$margin;
+  padding-top: $margin;
   backdrop-filter: blur(0.5rem);
 
   &::before {
@@ -17,12 +18,12 @@
 }
 
 .header__content {
+  @include max-width;
   display: grid;
   grid-template-columns: 1fr (map.get($breakpoints, max) * 0.5) 1fr;
   justify-content: space-between;
-  max-width: map.get($breakpoints, max);
-  padding: $margin 0;
-  margin: 0 auto;
+  padding-top: $margin;
+  padding-bottom: $margin;
 }
 
 .header__root {
