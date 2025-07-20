@@ -33,5 +33,6 @@
   @include hover-grow;
   @include hover-stack {
     background: var(--bg-content--hover);
+    color: $white;
   }
 }
