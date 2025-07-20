@@ -42,7 +42,11 @@ main {
 }
 
 a {
-  color: #ff00ff;
+  color: var(--primary);
+
+  @include hover-stack {
+    color: var(--primary--hover);
+  }
 }
 
 a,

@@ -2,7 +2,6 @@
 
 $black: #000;
 $white: #fff;
-$primary: #ff7043;
 
 $margin: px-to-rem(10);
 
@@ -35,6 +34,8 @@ $shadow-huge:
   -48px 48px 64px rgba($black, 0.2);
 
 @mixin light_variables {
+  --primary: #ff7043;
+  --primary--hover: #f75f31;
   --bg-base: #f6f3ea;
   --bg-content: #d7cfc6;
   --bg-content--hover: #dfd8d1;
@@ -45,6 +46,8 @@ $shadow-huge:
 }
 
 @mixin dark_variables {
+  --primary: #b300ff;
+  --primary--hover: #be2ffc;
   --bg-base: #1f1e1d;
   --bg-content: #3d3a37;
   --bg-content--hover: #5f5c59;
