@@ -33,6 +33,9 @@ body {
   background: var(--bg-base);
   color: var(--text-color-base);
   font-family: $font-stack;
+  font-size: $font-size-base;
+  line-height: 1.5;
+  overflow-x: hidden;
 }
 
 main {

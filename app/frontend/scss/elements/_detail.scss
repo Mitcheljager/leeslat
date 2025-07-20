@@ -1,0 +1,57 @@
+@use "sass:map";
+@use "../variables" as *;
+@use "../mixins" as *;
+
+$gap: #{calc(map.get($breakpoints, max) / 16)};
+
+.detail {
+  display: grid;
+  grid-template:
+    "header header header"
+    "aside image content";
+  grid-template-columns: 1fr 300px 1fr;
+  gap: 0 $gap;
+  align-items: flex-start;
+}
+
+.detail__header {
+  grid-area: header;
+  text-align: center;
+  margin: $margin * 10 0 $margin * 8;
+}
+
+.detail__aside {
+  grid-area: aside;
+}
+
+.detail__image {
+  z-index: 1;
+  position: relative;
+  grid-area: image;
+  min-height: 10rem;
+  width: 100%;
+  margin: 0;
+}
+
+.detail__content {
+  grid-area: content;
+  position: relative;
+  min-height: 100%;
+
+  > * {
+    z-index: 1;
+    position: relative;
+  }
+
+  &::after {
+    @include pseudo_fill;
+    z-index: 0;
+    width: 70vw;
+    min-height: calc(100% + $margin * 8);
+    top: $margin * -4;
+    left: calc(($gap * -0.5) - (map.get($breakpoints, max) / 3 / 2));
+    background: var(--bg-standout);
+    border-radius: $border-radius-huge 0 0 $border-radius-huge;
+  }
+}
+

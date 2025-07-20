@@ -4,20 +4,23 @@
 .cover {
   position: relative;
   display: inline-flex;
+  margin-top: 0;
   box-shadow: $shadow-huge;
+  background: var(--bg-content);
 
   &::before {
     @include pseudo_fill();
+    --color: #{$white};
     width: 80%;
     height: 10px;
     top: auto;
     bottom: 1.5rem;
     left: 10%;
-    background: white;
-    box-shadow: 0px 0.75rem 1rem 1rem rgba($white, 1);
+    background: var(--color);
+    box-shadow: 0px 0.75rem 1rem 1rem var(--color);
 
     @include dark() {
-      opacity: 0.25;
+      --color: #{$black};
     }
   }
 
@@ -31,5 +34,23 @@
 
   img {
     position: relative;
+    background: var(--bg-content);
+    width: 100%;
+    height: auto;
+  }
+}
+
+.cover__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 300 / 470;
+  background: var(--bg-content);
+
+  svg {
+    width: 50%;
+    height: auto;
   }
 }

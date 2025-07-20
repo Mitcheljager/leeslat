@@ -14,6 +14,7 @@ button {
   background: var(--bg-content-alt);
   border: $border-radius-rounded;
   font-family: $font-stack-bold;
+  text-transform: lowercase;
   color: $white;
 
   @include hover_grow;

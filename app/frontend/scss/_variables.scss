@@ -9,6 +9,7 @@ $margin: px_to_rem(10);
 $border-radius-small: 0.5rem;
 $border-radius: 0.75rem;
 $border-radius-large: 1rem;
+$border-radius-huge: 2rem;
 $border-radius-rounded: 1.5rem;
 
 $font-size-base: px_to_rem(16);
@@ -39,6 +40,7 @@ $shadow-huge:
   --bg-content--hover: #dfd8d1;
   --bg-content-alt: #5d4037;
   --bg-content-alt--hover: #493028;
+  --bg-standout: #{$white};
   --text-color-base: #5d4037;
 }
 
@@ -48,5 +50,6 @@ $shadow-huge:
   --bg-content--hover: #5f5c59;
   --bg-content-alt: #5f5c59;
   --bg-content-alt--hover: #75726e;
+  --bg-standout: #141413;
   --text-color-base: #f6f3ea;
 }

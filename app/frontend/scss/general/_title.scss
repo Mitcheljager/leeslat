@@ -1,9 +1,18 @@
 @use "../variables" as *;
 
 h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 7vw, 4rem);
   font-family: $font-stack-serif;
   font-style: italic;
   font-weight: normal;
+  line-height: 1.2;
+}
+
+h2 {
+  margin: 0 0 $margin * 2;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.2;
 }
 
 h2,
@@ -11,6 +20,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $font-stack-serif;
+  font-family: $font-stack-bold;
   font-weight: bold;
+  text-transform: lowercase;
 }

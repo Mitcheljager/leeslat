@@ -1,0 +1,7 @@
+@use "../variables" as *;
+
+.description {
+  font-size: $font-size-large;
+  font-family: $font-stack-serif;
+  font-style: italic;
+}

@@ -21,13 +21,14 @@
 }
 
 .navigation__item {
-  padding: 0.5rem 1rem;
+  padding: 0.25rem 1rem;
   border-radius: $border-radius-rounded;
   background: var(--bg-content);
   font-size: $font-size-large;
   font-family: $font-stack-bold;
   color: var(--text-color-base);
   text-decoration: none;
+  text-transform: lowercase;
 
   @include hover_grow;
   @include hover_stack {
