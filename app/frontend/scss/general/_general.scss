@@ -51,3 +51,7 @@ input,
 textarea {
   @include focus_visible_outline;
 }
+
+p {
+  margin: $margin * 2 0;
+}
