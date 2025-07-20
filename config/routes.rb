@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   resources :genres, param: :slug
   resources :listings, concerns: :paginatable
   resources :authors, concerns: :paginatable
-  resources :books, param: :slug_and_isbn, path: "boek", except: [:index], concerns: :paginatable
+  resources :books, param: :slug_and_isbn, path: "boek", only: [:show], concerns: :paginatable
 
   # Search
   post "zoeken", to: "search#post", as: :search_post
@@ -32,4 +32,10 @@ Rails.application.routes.draw do
   post "actions/run_all_scrapers_for_isbn", to: "actions#run_all_scrapers_for_isbn", as: :run_all_scrapers_for_isbn
   post "actions/generate_ai_description_for_isbn", to: "actions#generate_ai_description_for_isbn", as: :generate_ai_description_for_isbn
   post "actions/generate_ai_keywords_for_isbn", to: "actions#generate_ai_keywords_for_isbn", as: :generate_ai_keywords_for_isbn
+
+  namespace :admin do
+    get "/", to: "base#index", as: :root
+
+    resources :books, param: :slug_and_isbn, concerns: :paginatable
+  end
 end

@@ -1,10 +1,6 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Books" %>
 
 <h1>Books</h1>
-
-<%= page_entries_info @books %>
 
 <hr>
 
@@ -15,7 +11,5 @@
     <hr>
   <% end %>
 </div>
-
-<%= link_to "New book", new_book_path %>
 
 <%= paginate @books, theme: :simple, window: 2 %>

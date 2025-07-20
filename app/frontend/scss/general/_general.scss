@@ -56,6 +56,11 @@ p {
   margin: $margin * 2 0;
 }
 
+figure {
+  margin: 0;
+}
+
 .layout {
   @include max-width;
+  padding-bottom: $margin * 10;
 }

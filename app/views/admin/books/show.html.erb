@@ -1,0 +1,121 @@
+<%= render "admin/layout", heading: "Books" do %>
+  <h2 class="text-transform-none"><%= @book.title %></h2>
+
+  <%= tag.h3 @book.subtitle, class: "text-transform-none" if @book.subtitle %>
+
+  <p><%= @book.isbn %></p>
+
+  <% @book.authors.each do |author| %>
+    <span><%= author.name %></span>
+  <% end %>
+
+  <hr>
+
+  <div>
+    <%= link_to "Back to overview", admin_books_path %> |
+    <%= link_to "Edit this book", edit_admin_book_path(@book) %> |
+
+    <%= button_to "Destroy this book", [:admin, @book], method: :delete, data: { turbo_confirm: "Are you sure you wish to destroy this book?" } %>
+  </div>
+
+  <hr>
+
+  <h3 class="text-transform-none">Description:</h3>
+
+  <div class="description">
+    <% if @book.description.present? %>
+      <%= simple_format(@book.description) %>
+    <% else %>
+      -
+    <% end %>
+  </div>
+
+  <%= button_to "(re)Generate description",
+                generate_ai_description_for_isbn_path,
+                params: { isbn: @book.isbn },
+                data: { turbo_submits_with: "Running..." },
+                method: :post %>
+
+  <hr>
+
+  <h3 class="text-transform-none">Cover image:</h3>
+
+  <figure style="<%= "--aspect-ratio: #{@book.cover_aspect_ratio}" if @book.cover_aspect_ratio.present? %>">
+    <% if @book.cover_image.attached? %>
+      <%= image_tag @book.cover_image.variant(:large), width: 300, height: 475 %>
+    <% else %>
+      No image
+    <% end %>
+
+    <%= button_to "(re)Get cover image for this book",
+                  attach_image_for_isbn_path,
+                  params: { isbn: @book.isbn },
+                  data: { turbo_submits_with: "Running..." },
+                  method: :post %>
+  </figure>
+
+  <hr>
+
+  <h3 class="text-transform-none">General details:</h3>
+
+  <p>
+    <strong>Genres:</strong>
+    <% @book.genres.each do |genre| %>
+      <span><%= genre.name %></span>
+    <% end %>
+  </p>
+
+  <p>
+    <strong>Keywords:</strong>
+    <%= @book.keywords %>
+    <%= button_to "(re)Generate keywords",
+                  generate_ai_keywords_for_isbn_path,
+                  params: { isbn: @book.isbn },
+                  data: { turbo_submits_with: "Running..." },
+                  method: :post %>
+  </p>
+
+  <p>
+    <strong>Isbn:</strong>
+    <%= @book.isbn %>
+  </p>
+
+  <p>
+    <strong>Number of pages:</strong>
+    <%= @book.formatted_number_of_pages %>
+  </p>
+
+  <p>
+    <strong>Language:</strong>
+    <%= @book.language %>
+  </p>
+
+  <p>
+    <strong>Format:</strong>
+    <%= @book.format %>
+  </p>
+
+  <p>
+    <strong>Published date:</strong>
+    <% if @book.published_date_text %>
+      <%= @book.formatted_published_date %>
+      (<%= @book.published_date_text %>)
+    <% end %>
+  </p>
+
+  <p>
+    <strong>Last scraped at:</strong>
+    <%= @book.last_scraped_at || "Never" %>
+    <%= button_to "Scrape now",
+                  run_all_scrapers_for_isbn_path,
+                  params: { isbn: @book.isbn },
+                  data: { turbo_submits_with: "Running..." },
+                  method: :post %>
+  </p>
+
+  <hr>
+
+  <h3 class="text-transform-none">Listings:</h3>
+
+  <%= render collection: @listings, partial: "listings/listing" %>
+<% end %>

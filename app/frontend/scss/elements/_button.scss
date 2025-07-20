@@ -11,10 +11,12 @@ button {
 }
 
 .button {
+  display: inline-block;
   background: var(--bg-content-alt);
   border: $border-radius-rounded;
   font-family: $font-stack-bold;
   text-transform: lowercase;
+  text-decoration: none;
   color: $white;
 
   @include hover-grow;

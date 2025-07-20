@@ -1,0 +1,15 @@
+<div class="layout">
+  <h1 class="heading"><%= heading.html_safe %></h1>
+
+  <p style="color: reg"><%= flash[:alert] %></p>
+  <p style="color: green"><%= notice %></p>
+
+  <nav>
+    <%= link_to "Admin", admin_root_path %>
+    <%= link_to "Books", admin_books_path %>
+  </nav>
+
+  <hr>
+
+  <%= yield %>
+</div>

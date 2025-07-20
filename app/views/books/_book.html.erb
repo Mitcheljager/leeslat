@@ -1,5 +1,5 @@
 <div id="<%= dom_id book %>">
-  <%= image_tag book.cover_image.variant(:small), height: 200 if book.cover_image.attached? %>
+  <%= image_tag book.cover_image.variant(:small), height: 200, loading: :lazy if book.cover_image.attached? %>
 
   <p>
     <strong>Title:</strong>
