@@ -16,21 +16,23 @@ export default class theme_toggle {
     html_element.style.setProperty("color-scheme", theme);
     html_element.style.viewTransitionName = "changing-theme";
 
-    this.set_position(html_element, toggle_button);
+    this.set_clip_path_target(html_element, theme);
     this.set_cookie(theme);
 
-    if (theme === "dark") new switch_toggle().toggle(toggle_button);
+    if (theme === "dark") new switch_toggle().toggle(toggle_button, true);
 
     toggle_button.addEventListener("click", () => {
-      fallback_view_transition(() => {
-        const currentTheme = html_element.style.getPropertyValue("color-scheme") as Theme;
-        const theme = currentTheme === "light" ? "dark" : "light";
+      setTimeout(() => {
+        fallback_view_transition(() => {
+          const currentTheme = html_element.style.getPropertyValue("color-scheme") as Theme;
+          const theme = currentTheme === "light" ? "dark" : "light";
 
-        this.set_position(html_element, toggle_button);
-        html_element.style.setProperty("color-scheme", theme);
+          this.set_clip_path_target(html_element, theme);
+          html_element.style.setProperty("color-scheme", theme);
 
-        this.set_cookie(theme);
-      }, !prefers_reduced_motions());
+          this.set_cookie(theme);
+        }, !prefers_reduced_motions());
+      }, window.ViewTransition ? 200 : 0);
     });
   }
 
@@ -41,13 +43,11 @@ export default class theme_toggle {
     return (html_theme || window_theme) as Theme;
   }
 
-  set_position(html_element: HTMLHtmlElement, toggle_button: HTMLButtonElement): void {
-    const { width, height, left, top } = toggle_button.getBoundingClientRect();
+  set_clip_path_target(html_element: HTMLHtmlElement, theme: Theme): void {
+    const left = "0 0, 0 0, 0 100%, 0% 100%";
+    const right = "100% 0, 100% 0, 100% 100%, 100% 100%";
 
-    const x = (left + (width / 2)) / window.innerWidth * 100;
-    const y = (top + (height / 2)) / window.innerHeight * 100;
-
-    html_element.style.setProperty("--theme-toggle-position", `${x.toFixed(2)}% ${y.toFixed(2)}%`);
+    html_element.style.setProperty("--theme-toggle-clip-path", theme === "light" ? left : right);
   }
 
   set_cookie(theme: Theme): void {

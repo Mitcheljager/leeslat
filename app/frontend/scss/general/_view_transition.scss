@@ -1,15 +1,15 @@
-@keyframes circle-reveal {
+@keyframes curtain {
 	from {
-    clip-path: circle(150% at var(--theme-toggle-position));
+    clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
 	}
 
 	to {
-    clip-path: circle(0% at var(--theme-toggle-position));
+    clip-path: polygon(var(--theme-toggle-clip-path));
 	}
 }
 
 ::view-transition-old(changing-theme) {
-	animation: 500ms circle-reveal;
+	animation: 400ms curtain;
 	z-index: 10;
 }
 
