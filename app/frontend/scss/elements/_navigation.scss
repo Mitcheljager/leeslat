@@ -31,7 +31,10 @@
   text-transform: lowercase;
 
   @include hover-grow;
+
   @include hover-stack {
+    position: relative;
+    z-index: 200;
     background: var(--bg-content--hover);
     color: $white;
   }
