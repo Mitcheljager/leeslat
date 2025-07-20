@@ -44,10 +44,10 @@ export default class theme_toggle {
   }
 
   set_clip_path_target(html_element: HTMLHtmlElement, theme: Theme): void {
-    const left = "0 0, 0 0, 0 100%, 0% 100%";
-    const right = "100% 0, 100% 0, 100% 100%, 100% 100%";
+    const light = "0 0, 100% 0%, 100% 0, 0 0";
+    const dark = "0 100%, 100% 100%, 100% 100%, 0 100%";
 
-    html_element.style.setProperty("--theme-toggle-clip-path", theme === "dark" ? left : right);
+    html_element.style.setProperty("--theme-toggle-clip-path", theme === "dark" ? dark : light);
   }
 
   set_cookie(theme: Theme): void {
