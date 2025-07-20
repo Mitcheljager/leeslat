@@ -2,13 +2,14 @@ require_relative "../base"
 require "nokogiri"
 
 def scrape_amazon(isbn)
-  listing = find_listing_for_isbn_and_source_name(isbn, "Amazon")
+  listing = find_listing_for_isbn_and_source_name(isbn, "Amazon RetourDeals")
+  amazon_retourdeals_merchant_id = 'A3C1D9TG1HJ66Y'
 
   base_path = "https://www.amazon.nl"
   url = clean_url(listing&.url || "")
 
   if url.blank?
-    puts "Running Amazon for search page for #{isbn}"
+    puts "Running Amazon RetourDeals for search page for #{isbn}"
 
     document = get_document("#{base_path}/s?k=#{isbn}")
     first_search_item_path = document.css("[role='listitem'] a").first.attribute("href").value
@@ -16,7 +17,7 @@ def scrape_amazon(isbn)
   end
 
   if url.blank?
-    puts "No valid url was found on Amazon for #{isbn}"
+    puts "No valid url was found on Amazon RetourDeals for #{isbn}"
   else
     if listing&.url
       puts "Using previous set url #{url}"
@@ -26,30 +27,19 @@ def scrape_amazon(isbn)
 
     document = get_document(url)
 
-    fulfiller = document.css("[offer-display-feature-name='desktop-fulfiller-info'] .offer-display-feature-text").first
-    is_amazon = fulfiller.text.strip == "Amazon"
+    has_amazon_retour_deals = document.css("#merchant-info:contains('Amazon RetourDeals')")
 
-    puts "fulfiller " + fulfiller
+    raise "Amazon page for \"#{isbn}\" does not contain RetourDeals offer" if document.include?("Amazon RetourDeals")
 
-    raise "Amazon page for \"#{isbn}\" was not fulfilled by Amazon" if !is_amazon
-
-    price_text = document.at_css("#tmm-grid-swatch-PAPERBACK")&.text
-    price = price_text.to_s.gsub(/[[:space:]]/, "").gsub("€", "").strip.gsub(",", ".").gsub("Paperback", "").strip
-
-    if price.blank?
-      price_text = document.at_css(".priceToPay span")&.text
-      price = price_text.to_s.gsub("€", "").gsub(",", ".").strip
-    end
+    price = document.css(".a-accordion-inner:contains('#{amazon_retourdeals_merchant_id}') form input[name*='amount']").first.get_attribute('value')
 
     number_of_pages_label = document.css("#detailBullets_feature_div .a-list-item span:contains('pagina')").first
     number_of_pages = number_of_pages_label&.text&.gsub("pagina's", "")&.strip
 
     description = document.css("#bookDescription_feature_div .a-expander-content").first.text.strip
-    image = document.css("#landingImage").first.attribute("src").value.strip
 
     puts isbn
     puts price
-    puts image
     puts description
     puts number_of_pages
 
