@@ -7,7 +7,7 @@
   grid-template-columns: 1fr (map.get($breakpoints, max) * 0.5) 1fr;
   align-items: center;
   max-width: map.get($breakpoints, max);
-  margin: $margin auto 0;
+  margin: 0 auto;
 }
 
 .navigation__subtitle {
