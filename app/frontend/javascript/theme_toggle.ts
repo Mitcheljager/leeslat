@@ -31,7 +31,7 @@ export default class theme_toggle {
     const { width, height, left, top } = toggleButton.getBoundingClientRect();
 
     const x = (left + (width / 2)) / window.innerWidth * 100;
-    const y = (top + (height / 2)) / window.innerWidth * 100;
+    const y = (top + (height / 2)) / window.innerHeight * 100;
 
     htmlElement.style.setProperty("--theme-toggle-position", `${x.toFixed(2)}% ${y.toFixed(2)}%`);
   }
