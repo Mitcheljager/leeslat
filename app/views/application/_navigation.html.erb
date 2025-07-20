@@ -10,5 +10,7 @@
     <%= link_to "Listings", listings_path, class: "navigation__item" %>
     <%= link_to "Genres", genres_path, class: "navigation__item" %>
     <%= link_to "Users", users_path, class: "navigation__item" %>
+
+    <%= link_to "Admin", root_path, class: "navigation__item" if current_user.present? %>
   </nav>
 </div>
