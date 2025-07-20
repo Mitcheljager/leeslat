@@ -17,8 +17,8 @@ $gap: #{calc(map.get($breakpoints, max) / 16)};
 
 .detail__header {
   grid-area: header;
-  text-align: center;
   margin: $margin * 10 0 $margin * 8;
+  text-align: center;
 }
 
 .detail__aside {

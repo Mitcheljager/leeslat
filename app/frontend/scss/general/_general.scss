@@ -55,3 +55,7 @@ textarea {
 p {
   margin: $margin * 2 0;
 }
+
+.layout {
+  @include max_width;
+}

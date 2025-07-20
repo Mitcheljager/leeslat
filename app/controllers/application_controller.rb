@@ -29,4 +29,12 @@ class ApplicationController < ActionController::Base
     response.set_header('Permissions-Policy', 'ch-prefers-color-scheme=(self)')
     response.set_header('Vary', 'Sec-CH-Prefers-Color-Scheme')
   end
+
+  def redirect_unless_current_user
+    redirect_to login_path, status: :unauthorized unless current_user.present?
+  end
+
+  def redirect_unless_admin
+    redirect_to root_path, status: :unauthorized unless current_user&.admin?
+  end
 end

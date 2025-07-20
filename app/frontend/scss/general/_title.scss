@@ -23,4 +23,14 @@ h6 {
   font-family: $font-stack-bold;
   font-weight: bold;
   text-transform: lowercase;
+
+  em {
+    font-family: $font-stack-serif;
+    font-size: 1.1em;
+    text-transform: none;
+  }
+}
+
+.heading {
+  margin: $margin * 8 0 $margin * 2;
 }

@@ -1,4 +1,6 @@
 class ActionsController < ApplicationController
+  before_action :redirect_unless_admin
+
   def index_by_isbn
     begin
       output = `ruby #{Rails.root.join("scraper/index_book_by_isbn.rb")} #{params[:isbn]}`

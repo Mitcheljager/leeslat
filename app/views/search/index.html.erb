@@ -1,13 +1,17 @@
 <% content_for :title, "Search for #{params[:query]}" %>
 
-<h1><%= params[:query] %></h1>
+<section class="layout">
+  <h2 class="heading" aria-level="1">Resultaten voor <em>"<%= params[:query] %>"</em></h2>
 
-<div id="books">
-  <% @books.each do |book| %>
-    <%= render book %>
-    <%= link_to "Show this book", book %>
-    <hr>
-  <% end %>
-</div>
+  <div class="list">
+    <% @books.each do |book| %>
+      <%= render book %>
+      <%= link_to "Show this book", book %>
+      <hr>
+    <% end %>
 
-<%= link_to "New book", new_book_path %>
+    <% if @books.empty? %>
+      <em class="font-large">Hmm, we konden niets vinden. Misschien kan je het onder een andere naam vinden?</em>
+    <% end %>
+  </div>
+</section>
