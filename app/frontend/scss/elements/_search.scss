@@ -1,0 +1,57 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.search {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.search__input {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    display: none;
+  }
+}
+
+.search__label {
+  z-index: 2;
+  display: none;
+  position: absolute;
+  left: $margin * 2;
+  top: 50%;
+  transform: translateY(-50%);
+  font-style: italic;
+  pointer-events: none;
+
+  .search__input:placeholder-shown + & {
+    display: block;
+  }
+
+  strong {
+    font-family: $font-stack-bold;
+    font-style: normal;
+  }
+}
+
+.search__submit {
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: $margin;
+  right: $margin;
+  padding: 0 0.5rem 0 0.75rem;
+  height: calc(100% - ($margin * 2));
+  border-radius: $border-radius-rounded $border-radius-small $border-radius-small $border-radius-rounded;
+
+  &:focus {
+    outline: none;
+  }
+}

@@ -28,7 +28,7 @@
   outline-offset: 0;
 
   @include motion {
-    transition: outline-offset 150ms;
+    transition: outline-offset 100ms, outline-color;
   }
 
   &:focus-visible {

@@ -1,0 +1,16 @@
+@use "../variables" as *;
+
+input {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+.form-input {
+  display: block;
+  background: var(--bg-content);
+  border: 0;
+  border-radius: $border-radius;
+  padding: $margin * 2;
+  font-size: 1rem;
+}

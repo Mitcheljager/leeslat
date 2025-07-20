@@ -1,0 +1,16 @@
+@use "../variables" as *;
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+}
+
+.button {
+  background: var(--bg-content-alt);
+  border: $border-radius-rounded;
+  font-family: $font-stack-bold;
+  color: $white;
+}
