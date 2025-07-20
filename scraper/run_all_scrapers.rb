@@ -33,7 +33,7 @@ end
 
 def run_all_scrapers(isbn, title, scrapers_to_run)
   run_scraper("Amazon", isbn, title)                  { scrape_amazon(isbn) } if is_in_run?(scrapers_to_run, "Amazon")
-  run_scraper("Amazon RetourDeals", isbn, title)      { scrape_amazon(isbn) } if is_in_run?(scrapers_to_run, "Amazon RetourDeals")
+  run_scraper("Amazon RetourDeals", isbn, title)      { scrape_amazon_retourdeals(isbn) } if is_in_run?(scrapers_to_run, "Amazon RetourDeals")
   run_scraper("Boekenbalie", isbn, title)             { scrape_boekenbalie(isbn, title) } if is_in_run?(scrapers_to_run, "Boekenbalie")
   run_scraper("Boeken.nl", isbn, title)               { scrape_boekennl(isbn, title) } if is_in_run?(scrapers_to_run, "Boeken.nl")
   run_scraper("Bruna", isbn, title)                   { scrape_bruna(isbn, title) } if is_in_run?(scrapers_to_run, "Bruna")

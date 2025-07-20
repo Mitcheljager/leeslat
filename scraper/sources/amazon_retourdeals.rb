@@ -1,15 +1,15 @@
 require_relative "../base"
 require "nokogiri"
 
-def scrape_amazon(isbn)
+def scrape_amazon_retourdeals(isbn)
   listing = find_listing_for_isbn_and_source_name(isbn, "Amazon RetourDeals")
-  amazon_retourdeals_merchant_id = 'A3C1D9TG1HJ66Y'
+  amazon_retourdeals_merchant_id = "A3C1D9TG1HJ66Y"
 
   base_path = "https://www.amazon.nl"
   url = clean_url(listing&.url || "")
 
   if url.blank?
-    puts "Running Amazon RetourDeals for search page for #{isbn}"
+    puts "Running Amazon RetourDeals search page for #{isbn}"
 
     document = get_document("#{base_path}/s?k=#{isbn}")
     first_search_item_path = document.css("[role='listitem'] a").first.attribute("href").value

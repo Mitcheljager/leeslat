@@ -8,7 +8,7 @@ def scrape_amazon(isbn)
   url = clean_url(listing&.url || "")
 
   if url.blank?
-    puts "Running Amazon for search page for #{isbn}"
+    puts "Running Amazon search page for #{isbn}"
 
     document = get_document("#{base_path}/s?k=#{isbn}")
     first_search_item_path = document.css("[role='listitem'] a").first.attribute("href").value
