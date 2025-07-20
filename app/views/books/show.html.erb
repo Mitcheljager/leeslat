@@ -18,11 +18,7 @@
       <% end %>
     </div>
 
-    <%= button_to "(re)Generate description",
-                  generate_ai_description_for_isbn_path,
-                  params: { isbn: @book.isbn },
-                  data: { turbo_submits_with: "Running..." },
-                  method: :post %>
+    <h2 class="mt-8">Iets voor jou?</h2>
   </aside>
 
   <figure class="detail__image cover" style="<%= "--aspect-ratio: #{@book.cover_aspect_ratio}" if @book.cover_aspect_ratio.present? %>">

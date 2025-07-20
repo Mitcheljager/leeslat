@@ -1,0 +1,34 @@
+@use "../variables" as *;
+
+$offset-values: (
+  0: 0,
+  1: $margin,
+  2: $margin * 2,
+  4: $margin * 4,
+  8: $margin * 8
+);
+
+$properties: (
+  padding: p,
+  margin: m
+);
+
+$directions: (
+  "": "",
+  "-left": l,
+  "-right": r,
+  "-top": t,
+  "-bottom": b
+);
+
+@each $property, $property-abr in $properties {
+  @each $direction, $direction-abr in $directions {
+    @each $name, $value in $offset-values {
+      @if not ($property == padding and $value == auto) {
+        .#{ $property-abr }#{ $direction-abr }-#{ $name } {
+          #{ $property }#{ $direction }: $value;
+        }
+      }
+    }
+  }
+}
