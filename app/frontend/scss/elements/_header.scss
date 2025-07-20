@@ -4,13 +4,13 @@
 
 .header {
   z-index: 100;
-  top: 0;
+  position: sticky;
   top: -$margin;
   padding-top: $margin;
   backdrop-filter: blur(0.5rem);
 
   &::before {
-    @include pseudo-fill;
+    @include pseudo_fill;
     background: var(--bg-base);
     z-index: -1;
     opacity: 0.5;
@@ -18,7 +18,7 @@
 }
 
 .header__content {
-  @include max-width;
+  @include max_width;
   display: grid;
   grid-template-columns: 1fr (map.get($breakpoints, max) * 0.5) 1fr;
   justify-content: space-between;
@@ -32,7 +32,7 @@
   text-align: left;
   color: var(--text-color-base);
 
-  @include hover-stack {
+  @include hover_stack {
     color: var(--bg-content-alt--hover);
 
     @include dark {
