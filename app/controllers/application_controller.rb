@@ -1,9 +1,14 @@
 class ApplicationController < ActionController::Base
-  helper_method :theme_light?
+  helper_method :theme
+  helper_method :theme_dark?
   helper_method :current_user
 
-  def theme_light?
-    cookies[:theme] === "light"
+  def theme
+    cookies[:theme]
+  end
+
+  def theme_dark?
+    theme === "dark" || headers["Sec-CH-Prefers-Color-Scheme"] === "dark"
   end
 
   def current_user

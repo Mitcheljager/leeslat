@@ -1,0 +1,65 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+@use "../functions" as *;
+
+$switch-side-size: 3rem;
+
+.switch {
+  position: relative;
+  display: flex;
+  background: transparent;
+}
+
+.switch__indicator {
+  position: absolute;
+  height: 100%;
+  width: $switch-side-size;
+  border-radius: $border-radius-rounded;
+  background: var(--bg-content-alt);
+  transition: transform 100ms, width 100ms;
+
+  .switch--active & {
+    transform: translateX(calc($switch-side-size - $margin));
+  }
+
+  .switch--switching & {
+    width: 100%;
+    transform: none;
+  }
+}
+
+.switch__side {
+  z-index: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: $margin * 0.5 $margin;
+  height: 100%;
+  transition: padding 100ms, color 100ms 50ms;
+
+  &--left {
+    color: var(--bg-base);
+
+    @include dark() {
+      color: inherit;
+    }
+
+    .switch--active & {
+      padding-left: 0;
+      color: inherit;
+    }
+  }
+
+  &--right {
+    padding-right: 0;
+
+    .switch--active & {
+      padding-right: $margin;
+      color: var(--bg-base);
+
+      @include dark() {
+        color: inherit;
+      }
+    }
+  }
+}

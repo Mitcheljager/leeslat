@@ -1,5 +1,25 @@
-<%= inline_svg_tag "images/logo.svg" %>
-<%= inline_svg_tag "images/logo-mark.svg" %>
+<header class="header">
+  <%= link_to root_path, class: "header__root" do %>
+    <%= inline_svg_tag "images/logo.svg", height: 60, width: 211, class: "header__logo header__logo--desktop" %>
+    <%= inline_svg_tag "images/logo-mark.svg", height: 60, width: 60, class: "header__logo header__logo--mobile" %>
+  <% end %>
+
+  <%= render "search" %>
+
+  <div class="header__actions">
+    <%= button_tag type: "button", class: "switch #{theme_dark? ? "switch--active" : ""}", data: { action: "toggle_theme switch" } do %>
+      <div class="switch__side switch__side--left">
+        <%= inline_svg_tag "images/icons/icon-sun.svg", height: 28, width: 28 %>
+      </div>
+
+      <div class="switch__side switch__side--right">
+        <%= inline_svg_tag "images/icons/icon-moon.svg", height: 28, width: 28 %>
+      </div>
+
+      <div class="switch__indicator" data-role="switch_indicator"></div>
+    <% end %>
+  </div>
+</header>
 
 <%= current_user.username if current_user.present? %>
 
@@ -9,7 +29,3 @@
 <%= link_to "Listings", listings_path %>
 <%= link_to "Genres", genres_path %>
 <%= link_to "Users", users_path %>
-
-<%= button_tag "Light/dark toggle", type: "button", data: { action: "toggle_theme" } %>
-
-<%= render "search" %>

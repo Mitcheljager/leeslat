@@ -1,0 +1,43 @@
+@use "sass:map";
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr (map.get($breakpoints, max) * 0.5) 1fr;
+  justify-content: space-between;
+  max-width: map.get($breakpoints, max);
+  margin: 0 auto;
+}
+
+.header__root {
+  display: block;
+  margin-right: auto;
+  text-align: left;
+  color: var(--text-color-base);
+
+  @include hover-stack {
+    filter: brightness(1.5);
+  }
+}
+
+.header__logo {
+  &--mobile {
+    @include breakpoint(tablet) {
+      display: none;
+    }
+  }
+
+  &--desktop {
+    display: none;
+
+    @include breakpoint(tablet) {
+      display: block;
+    }
+  }
+}
+
+.header__actions {
+  display: flex;
+  margin: auto 0 auto auto;
+}

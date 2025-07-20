@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="<%= theme_light? ? "color-scheme: light" : "" %>">
+<html style="<%= theme.present? ? "color-scheme: #{theme}" : "" %>">
   <head>
     <title><%= content_for(:title) || "Gewoon Boeken" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -25,9 +25,7 @@
     <%= vite_stylesheet_tag "application.scss" %>
 
     <%# Prevent flashbangs %>
-    <% if !theme_light? %>
-      <style>@media (prefers-color-scheme: dark) { html { color-scheme: dark; background: #1f1e1d; color: #f6f3ea; } }</style>
-    <% end %>
+    <style>@media (prefers-color-scheme: dark) { html:not([style*="color-scheme: light"]) { color-scheme: dark; background: #1f1e1d; color: #f6f3ea; } }</style>
   </head>
 
   <body>
