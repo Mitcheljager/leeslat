@@ -80,9 +80,9 @@ def get_book(isbn, format = nil, language = nil)
     book.published_date_text = published_date if published_date
 
     parse_authors_for_book(book, authors) if authors.present?
-  end
 
-  book.save!
+    book.save!
+  end
 
   return book
 end
