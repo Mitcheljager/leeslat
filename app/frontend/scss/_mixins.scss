@@ -4,8 +4,8 @@
 @mixin breakpoint($media) {
   $value: $media;
 
-  @if map-has-key($breakpoints, $media) {
-    $value: map-get($breakpoints, $media);
+  @if map.has-key($breakpoints, $media) {
+    $value: map.get($breakpoints, $media);
   }
 
   @media (min-width: #{ $value }) {

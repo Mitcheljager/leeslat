@@ -1,7 +1,8 @@
+@use "sass:list";
 @use "../variables" as *;
 @use "../mixins" as *;
 
-$fallback-aspect-ratio: 300 / 470;
+$fallback-aspect-ratio: list.slash(300, 470);
 
 .cover {
   position: relative;
