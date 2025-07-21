@@ -5,7 +5,7 @@
     <h1><%= @book.title %></h1>
 
     <%= tag.div @book.subtitle, class: "detail__subtitle" if @book.subtitle.present? %>
-    <%= tag.div linked_human_list(@book.authors), class: "detail__names" if @book.authors.any? %>
+    <%= tag.div human_list_with_links(@book.authors), class: "detail__names" if @book.authors.any? %>
   </header>
 
   <aside class="detail__aside">

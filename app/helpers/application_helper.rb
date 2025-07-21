@@ -14,7 +14,7 @@ module ApplicationHelper
 
   # Turn an array of records into a human readable list mentioned above
   # Uses the "name" property by default
-  def linked_human_list(records, key = :name)
+  def human_list_with_links(records, key = :name)
     links = records.map do |record|
       text = record.send(key)
       path = polymorphic_path(record)
