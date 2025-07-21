@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   # Books and related
   resources :sources, param: :slug
   resources :genres, param: :slug
-  resources :listings, concerns: :paginatable
   resources :authors, concerns: :paginatable
   resources :books, param: :slug_and_isbn, path: "boek", only: [:show], concerns: :paginatable
 
@@ -37,5 +36,6 @@ Rails.application.routes.draw do
     get "/", to: "base#index", as: :root
 
     resources :books, param: :slug_and_isbn, concerns: :paginatable
+    resources :listings, concerns: :paginatable
   end
 end

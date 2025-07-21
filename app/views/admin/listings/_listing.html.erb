@@ -1,4 +1,9 @@
-<div>
+<div id="<%= dom_id listing %>">
+  <p>
+    <strong>Book:</strong>
+    <%= listing.book.title %>
+  </p>
+
   <p>
     <strong>Source:</strong>
     <%= listing.source.name %>
@@ -21,6 +26,16 @@
   </p>
 
   <p>
+    <strong>Number of pages:</strong>
+    <%= listing.number_of_pages %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= listing.description %>
+  </p>
+
+  <p>
     <strong>Url:</strong>
     <%= link_to listing.url, listing.url, target: "_blank", ref: "noreferral nofollow" if listing.url.present? %>
   </p>
@@ -34,4 +49,6 @@
     <strong>Was last scrape successful:</strong>
     <%= listing.was_last_scrape_successful %>
   </p>
+
+  <%= link_to "View listing", [:admin, listing] %>
 </div>

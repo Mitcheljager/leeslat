@@ -1,4 +1,4 @@
-class ListingsController < ApplicationController
+class Admin::ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -19,7 +19,7 @@ class ListingsController < ApplicationController
     @listing = Listing.new(listing_params)
 
     if @listing.save
-      redirect_to @listing, notice: "Listing was successfully created."
+      redirect_to [:admin, @listing], notice: "Listing was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class ListingsController < ApplicationController
 
   def update
     if @listing.update(listing_params)
-      redirect_to @listing, notice: "Listing was successfully updated.", status: :see_other
+      redirect_to [:admin, @listing], notice: "Listing was successfully updated.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ class ListingsController < ApplicationController
     book = @listing.book
 
     @listing.destroy!
-    redirect_to book, notice: "Listing was successfully destroyed.", status: :see_other
+    redirect_to [:admin, book], notice: "Listing was successfully destroyed.", status: :see_other
   end
 
   private

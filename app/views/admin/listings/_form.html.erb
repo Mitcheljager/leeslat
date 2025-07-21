@@ -1,0 +1,57 @@
+<%= form_with(model: [:admin, listing]) do |form| %>
+  <% if listing.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(listing.errors.count, "error") %> prohibited this listing from being saved:</h2>
+
+      <ul>
+        <% listing.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :book_id %>
+   <%= form.collection_select :book_id, Book.all, :id, :title, { prompt: "Select a Book" }, { class: "form-input" } %>
+  </div>
+
+  <div>
+    <%= form.label :source_id %>
+    <%= form.collection_select :source_id, Source.all, :id, :name, { prompt: "Select a Source" }, { class: "form-input" } %>
+  </div>
+
+  <div>
+    <%= form.label :price %>
+    <%= form.text_field :price, class: "form-input" %>
+  </div>
+
+  <div>
+    <%= form.label :currency %>
+    <%= form.text_field :currency, class: "form-input" %>
+  </div>
+
+  <div>
+    <%= form.label :condition, "Condition" %>
+    <%= form.select :condition, Listing.conditions.keys.map { |f| [f.titleize, f] }, { prompt: "Select a condition" }, { class: "form-input" } %>
+  </div>
+
+  <div>
+    <%= form.label :condition_details %>
+    <%= form.text_field :condition_details, class: "form-input" %>
+  </div>
+
+  <div>
+    <%= form.label :url %>
+    <%= form.text_field :url, class: "form-input" %>
+  </div>
+
+  <div>
+    <%= form.label :last_scraped_at %>
+    <%= form.datetime_field :last_scraped_at, class: "form-input" %>
+  </div>
+
+  <div class="mt-1">
+    <%= form.submit "Create listing", class: "button button--primary" %>
+  </div>
+<% end %>

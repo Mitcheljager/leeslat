@@ -1,0 +1,11 @@
+<%= render "admin/layout", heading: "Books" do %>
+  <%= page_entries_info @listings %>
+
+  <hr>
+
+  <%= link_to "Create new listing", new_admin_listing_path, class: "button button--primary" %>
+
+  <%= render @listings %>
+
+  <%= paginate @listings %>
+<% end %>
