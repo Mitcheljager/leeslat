@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_21_004948) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_21_111820) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -150,6 +150,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_21_004948) do
     t.string "condition_details"
   end
 
+  create_table "remember_tokens", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_remember_tokens_on_user_id"
+  end
+
   create_table "rollups", force: :cascade do |t|
     t.string "name", null: false
     t.string "interval", null: false
@@ -192,4 +200,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_21_004948) do
   add_foreign_key "book_genres", "books"
   add_foreign_key "book_genres", "genres"
   add_foreign_key "genres", "genres", column: "parent_genre_id"
+  add_foreign_key "remember_tokens", "users"
 end

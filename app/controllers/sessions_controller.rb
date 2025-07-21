@@ -18,6 +18,8 @@ class SessionsController < ApplicationController
       session[:user_id] = @user.id
       session[:return_to] = return_path
 
+      refresh_remember_token_cookie if params[:remember_me].present? && params[:remember_me] != "0"
+
       redirect_to(session[:return_to] || root_path, fallback_location: root_path)
     else
       flash[:alert] = "Username or password is invalid"
@@ -26,7 +28,11 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    current_user.remember_tokens.destroy_all if current_user&.remember_tokens.any?
+
+    destroy_remember_token_cookie
     reset_session
+
     redirect_to login_path
   end
 

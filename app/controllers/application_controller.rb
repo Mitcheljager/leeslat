@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include RememberTokenHandler
+
   before_action :set_client_hints
 
   after_action :track_action, only: [:index, :show, :new]
