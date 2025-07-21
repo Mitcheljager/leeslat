@@ -31,10 +31,10 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_unless_current_user
-    redirect_to login_path, status: :unauthorized unless current_user.present?
+    redirect_to login_path, status: :see_other unless current_user.present?
   end
 
   def redirect_unless_admin
-    redirect_to root_path, status: :unauthorized unless current_user&.admin?
+    redirect_to root_path, status: :see_other unless current_user&.admin?
   end
 end
