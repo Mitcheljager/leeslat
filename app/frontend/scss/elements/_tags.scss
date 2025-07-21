@@ -1,0 +1,24 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.tags {
+  display: flex;
+  gap: $margin;
+  flex-wrap: wrap;
+}
+
+.tag {
+  padding: 0.15rem 0.5rem;
+  border-radius: $border-radius-small;
+  background: var(--bg-content);
+  font-size: $font-size-small;
+  font-family: $font-stack-bold;
+  color: var(--text-color-base);
+  text-decoration: none;
+  text-transform: lowercase;
+
+  @include hover-stack {
+    background: var(--bg-content--hover);
+    color: $white;
+  }
+}

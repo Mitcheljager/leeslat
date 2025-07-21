@@ -14,7 +14,7 @@ response = client.chat(parameters: {
   model: "gpt-4.1-mini",
   messages: [{
     role: "system",
-    content: "You are a summarizer. Your task is to summarize a book by between 10 and 25 keywords in Dutch. These keywords should be comma separated. These keywords should talk about the overall mood, themes, and plot, without spoilers. Avoid general genres like \"Action\" or \"Fantasy\". Titlecase should be used for each keyword, keywords may contain spaces, do not end in a period. The final text should be nothing but comma separated keywords."
+    content: "You are a summarizer. Your task is to summarize a book by between 5 and 20 keywords in Dutch. These keywords should be comma separated. These keywords should talk about the overall mood, themes, and plot, without spoilers. Avoid general genres like \"Action\" or \"Fantasy\". Titlecase should be used for each keyword, keywords may contain spaces, do not end in a period. The final text should be nothing but comma separated keywords."
   }, {
     role: "user",
     content: "Please provide comma separated Dutch keywords for the book \"#{book.title}\" by #{book.authors[0].name}."

@@ -18,7 +18,13 @@
       <% end %>
     </div>
 
-    <h2 class="mt-8">Iets voor jou?</h2>
+    <% if @book.separated_keywords.any? %>
+      <h2 class="mt-8">Iets voor jou?</h2>
+
+      <nav class="tags">
+        <%= render partial: "keyword", collection: @book.separated_keywords, as: :keyword %>
+      </nav>
+    <% end %>
   </aside>
 
   <figure class="detail__image cover" style="<%= "--aspect-ratio: #{@book.cover_aspect_ratio}" if @book.cover_aspect_ratio.present? %>">
