@@ -22,9 +22,9 @@
 }
 
 @mixin hover-stack() {
-  &:hover,
-  &:active,
-  &:focus-visible {
+  &:hover:not([disabled]),
+  &:active:not([disabled]),
+  &:focus-visible:not([disabled]) {
     @content;
   }
 }
