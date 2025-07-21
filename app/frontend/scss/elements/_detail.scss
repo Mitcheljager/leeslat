@@ -12,6 +12,8 @@ $gap: #{calc(map.get($breakpoints, max) / 16)};
   grid-template-columns: 1fr 300px 1fr;
   gap: 0 $gap;
   align-items: flex-start;
+  padding-bottom: $margin * 4;
+
   @include max-width;
 }
 

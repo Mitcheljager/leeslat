@@ -26,6 +26,66 @@
         <%= render partial: "keyword", collection: @book.separated_keywords, as: :keyword %>
       </nav>
     <% end %>
+
+    <h2 class="mt-8">Nog wat extra's</h2>
+
+    <div class="summary" role="complementary">
+      <div class="summary__label" id="isbn">
+        ISBN
+      </div>
+
+      <div class="summary__value" aria-labelledby="isbn">
+        <%= @book.isbn %>
+      </div>
+
+      <% if @book.genres.any? %>
+        <div class="summary__label" id="genres">
+          Genres
+        </div>
+
+        <div class="summary__value" aria-labelledby="genres">
+          <% @book.genres.each_with_index do |genre, index| %>
+            <%= link_to genre.name, genre_path(genre), class: "genre" %>
+            <%= tag.span ",&nbsp".html_safe if index + 1 < @book.genres.size %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="summary__label" id="language">
+        Taal
+      </div>
+
+      <div class="summary__value" aria-labelledby="language">
+        <% # TODO: Add proper translation keys %>
+        <%= @book.language === "en" ? "Engels" : "Nederlands" %>
+      </div>
+
+      <div class="summary__label" id="format">
+        Formaat
+      </div>
+
+      <div class="summary__value" aria-labelledby="format">
+        <%= @book.format %>
+      </div>
+
+      <div class="summary__label" id="number_of_pages">
+        Pagina's
+      </div>
+
+      <div class="summary__value" aria-labelledby="number_of_pages">
+        <%= @book.formatted_number_of_pages %>
+      </div>
+
+      <% if @book.published_date_text %>
+        <div class="summary__label" id="published_date">
+          Uitgifte
+        </div>
+
+        <div class="summary__value" aria-labelledby="published_date">
+          <%= @book.formatted_published_date %>
+        </div>
+      <% end %>
+    </div>
   </aside>
 
   <figure class="detail__image cover" style="<%= "--aspect-ratio: #{@book.cover_aspect_ratio}" if @book.cover_aspect_ratio.present? %>">
@@ -49,64 +109,3 @@
     <div class="detail__cutout"></div>
   </section>
 </article>
-
-<%= tag.h2 @book.subtitle if @book.subtitle %>
-
-<p>
-  <strong>Authors:</strong>
-</p>
-
-<p>
-  <strong>Genres:</strong>
-  <% @book.genres.each do |genre| %>
-    <span><%= genre.name %></span>
-  <% end %>
-</p>
-
-<p>
-  <strong>Isbn:</strong>
-  <%= @book.isbn %>
-</p>
-
-<p>
-  <strong>Number of pages:</strong>
-  <%= @book.formatted_number_of_pages %>
-</p>
-
-<p>
-  <strong>Language:</strong>
-  <%= @book.language %>
-</p>
-
-<p>
-  <strong>Format:</strong>
-  <%= @book.format %>
-</p>
-
-<p>
-  <strong>Published date:</strong>
-  <% if @book.published_date_text %>
-    <%= @book.formatted_published_date %>
-    (<%= @book.published_date_text %>)
-  <% end %>
-</p>
-
-<p>
-  <strong>Last scraped at:</strong>
-  <%= @book.last_scraped_at || "Never" %>
-  <%= button_to "Scrape now",
-                run_all_scrapers_for_isbn_path,
-                params: { isbn: @book.isbn },
-                data: { turbo_submits_with: "Running..." },
-                method: :post %>
-</p>
-
-<p>
-  <strong>Keywords:</strong>
-  <%= @book.keywords %>
-  <%= button_to "(re)Generate keywords",
-                generate_ai_keywords_for_isbn_path,
-                params: { isbn: @book.isbn },
-                data: { turbo_submits_with: "Running..." },
-                method: :post %>
-</p>
