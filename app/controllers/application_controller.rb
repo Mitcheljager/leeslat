@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   before_action :set_client_hints
 
+  after_action :track_action, only: [:index, :show, :new]
+
   helper_method :theme
   helper_method :theme_dark?
   helper_method :current_user
@@ -36,5 +38,9 @@ class ApplicationController < ActionController::Base
 
   def redirect_unless_admin
     redirect_to root_path, status: :see_other unless current_user&.admin?
+  end
+
+  def track_action
+    ahoy.track "Visit", request.path_parameters
   end
 end

@@ -21,6 +21,8 @@ module GewoonBoeken
     config.active_storage.track_variants = true
     config.active_storage.variant_processor = :mini_magick
 
+    config.action_controller.raise_on_missing_callback_actions = false
+
     config.before_configuration do
       env_file = File.join(Rails.root, "config", "local_env.yml")
 

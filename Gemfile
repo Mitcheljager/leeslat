@@ -35,16 +35,22 @@ gem "thruster", require: false
 gem "image_processing", "~> 1.2"
 gem "mini_magick", ">= 4.9.5"
 
-gem "ruby-openai"
-
+# Various
 gem "vite_rails"
 gem "paper_trail"
 gem "kaminari"
 gem "inline_svg"
 
+# Analytics
+gem "ahoy_matey"
+gem "rollups"
+
+# Scraper
+gem "ruby-openai"
 gem "httparty", require: false
 gem "nokogiri", require: false
 
+# Search
 gem "bonsai-elasticsearch-rails", github: "omc/bonsai-elasticsearch-rails", branch: "master"
 gem "elasticsearch-model", "7.1.1"
 gem "elasticsearch-rails", "7.1.1"
