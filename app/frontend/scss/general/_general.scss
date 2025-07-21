@@ -43,10 +43,10 @@ main {
 }
 
 a {
-  color: var(--primary);
+  color: inherit;
 
   @include hover-stack {
-    color: var(--primary--hover);
+    text-decoration-thickness: 2px;
   }
 }
 
