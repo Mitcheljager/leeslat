@@ -4,9 +4,8 @@
   <header class="detail__header">
     <h1><%= @book.title %></h1>
 
-    <% @book.authors.each do |author| %>
-      <span><%= author.name %></span>
-    <% end %>
+
+    <%= linked_human_list(@book.authors) %>
   </header>
 
   <aside class="detail__aside">
