@@ -1,0 +1,11 @@
+<%= render "admin/layout", heading: "Genres" do %>
+  <%= link_to "New genre", new_admin_genre_path, class: "button button--primary" %>
+
+  <hr>
+
+  <div id="genres">
+    <% @genres.where(parent_genre: nil).each do |genre| %>
+      <%= render genre %>
+    <% end %>
+  </div>
+<% end %>

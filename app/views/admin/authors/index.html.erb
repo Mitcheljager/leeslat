@@ -1,0 +1,12 @@
+<%= render "admin/layout", heading: "Authors" do %>
+  <div id="authors">
+    <% @authors.each do |author| %>
+      <%= render author %>
+      <p>
+        <%= link_to "Show this author", [:admin, author] %>
+      </p>
+    <% end %>
+  </div>
+
+  <%= link_to "New author", new_admin_author_path %>
+<% end %>

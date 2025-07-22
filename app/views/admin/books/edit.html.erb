@@ -1,4 +1,4 @@
-<%= render "admin/layout", heading: "Edit book \"#{@book.title}\" by #{human_list(@book.authors.pluck(:name))}" do %>
+<%= render "admin/layout", heading: "Edit book #{@book.title} by #{human_list(@book.authors.pluck(:name))}" do %>
   <%= render "form", book: @book %>
 
   <br>

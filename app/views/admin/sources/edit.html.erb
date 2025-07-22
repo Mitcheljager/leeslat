@@ -1,0 +1,10 @@
+<%= render "admin/layout", heading: "Edit source #{@source.name}" do %>
+  <%= render "form", source: @source %>
+
+  <br>
+
+  <div>
+    <%= link_to "Show this source", [:admin, @source] %> |
+    <%= link_to "Back to sources", admin_sources_path %>
+  </div>
+<% end %>

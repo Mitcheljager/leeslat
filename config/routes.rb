@@ -11,17 +11,12 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq"
 
   # User and session
-  resources :users, except: [:new]
   resources :sessions, only: [:create, :destroy]
 
-  get "register", to: "users#new", as: "new_user"
   get "login", to: "sessions#new", as: "login"
   get "logout", to: "sessions#destroy", as: "logout"
 
   # Books and related
-  resources :sources, param: :slug
-  resources :genres, param: :slug
-  resources :authors, concerns: :paginatable
   resources :books, param: :slug_and_isbn, path: "boek", only: [:show], concerns: :paginatable
 
   # Search
@@ -40,5 +35,9 @@ Rails.application.routes.draw do
 
     resources :books, param: :slug_and_isbn, concerns: :paginatable
     resources :listings, concerns: :paginatable
+    resources :sources, param: :slug
+    resources :genres, param: :slug
+    resources :authors, concerns: :paginatable
+    resources :users
   end
 end

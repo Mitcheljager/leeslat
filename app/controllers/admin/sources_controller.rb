@@ -1,4 +1,4 @@
-class SourcesController < ApplicationController
+class Admin::SourcesController < Admin::BaseController
   before_action :set_source, only: [:show, :edit, :update, :destroy]
 
   def index

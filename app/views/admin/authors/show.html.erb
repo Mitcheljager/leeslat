@@ -1,0 +1,10 @@
+<%= render "admin/layout", heading: "Author #{@author.name}" do %>
+  <%= render @author %>
+
+  <div>
+    <%= link_to "Edit this author", edit_admin_author_path(@author) %> |
+    <%= link_to "Back to authors", admin_authors_path %>
+
+    <%= button_to "Destroy this author", [:admin, @author], method: :delete %>
+  </div>
+<% end %>

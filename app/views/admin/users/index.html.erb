@@ -1,0 +1,14 @@
+<%= render "admin/layout", heading: "Users" do %>
+  <%= link_to "New user", new_admin_user_path, class: "button button--primary" %>
+
+  <hr>
+
+  <div id="users">
+    <% @users.each do |user| %>
+      <%= render user %>
+      <p>
+        <%= link_to "Show this user", [:admin, user] %>
+      </p>
+    <% end %>
+  </div>
+<% end %>

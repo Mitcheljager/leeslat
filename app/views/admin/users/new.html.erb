@@ -1,0 +1,9 @@
+<%= render "admin/layout", heading: "New user" do %>
+  <%= render "form", user: @user %>
+
+  <br>
+
+  <div>
+    <%= link_to "Back to users", users_path %>
+  </div>
+<% end %>

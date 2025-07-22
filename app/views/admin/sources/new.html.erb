@@ -1,0 +1,9 @@
+<%= render "admin/layout", heading: "New source" do %>
+  <%= render "form", source: @source %>
+
+  <br>
+
+  <div>
+    <%= link_to "Back to sources", sources_path %>
+  </div>
+<% end %>

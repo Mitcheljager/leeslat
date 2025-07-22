@@ -1,0 +1,14 @@
+<%= render "admin/layout", heading: "Sources" do %>
+  <%= link_to "New source", new_admin_source_path, class: "button button--primary" %>
+
+  <hr>
+
+  <div id="sources">
+    <% @sources.each do |source| %>
+      <%= render source %>
+      <p>
+        <%= link_to "Show this source", [:admin, source] %>
+      </p>
+    <% end %>
+  </div>
+<% end %>

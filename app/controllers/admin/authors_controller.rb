@@ -1,5 +1,5 @@
-class AuthorsController < ApplicationController
-  before_action :set_author, only: %i[ show edit update destroy ]
+class Admin::AuthorsController < Admin::BaseController
+  before_action :set_author, only: [:show, :edit, :update, :destroy]
 
   def index
     @authors = Author.all

@@ -1,4 +1,4 @@
-class GenresController < ApplicationController
+class Admin::GenresController < Admin::BaseController
   before_action :set_genre, only: [:show, :edit, :update, :destroy]
 
 

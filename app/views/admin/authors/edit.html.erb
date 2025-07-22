@@ -1,0 +1,10 @@
+<%= render "admin/layout", heading: "Edit author #{@author.name}" do %>
+  <%= render "form", author: @author %>
+
+  <br>
+
+  <div>
+    <%= link_to "Show this author", [:admin, @author] %> |
+    <%= link_to "Back to authors", admin_authors_path %>
+  </div>
+<% end %>

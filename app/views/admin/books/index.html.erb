@@ -1,9 +1,12 @@
 <%= render "admin/layout", heading: "Books" do %>
+  <%= link_to "Create new book", new_admin_book_path, class: "button button--primary" %>
+
+  <hr>
+
   <%= page_entries_info @books %>
 
   <hr>
 
-  <%= link_to "Create new book", new_admin_book_path, class: "button button--primary" %>
 
   <%= render @books %>
 

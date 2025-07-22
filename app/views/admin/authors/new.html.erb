@@ -1,0 +1,9 @@
+<%= render "admin/layout", heading: "New author" do %>
+  <%= render "form", author: @author %>
+
+  <br>
+
+  <div>
+    <%= link_to "Back to authors", admin_authors_path %>
+  </div>
+<% end %>

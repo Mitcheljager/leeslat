@@ -1,4 +1,4 @@
-<%= form_with(model: user) do |form| %>
+<%= form_with(model: [:admin, user]) do |form| %>
   <% if user.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -13,20 +13,20 @@
 
   <div>
     <%= form.label :username, style: "display: block" %>
-    <%= form.text_field :username %>
+    <%= form.text_field :username, class: "form-input" %>
   </div>
 
   <div>
     <%= form.label :password, style: "display: block" %>
-    <%= form.text_field :password %>
+    <%= form.text_field :password, class: "form-input" %>
   </div>
 
   <div>
     <%= form.label :password_confirmation, style: "display: block" %>
-    <%= form.text_field :password_confirmation %>
+    <%= form.text_field :password_confirmation, class: "form-input" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="mt-1">
+    <%= form.submit "Submit", class: "button button--primary" %>
   </div>
 <% end %>
