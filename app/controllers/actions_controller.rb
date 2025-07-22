@@ -7,7 +7,7 @@ class ActionsController < ApplicationController
       Rails.logger.info output
 
       @book = Book.find_by_isbn(params[:isbn])
-      redirect_to @book, notice: "Book was successfully updated.", status: :see_other
+      redirect_to [:admin, @book], notice: "Book was successfully updated.", status: :see_other
     rescue => error
       flash[:alert] = error
       redirect_to root_path, status: :unprocessable_entity
@@ -23,10 +23,10 @@ class ActionsController < ApplicationController
 
       raise "No image was attached" unless @book.cover_image.attached?
 
-      redirect_to @book, notice: "Image was successfully attached", status: :see_other
+      redirect_to [:admin, @book], notice: "Image was successfully attached", status: :see_other
     rescue => error
       flash[:alert] = error
-      redirect_to @book, status: :unprocessable_entity
+      redirect_to [:admin, @book], status: :unprocessable_entity
     end
   end
 
@@ -51,10 +51,10 @@ class ActionsController < ApplicationController
       output = `ruby #{Rails.root.join("scraper/ai/openai_descriptions.rb")} #{@book.isbn}`
       Rails.logger.info output
 
-      redirect_to @book, notice: "AI completed successfully", status: :see_other
+      redirect_to [:admin, @book], notice: "AI completed successfully", status: :see_other
     rescue => error
       flash[:alert] = error
-      redirect_to @book, status: :unprocessable_entity
+      redirect_to [:admin, @book], status: :unprocessable_entity
     end
   end
 
@@ -65,10 +65,10 @@ class ActionsController < ApplicationController
       output = `ruby #{Rails.root.join("scraper/ai/openai_keywords.rb")} #{@book.isbn}`
       Rails.logger.info output
 
-      redirect_to @book, notice: "AI completed successfully", status: :see_other
+      redirect_to [:admin, @book], notice: "AI completed successfully", status: :see_other
     rescue => error
       flash[:alert] = error
-      redirect_to @book, status: :unprocessable_entity
+      redirect_to [:admin, @book], status: :unprocessable_entity
     end
   end
 end
