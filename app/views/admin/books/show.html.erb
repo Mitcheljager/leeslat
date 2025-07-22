@@ -1,4 +1,4 @@
-<%= render "admin/layout", heading: "Books" do %>
+<%= render "admin/layout", heading: "Book | #{@book.title}" do %>
   <h2 class="text-transform-none"><%= @book.title %></h2>
 
   <%= tag.h3 @book.subtitle, class: "text-transform-none" if @book.subtitle %>
@@ -13,6 +13,7 @@
 
   <div>
     <%= link_to "Back to overview", admin_books_path %> |
+    <%= link_to "View book page", @book %> |
     <%= link_to "Edit this book", edit_admin_book_path(@book) %> |
 
     <%= button_to "Destroy this book", [:admin, @book], method: :delete, data: { turbo_confirm: "Are you sure you wish to destroy this book?" } %>
@@ -32,6 +33,7 @@
 
   <%= button_to "(re)Generate description",
                 generate_ai_description_for_isbn_path,
+                class: "button",
                 params: { isbn: @book.isbn },
                 data: { turbo_submits_with: "Running..." },
                 method: :post %>
@@ -49,6 +51,7 @@
 
     <%= button_to "(re)Get cover image for this book",
                   attach_image_for_isbn_path,
+                  class: "button",
                   params: { isbn: @book.isbn },
                   data: { turbo_submits_with: "Running..." },
                   method: :post %>
@@ -70,6 +73,7 @@
     <%= @book.keywords %>
     <%= button_to "(re)Generate keywords",
                   generate_ai_keywords_for_isbn_path,
+                  class: "button",
                   params: { isbn: @book.isbn },
                   data: { turbo_submits_with: "Running..." },
                   method: :post %>
@@ -111,6 +115,7 @@
     <%= @book.last_scrape_finished_at || "Never" %>
     <%= button_to "Scrape now",
                   run_all_scrapers_for_isbn_path,
+                  class: "button",
                   params: { isbn: @book.isbn },
                   data: { turbo_submits_with: "Running..." },
                   method: :post %>
@@ -120,5 +125,8 @@
 
   <h3 class="text-transform-none">Listings:</h3>
 
-  <%= render collection: @listings, partial: "admin/listings/listing" %>
+  <% @book.listings.each do |listing| %>
+    <%= render listing, partial: "admin/listings/listing" %>
+    <hr>
+  <% end %>
 <% end %>

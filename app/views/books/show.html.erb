@@ -86,6 +86,8 @@
         </div>
       <% end %>
     </div>
+
+    <%= link_to "View in admin", [:admin, @book], class: "button mt-1" if current_user&.admin? %>
   </aside>
 
   <figure class="detail__image cover" style="<%= "--aspect-ratio: #{@book.cover_aspect_ratio}" if @book.cover_aspect_ratio.present? %>">

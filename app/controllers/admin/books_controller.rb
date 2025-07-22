@@ -6,7 +6,6 @@ class Admin::BooksController < Admin::BaseController
   end
 
   def show
-    @listings = @book.listings_with_price
   end
 
   def new

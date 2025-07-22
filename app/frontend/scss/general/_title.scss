@@ -15,6 +15,11 @@ h2 {
   line-height: 1.2;
 }
 
+h3 {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  line-height: 1.2;
+}
+
 h2,
 h3,
 h4,

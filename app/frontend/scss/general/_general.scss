@@ -61,6 +61,13 @@ p {
   margin: $margin * 2 0;
 }
 
+hr {
+  margin: $margin * 2 0;
+  height: 0.25rem;
+  border: 0;
+  background: currentColor;
+}
+
 figure {
   margin: 0;
 }

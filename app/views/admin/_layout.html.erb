@@ -1,16 +1,16 @@
 <% content_for :title, "#{heading} | Admin" %>
 
-<div class="layout">
+<div class="layout" data-turbo-prefetch="false">
   <h1 class="heading"><%= heading %></h1>
+
+  <nav>
+    <%= link_to "Admin", admin_root_path, class: "button" %>
+    <%= link_to "Books", admin_books_path, class: "button" %>
+    <%= link_to "Listings", admin_listings_path, class: "button" %>
+  </nav>
 
   <p style="color: red"><%= flash[:alert] %></p>
   <p style="color: green"><%= notice %></p>
-
-  <nav>
-    <%= link_to "Admin", admin_root_path %>
-    <%= link_to "Books", admin_books_path %>
-    <%= link_to "Listings", admin_listings_path %>
-  </nav>
 
   <hr>
 
