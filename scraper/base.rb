@@ -47,23 +47,6 @@ def get_search_document(source_url, isbn, headers: {})
   [url, document]
 end
 
-def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description: nil, number_of_pages: 0)
-  book = get_book(isbn)
-
-  raise "Book was nil" if book.nil?
-
-  source = Source.find_by_name(source_name)
-
-  listing = Listing.find_or_initialize_by(book_id: book.id, source_id: source.id)
-  listing.price = Float(price)
-  listing.currency = currency
-  listing.url = url
-  listing.number_of_pages = number_of_pages if number_of_pages.present?
-  listing.description = description if description.present?
-
-  listing.save
-end
-
 def get_book(isbn, format = nil, language = nil)
   book = Book.find_or_initialize_by(isbn: isbn)
 
