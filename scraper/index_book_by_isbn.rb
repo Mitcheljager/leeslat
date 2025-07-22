@@ -13,4 +13,5 @@ begin
 rescue => error
   puts "Indexing of book #{isbn} was not successful"
   puts error
+  puts error.backtrace.join("\n")
 end

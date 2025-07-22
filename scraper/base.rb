@@ -50,7 +50,7 @@ end
 def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description: nil, number_of_pages: 0)
   book = get_book(isbn)
 
-  throw "Book was nil" if book.nil?
+  raise "Book was nil" if book.nil?
 
   source = Source.find_by_name(source_name)
 
@@ -68,11 +68,15 @@ def get_book(isbn, format = nil, language = nil)
   book = Book.find_or_initialize_by(isbn: isbn)
 
   if book.new_record?
-    is_ebook, title, language, authors, published_date = get_google_api_data(isbn)
+    # Google API is somewhat limited. It has rate limited, but this can be increased on request.
+    # It also lacks a lot of books that Goodreads does have, so for we we will rely on Goodreads entirely.
+    # is_ebook, title, language, authors, published_date = get_google_api_data(isbn)
 
-    return nil if is_ebook === true
+    # Not actually using image_url, but I am being lazy with the array format returned from this function.
+    genres, format, image_url, is_ebook, title, language, authors, published_date = get_goodreads_data(isbn)
 
-    genres, format = get_goodreads_data(isbn)
+    raise "Given book \"#{title}\" (#{isbn}) is an ebook" if is_ebook
+    raise "No title was returned for #{isbn}" if title.blank?
 
     book.title = title
     book.language = language

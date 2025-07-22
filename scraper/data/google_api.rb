@@ -1,7 +1,7 @@
 require "httparty"
 
 def get_google_api_data(isbn)
-  google_api_url = "https://www.googleapis.com/books/v1/volumes?q=isbn:#{isbn}"
+  google_api_url = "https://www.googleapis.com/books/v1/volumes?q=isbn:#{isbn}&key=#{ENV["GOOGLE_CLOUD_API_KEY"]}"
 
   puts "Running Google API for: #{google_api_url}"
 
