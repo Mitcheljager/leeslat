@@ -34,13 +34,13 @@ class ActionsController < ApplicationController
     @book = Book.find_by_isbn!(params[:isbn])
 
     begin
-      output = `ruby #{Rails.root.join("scraper/run_all_scrapers.rb")} isbn=#{@book.isbn} title="#{@book.title}"`
-      Rails.logger.info output
+      RequestScrapeJob.new.perform(@book.isbn)
 
-      redirect_to @book, notice: "Scrapers completed successfully", status: :see_other
+      redirect_to [:admin, @book], notice: "Scrapers completed successfully", status: :see_other
     rescue => error
+      puts error
       flash[:alert] = error
-      redirect_to @book, status: :unprocessable_entity
+      redirect_to [:admin, @book]
     end
   end
 

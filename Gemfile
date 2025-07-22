@@ -40,6 +40,7 @@ gem "vite_rails"
 gem "paper_trail"
 gem "kaminari"
 gem "inline_svg"
+gem "sidekiq", "~> 6.5"
 
 # Analytics
 gem "ahoy_matey"

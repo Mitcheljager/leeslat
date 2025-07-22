@@ -107,7 +107,7 @@
     <strong>Scrape last started at:</strong>
     <%= @book.last_scrape_started_at || "Never" %>
     <br>
-    <strong>Last scrape started at:</strong>
+    <strong>Scrape last finished at:</strong>
     <%= @book.last_scrape_finished_at || "Never" %>
     <%= button_to "Scrape now",
                   run_all_scrapers_for_isbn_path,
@@ -120,5 +120,5 @@
 
   <h3 class="text-transform-none">Listings:</h3>
 
-  <%= render collection: @listings, partial: "listings/listing" %>
+  <%= render collection: @listings, partial: "admin/listings/listing" %>
 <% end %>

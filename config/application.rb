@@ -23,6 +23,8 @@ module GewoonBoeken
 
     config.action_controller.raise_on_missing_callback_actions = false
 
+    config.active_job.queue_adapter = :sidekiq
+
     config.before_configuration do
       env_file = File.join(Rails.root, "config", "local_env.yml")
 
