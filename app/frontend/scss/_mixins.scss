@@ -29,11 +29,11 @@
   }
 }
 
-@mixin hover-grow {
+@mixin hover-grow($scale: 1.05) {
   transition: scale 50ms;
 
   @include hover-stack {
-    scale: 1.05;
+    scale: $scale;
   }
 
   &:active {

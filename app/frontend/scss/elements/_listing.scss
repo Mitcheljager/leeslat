@@ -1,0 +1,80 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+$image-size: 4rem;
+
+.listings {
+  display: flex;
+  flex-direction: column;
+  gap: $margin;
+}
+
+.listing {
+  display: flex;
+  align-items: center;
+  gap: $margin;
+  padding: $margin;
+  border-radius: $border-radius-large;
+  background: var(--bg-content);
+  text-decoration: none;
+  max-width: 100%;
+
+  @include hover-grow(1.01);
+
+  @include hover-stack {
+    background: var(--bg-content--hover);
+  }
+}
+
+.listing__image {
+  flex: 0 0 $image-size;
+  width: $image-size;
+  height: $image-size;
+  border: 0;
+  border-radius: $border-radius;
+  background: var(--bg-standout);
+}
+
+.listing__content {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 0 $margin * 0.5;
+  width: 100%;
+}
+
+.listing__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: $font-size-large;
+  font-family: $font-stack-bold;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.listing__condition {
+  font-size: $font-size-small;
+  font-style: italic;
+}
+
+.listing__price {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1.5rem;
+  font-family: $font-stack-bold;
+  font-weight: bold;
+  text-align: right;
+  line-height: 1;
+}
+
+.listing__cents {
+  font-size: $font-size-large;
+  line-height: 1.15;
+}
+
+.listing__shipping {
+  font-size: $font-size-small;
+  white-space: nowrap;
+  text-align: right;
+  font-style: italic;
+}

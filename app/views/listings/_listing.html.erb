@@ -1,37 +1,21 @@
-<div>
-  <p>
-    <strong>Source:</strong>
-    <%= listing.source.name %>
-  </p>
+<%= link_to listing.url, class: "listing", target: "_blank", ref: "noreferral nofollow", aria: { labelledby: "listing-#{listing.id}" } do %>
+  <%= image_tag "", class: "listing__image" %>
 
-  <p>
-    <strong>Price:</strong>
-    <%= number_with_precision(listing.price, precision: 2) %>
-  </p>
+  <span class="listing__content">
+    <span class="listing__name" id="listing-<%= listing.id %>"><%= listing.source.name %></span>
 
-  <p>
-    <strong>Currency:</strong>
-    <%= listing.currency %>
-  </p>
+    <span class="listing__price">
+      €<%= listing.price_large %>,
+      <%= tag.span listing.price_cents, class: "listing__cents" %>
+    </span>
 
-  <p>
-    <strong>Condition:</strong>
-    <%= listing.condition %>
-    <%= tag.span "(#{listing.condition_details})" if listing.condition_details.present? %>
-  </p>
+    <span class="listing__condition">
+      <%= listing.condition %>
+      <%= tag.span "(#{listing.condition_details})" if listing.condition_details.present? %>
+    </span>
 
-  <p>
-    <strong>Url:</strong>
-    <%= link_to listing.url, listing.url, target: "_blank", ref: "noreferral nofollow" if listing.url.present? %>
-  </p>
-
-  <p>
-    <strong>Last scraped at:</strong>
-    <%= listing.last_scraped_at %>
-  </p>
-
-  <p>
-    <strong>Was last scrape successful:</strong>
-    <%= listing.was_last_scrape_successful %>
-  </p>
-</div>
+    <span class="listing__shipping">
+      Gratis verzending
+    </span>
+  </span>
+<% end %>
