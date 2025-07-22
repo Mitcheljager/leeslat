@@ -45,6 +45,6 @@ class SourcesController < ApplicationController
   end
 
   def source_params
-    params.expect(source: [:name, :slug, :base_url])
+    params.expect(source: [:name, :slug, :base_url, :logo])
   end
 end

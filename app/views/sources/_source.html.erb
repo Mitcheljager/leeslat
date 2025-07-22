@@ -1,4 +1,6 @@
 <div id="<%= dom_id source %>">
+  <%= image_tag source.logo.variant(:medium) if source.logo.attached? %>
+
   <p>
     <strong>Name:</strong>
     <%= source.name %>
