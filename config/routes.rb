@@ -33,11 +33,11 @@ Rails.application.routes.draw do
   namespace :admin do
     get "/", to: "base#index", as: :root
 
-    resources :books, param: :slug_and_isbn, concerns: :paginatable
-    resources :listings, concerns: :paginatable
+    resources :books, param: :slug_and_isbn
+    resources :listings
     resources :sources, param: :slug
     resources :genres, param: :slug
-    resources :authors, concerns: :paginatable
+    resources :authors
     resources :users
   end
 end

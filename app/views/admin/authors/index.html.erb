@@ -1,4 +1,10 @@
 <%= render "admin/layout", heading: "Authors" do %>
+  <%= page_entries_info @authors %>
+
+  <hr>
+
+  <%= link_to "New author", new_admin_author_path, class: "button button--primary" %>
+
   <div id="authors">
     <% @authors.each do |author| %>
       <%= render author %>
@@ -8,5 +14,5 @@
     <% end %>
   </div>
 
-  <%= link_to "New author", new_admin_author_path %>
+  <%= paginate @authors %>
 <% end %>
