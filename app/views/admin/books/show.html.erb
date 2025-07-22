@@ -42,20 +42,20 @@
 
   <h3 class="text-transform-none">Cover image:</h3>
 
-  <figure style="<%= "--aspect-ratio: #{@book.cover_aspect_ratio}" if @book.cover_aspect_ratio.present? %>">
+  <figure>
     <% if @book.cover_image.attached? %>
-      <%= image_tag @book.cover_image.variant(:large), width: 300, height: 475 %>
+      <%= image_tag @book.cover_image.variant(:large) %>
     <% else %>
       No image
     <% end %>
-
-    <%= button_to "(re)Get cover image for this book",
-                  attach_image_for_isbn_path,
-                  class: "button",
-                  params: { isbn: @book.isbn },
-                  data: { turbo_submits_with: "Running..." },
-                  method: :post %>
   </figure>
+
+  <%= button_to "(re)Get cover image for this book",
+                attach_image_for_isbn_path,
+                class: "button",
+                params: { isbn: @book.isbn },
+                data: { turbo_submits_with: "Running..." },
+                method: :post %>
 
   <hr>
 
