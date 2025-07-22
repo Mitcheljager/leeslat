@@ -53,7 +53,7 @@ def scrape_amazon(isbn)
     puts description
     puts number_of_pages
 
-    { url: url, price: price, description: description, number_of_pages: number_of_pages }
+    { url: url, price: price, description: description, number_of_pages: number_of_pages, condition: :new, available: true }
   end
 end
 

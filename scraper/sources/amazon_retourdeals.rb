@@ -29,7 +29,10 @@ def scrape_amazon_retourdeals(isbn)
 
     has_amazon_retour_deals = document.css("#merchant-info:contains('Amazon RetourDeals')")
 
-    raise "Amazon page for \"#{isbn}\" does not contain RetourDeals offer" if document.include?("Amazon RetourDeals")
+    if has_amazon_retour_deals
+      puts "Amazon page for \"#{isbn}\" does not contain RetourDeals offer"
+      return { url: url, condition: :used, available: false }
+    end
 
     price = document.css(".a-accordion-inner:contains('#{amazon_retourdeals_merchant_id}') form input[name*='amount']").first.get_attribute('value')
 
@@ -43,7 +46,7 @@ def scrape_amazon_retourdeals(isbn)
     puts description
     puts number_of_pages
 
-    { url: url, price: price, description: description, number_of_pages: number_of_pages }
+    { url: url, price: price, condition: :used, available: true }
   end
 end
 

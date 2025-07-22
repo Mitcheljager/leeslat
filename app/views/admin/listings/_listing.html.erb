@@ -1,4 +1,4 @@
-<div id="<%= dom_id listing %>">
+<div id="<%= dom_id listing %>" style="opacity: <%= listing.available? ? 1 : 0.5 %>">
   <p>
     <strong>Book:</strong>
     <%= listing.book.title %>

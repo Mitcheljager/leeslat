@@ -17,18 +17,21 @@ puts "Running scrapers..."
 def run_scraper(source_name, isbn, title)
   puts "Running #{source_name}..."
 
-  result = yield
-  save_result(source_name, isbn, **result)
+  begin
+    result = yield || {}
 
-  update_listing_scraping_status(source_name, isbn, was_succesful: true)
-rescue => error
-  puts "#{source_name} failed for: #{title} - #{isbn}"
-  puts "#{error.class}: #{error.message}"
-  puts error.backtrace.join("\n")
+    save_result(source_name, isbn, **result)
+    update_listing_scraping_status(source_name, isbn, was_successful: true)
+  rescue => error
+    puts "#{source_name} failed for: #{title} - #{isbn}"
+    puts "#{error.class}: #{error.message}"
+    puts error.backtrace.join("\n")
 
-  update_listing_scraping_status(source_name, isbn, was_succesful: false)
-ensure
-  puts "---"
+    save_unsuccessful_result(source_name, isbn, **result)
+    update_listing_scraping_status(source_name, isbn, was_successful: false)
+  ensure
+    puts "---"
+  end
 end
 
 def run_all_scrapers(isbn, title, scrapers_to_run)
@@ -43,7 +46,7 @@ def run_all_scrapers(isbn, title, scrapers_to_run)
   update_book(isbn)
 end
 
-def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description: nil, number_of_pages: 0)
+def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description: nil, number_of_pages: 0, condition: :unknown, condition_details: nil, available: true)
   book = get_book(isbn)
 
   raise "Book was nil" if book.nil?
@@ -54,19 +57,40 @@ def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description:
   listing.price = Float(price)
   listing.currency = currency
   listing.url = url
-  listing.number_of_pages = number_of_pages if number_of_pages.present?
-  listing.description = description if description.present?
+  listing.number_of_pages = number_of_pages
+  listing.description = description
+  listing.condition = condition
+  listing.condition_details = condition_details
+  listing.available = available
 
   listing.save
 end
 
-def update_listing_scraping_status(source_name, isbn, was_succesful:)
+# An unsuccessful result means the scrape returned errors. It doesn't mean the scrape simply found nothing.
+# Finding nothing is perfectly valid and should be handled in save_result by setting available to false
+def save_unsuccessful_result
+  book = get_book(isbn)
+
+  raise "Book was nil" if book.nil?
+
+  source = Source.find_by_name(source_name)
+
+  listing = Listing.find_or_initialize_by(book_id: book.id, source_id: source.id)
+  listing.price = 0
+  listing.currency = nil
+  listing.url = nil
+  listing.available = false
+
+  listing.save
+end
+
+def update_listing_scraping_status(source_name, isbn, was_successful:)
   book = Book.find_by_isbn(isbn)
   source = Source.find_by_name(source_name)
   listing = Listing.find_or_initialize_by(book_id: book.id, source_id: source.id)
 
   listing.last_scraped_at = DateTime.now
-  listing.was_last_scrape_successful = was_succesful
+  listing.was_last_scrape_successful = was_successful
 
   listing.save!
 end

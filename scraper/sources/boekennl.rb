@@ -15,7 +15,7 @@ def scrape_boekennl(isbn, title)
   # In this case we use a search engine to find the actual page, if it exists
   url, document = get_search_document("boeken.nl", isbn) unless document.text.include?("Beoordelingen")
 
-  return if url.blank? || document.blank?
+  return { url: nil, available: false } if url.blank? || document.blank?
 
   price = document.css(".product-info .uc-price").first.text.gsub("€", "").gsub(",", ".").strip
   description = document.css(".field-name-body .nxte-shave-expanding-item").first.text.strip
@@ -25,5 +25,5 @@ def scrape_boekennl(isbn, title)
   puts description
   puts number_of_pages
 
-  { url: url, price: price, description: description, number_of_pages: number_of_pages }
+  { url: url, price: price, description: description, number_of_pages: number_of_pages, available: price.blank? }
 end

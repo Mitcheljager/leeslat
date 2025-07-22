@@ -14,14 +14,17 @@ def scrape_voordeelboekenonline(isbn)
 
   url, document = get_document(url, return_url: true)
 
+  return { url: nil, available: false } if document.nil?
+
   price = document.css("[data-price-type='finalPrice']").first.attribute("data-price-amount").value.strip
   description = document.css("#descrm .description .value").first.text.strip
   number_of_pages = document.css("[data-th='Bladzijden']").first&.text&.strip
+  available = document.include?("Product is op voorraad")
 
   puts isbn
   puts price
   puts description
   puts number_of_pages
 
-  { url: url, price: price, description: description, number_of_pages: number_of_pages }
+  { url: url, price: price, description: description, number_of_pages: number_of_pages, available: available }
 end
