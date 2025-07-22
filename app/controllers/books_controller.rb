@@ -2,7 +2,7 @@ class BooksController < ApplicationController
   before_action :set_book, only: [:show]
 
   def index
-    @books = Book.order(created_at: :desc).page(params[:page]).per(20)
+    @books = Book.order(created_at: :desc).where.not(last_scraped_at: nil).page(params[:page]).per(20)
   end
 
   def show
