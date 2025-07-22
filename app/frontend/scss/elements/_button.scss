@@ -19,6 +19,7 @@ button {
   font-family: $font-stack-bold;
   text-transform: lowercase;
   text-decoration: none;
+  font-weight: bold;
   color: $white;
 
   @include hover-grow;
