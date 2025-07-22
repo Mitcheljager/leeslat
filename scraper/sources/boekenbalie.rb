@@ -15,7 +15,7 @@ def scrape_boekenbalie(isbn, title)
 
   document = get_document(url)
 
-  return { url: nil, available: false } if document.nil? || document.include("Pagina niet gevonden")
+  return { url: nil, available: false } if document.nil? || document.include?("Pagina niet gevonden")
 
   price = document.css(".product-detail-price").first.text.strip.gsub(",", ".")
   image = document.css(".product-detail-media-gallery img").first.attribute("src").value.strip
