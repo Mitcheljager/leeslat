@@ -7,4 +7,10 @@
 
     <%= button_to "Destroy this author", [:admin, @author], method: :delete %>
   </div>
+
+  <hr>
+
+  <h2>Books by <%= @author.name %></h3>
+
+  <%= render collection: @author.books, partial: "admin/books/book" %>
 <% end %>
