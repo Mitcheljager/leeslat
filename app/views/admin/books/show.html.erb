@@ -104,8 +104,11 @@
   </p>
 
   <p>
-    <strong>Last scraped at:</strong>
-    <%= @book.last_scraped_at || "Never" %>
+    <strong>Scrape last started at:</strong>
+    <%= @book.last_scrape_started_at || "Never" %>
+    <br>
+    <strong>Last scrape started at:</strong>
+    <%= @book.last_scrape_finished_at || "Never" %>
     <%= button_to "Scrape now",
                   run_all_scrapers_for_isbn_path,
                   params: { isbn: @book.isbn },

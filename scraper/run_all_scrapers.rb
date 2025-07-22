@@ -17,6 +17,12 @@ puts "Running scrapers..."
 def run_scraper(source_name, isbn, title)
   puts "Running #{source_name}..."
 
+  # Set the time the scrape was started at. This will be used to determine if the scraper should
+  # run again when scraping automatically for potentially outdated data. We use the start time
+  # rather than the end time to prevent scraping while it's already scraping.
+  book = Book.find_by_isbn(isbn)
+  book.last_scrape_started_at = DateTime.now
+
   result = yield
   save_result(source_name, isbn, **result)
 
