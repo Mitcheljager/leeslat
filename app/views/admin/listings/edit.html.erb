@@ -1,10 +1,10 @@
-<h1>Editing listing</h1>
+<%= render "admin/layout", heading: "Edit listing #{@listing.id} for #{@listing.book.title}" do %>
+  <%= render "form", listing: @listing %>
 
-<%= render "form", listing: @listing %>
+  <br>
 
-<br>
-
-<div>
-  <%= link_to "Show this listing", [:admin, @listing] %> |
-  <%= link_to "Back to listings", admin_listings_path %>
-</div>
+  <div>
+    <%= link_to "Show this listing", [:admin, @listing] %> |
+    <%= link_to "Back to listings", admin_listings_path %>
+  </div>
+<% end %>

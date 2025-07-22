@@ -1,18 +1,20 @@
-<%= render @listing %>
+<%= render "admin/layout", heading: "Listing for #{@listing.book.title}" do %>
+  <%= render @listing %>
 
-<%= @listing.versions.size %>
+  <%= @listing.versions.size %>
 
-<h2>Price history</h2>
+  <h2>Price history</h2>
 
-<% @listing.versions.each do |version| %>
-  <%= version.reify&.price %>
+  <% @listing.versions.each do |version| %>
+    <%= version.reify&.price %>
+  <% end %>
+
+  <%= @listing.price %>
+
+  <div>
+    <%= link_to "Edit this listing", edit_admin_listing_path(@listing) %> |
+    <%= link_to "Back to listings", admin_listings_path %>
+
+    <%= button_to "Destroy this listing", [:admin, @listing], method: :delete %>
+  </div>
 <% end %>
-
-<%= @listing.price %>
-
-<div>
-  <%= link_to "Edit this listing", edit_admin_listing_path(@listing) %> |
-  <%= link_to "Back to listings", admin_listings_path %>
-
-  <%= button_to "Destroy this listing", [:admin, @listing], method: :delete %>
-</div>

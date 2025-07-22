@@ -13,55 +13,55 @@
 
   <div>
     <%= form.label :isbn, style: "display: block" %>
-    <%= form.text_field :isbn %>
+    <%= form.text_field :isbn, class: "form-input" %>
   </div>
 
   <div>
     <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: "form-input" %>
   </div>
 
   <div>
     <%= form.label :subtitle, style: "display: block" %>
-    <%= form.text_field :subtitle %>
+    <%= form.text_field :subtitle, class: "form-input" %>
   </div>
 
   <div>
     <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, class: "form-input" %>
   </div>
 
   <div>
     <%= form.label :author_ids, "Authors", style: "display: block" %>
-    <%= form.collection_select :author_ids, Author.all, :id, :name, {}, { multiple: true, size: 5 } %>
+    <%= form.collection_select :author_ids, Author.all, :id, :name, {}, { multiple: true, size: 5, class: "form-input" } %>
   </div>
 
   <div>
     <%= form.label :genre_ids, "Genres", style: "display: block" %>
-    <%= form.collection_select :genre_ids, Genre.all, :id, :name, {}, { multiple: true, size: 5 } %>
+    <%= form.collection_select :genre_ids, Genre.all, :id, :name, {}, { multiple: true, size: 5, class: "form-input" } %>
   </div>
 
   <div>
     <%= form.label :number_of_pages, style: "display: block" %>
-    <%= form.number_field :number_of_pages %>
+    <%= form.number_field :number_of_pages, class: "form-input" %>
   </div>
 
   <div>
     <%= form.label :format, "Format", style: "display: block" %>
-    <%= form.select :format, Book.formats.keys.map { |f| [f.titleize, f] }, prompt: "Select a format" %>
+    <%= form.select :format, Book.formats.keys.map { |f| [f.titleize, f] }, { prompt: "Select a format" }, { class: "form-input" } %>
   </div>
 
   <div>
     <%= form.label :language, "Language", style: "display: block" %>
-    <%= form.select :language, Book.languages.keys.map { |f| [f.titleize, f] }, prompt: "Select a language" %>
+    <%= form.select :language, Book.languages.keys.map { |f| [f.titleize, f] }, { prompt: "Select a language" }, { class: "form-input" } %>
   </div>
 
   <div>
     <%= form.label :published_date_text, style: "display: block" %>
-    <%= form.text_area :published_date_text %>
+    <%= form.text_field :published_date_text, class: "form-input" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="mt-1">
+    <%= form.submit "Submit", class: "button button--primary" %>
   </div>
 <% end %>

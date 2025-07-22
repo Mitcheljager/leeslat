@@ -1,9 +1,9 @@
-<h1>New book</h1>
+<%= render "admin/layout", heading: "Add new book" do %>
+  <%= render "form", book: @book %>
 
-<%= render "form", book: @book %>
+  <br>
 
-<br>
-
-<div>
-  <%= link_to "Back to books", books_path %>
-</div>
+  <div>
+    <%= link_to "Back to books", books_path %>
+  </div>
+<% end %>
