@@ -46,6 +46,15 @@ end
 
 # Boeken.nl - 100 entries
 isbn_list.each do |isbn|
+  skippable = SkippableISBN.find_by_isbn(isbn)
+
+  # An ISBN has previously attempted to be indexed but failed. It could have failed because there was no Goodreads
+  # entry, or because the book was an ebook.
+  if skippable.present?
+    puts "Skipped #{isbn}"
+    next
+  end
+
   begin
     book = get_book(isbn)
     raise "No book was returned from get_book with isbn #{isbn}" if book.nil?

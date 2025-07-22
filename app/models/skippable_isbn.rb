@@ -1,0 +1,2 @@
+class SkippableISBN < ApplicationRecord
+end

@@ -75,8 +75,15 @@ def get_book(isbn, format = nil, language = nil)
     # Not actually using image_url, but I am being lazy with the array format returned from this function.
     genres, format, image_url, is_ebook, title, language, authors, published_date = get_goodreads_data(isbn)
 
-    raise "Given book \"#{title}\" (#{isbn}) is an ebook" if is_ebook
-    raise "No title was returned for #{isbn}" if title.blank?
+    if is_ebook || title.blank?
+      # Store that this book failed to fetch and may be skipped in future runs. Ebooks are always skipped
+      # and as such are marked as permanent. Other books may be re-tried over time. A rake task will
+      # periodically destroy entries that are not marked as permanent.
+      SkippableISBN.create(isbn: isbn, permanent: is_ebook == true)
+
+      raise "Given book \"#{title}\" (#{isbn}) is an ebook" if is_ebook
+      raise "No title was returned for #{isbn}" if title.blank?
+    end
 
     book.title = title
     book.language = language

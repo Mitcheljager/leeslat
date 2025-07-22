@@ -11,7 +11,10 @@ def get_goodreads_data(isbn)
   # Goodreads data is available in a JSON object from Nextjs, but it's not super easy to read
   json_element = document.at_css("#__NEXT_DATA__")
 
-  raise "No Goodreads page was found for #{isbn}" if json_element.blank?
+  if json_element.blank?
+    puts "No Goodreads page was found for #{isbn}"
+    return nil
+  end
 
   json = JSON.parse(json_element.text)
   json_details = extract_first_book_details(json["props"]["pageProps"]["apolloState"])
