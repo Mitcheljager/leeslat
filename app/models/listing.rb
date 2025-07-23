@@ -10,10 +10,24 @@ class Listing < ApplicationRecord
   validates :condition, inclusion: { in: Listing.conditions.keys }
 
   def price_large
-    self.price.to_s.split(".")[0]
+    price.to_s.split(".")[0]
   end
 
   def price_cents
-    self.price.to_s.split(".")[1]
+    cents = price.to_s.split(".")[1]
+
+    return cents + "0" if cents.size == 1
+    cents
+  end
+
+  def price_label
+    "€#{price_large},#{price_cents}"
+  end
+
+  def condition_label
+    return "Nieuw" if new_condition?
+    return "Tweedehands" if used_condition?
+    return "Licht beschadigd" if damaged_condition?
+    "Onbekend"
   end
 end
