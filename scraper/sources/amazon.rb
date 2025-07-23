@@ -47,12 +47,6 @@ def scrape_amazon(isbn)
     description = document.css("#bookDescription_feature_div .a-expander-content").first.text.strip
     image = document.css("#landingImage").first.attribute("src").value.strip
 
-    puts isbn
-    puts price
-    puts image
-    puts description
-    puts number_of_pages
-
     { url: url, price: price, description: description, number_of_pages: number_of_pages, condition: :new, available: true }
   end
 end

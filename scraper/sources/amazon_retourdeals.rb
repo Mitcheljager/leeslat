@@ -41,11 +41,6 @@ def scrape_amazon_retourdeals(isbn)
 
     description = document.css("#bookDescription_feature_div .a-expander-content").first.text.strip
 
-    puts isbn
-    puts price
-    puts description
-    puts number_of_pages
-
     { url: url, price: price, condition: :used, available: true }
   end
 end

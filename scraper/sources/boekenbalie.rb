@@ -27,11 +27,5 @@ def scrape_boekenbalie(isbn, title)
 
   price = document.css(".product-detail-price").first.text.strip.gsub(",", ".")
 
-  puts title
-  puts isbn
-  puts price
-  puts description
-  puts number_of_pages
-
   { url: url, price: price, description: description, number_of_pages: number_of_pages, condition: :used, available: available }
 end

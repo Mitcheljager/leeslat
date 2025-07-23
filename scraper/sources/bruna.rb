@@ -23,9 +23,5 @@ def scrape_bruna(isbn, title)
   number_of_pages = number_of_pages_label&.text&.strip
   available = !document.text.include?("Tijdelijk niet voorradig")
 
-  puts price
-  puts description
-  puts number_of_pages
-
   { url: url, price: price, description: description, number_of_pages: number_of_pages, available: available }
 end
