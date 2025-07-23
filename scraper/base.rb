@@ -29,7 +29,7 @@ end
 
 # Used as a fallback if accessing a URL directly via an inferred path is not possible
 def get_search_document(source_url, isbn, headers: {})
-  search_url = "https://www.bing.com/search?q=site%3A#{source_url}+#{isbn}"
+  search_url = "https://www.bing.com/search?q=site%3A#{source_url}+boek+isbn+%22#{isbn}%22"
   puts "Searching bing for #{isbn} at #{search_url}"
 
   search_document = get_document(search_url)
