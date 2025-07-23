@@ -99,7 +99,7 @@ def update_book(isbn)
   book = Book.find_by_isbn(isbn)
 
   consolidate_number_of_pages(book)
-  book.update(last_scraped_at: DateTime.now)
+  book.update(last_scrape_finished_at: DateTime.now)
 end
 
 def consolidate_number_of_pages(book)
