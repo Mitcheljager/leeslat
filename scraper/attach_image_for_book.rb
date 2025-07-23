@@ -53,4 +53,3 @@ if image_url.present?
 else
   puts "No valid image url was found for \"#{book.title}\" (#{isbn})"
 end
-

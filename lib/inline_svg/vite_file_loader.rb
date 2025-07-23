@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # https://henrikbjorn.medium.com/til-how-to-use-the-inline-svg-gem-with-vite-ruby-rails-2b0c700b40ca
 
 module InlineSvg
