@@ -13,12 +13,13 @@
   }
 }
 
-@mixin max-width() {
+@mixin max-width($width: map.get($breakpoints, max)) {
   $padding: #{$margin * 3};
-  max-width: calc(map.get($breakpoints, max) + $padding * 2);
-  margin: 0 auto;
-  padding-left: $padding;
+  max-width: calc($width + $padding * 2);
+  margin-right: auto;
+  margin-left: auto;
   padding-right: $padding;
+  padding-left: $padding;
 }
 
 @mixin hover-stack() {

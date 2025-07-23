@@ -1,0 +1,58 @@
+@use "sass:map";
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.faq {
+  width: 100%;
+  margin: $margin * 10 0;
+  @include max-width(map.get($breakpoints, max) * 0.25 + calc(map.get($breakpoints, max) / 8));
+}
+
+.faq__heading {
+  text-align: center;
+}
+
+.faq__item {
+  appearance: none;
+  border-bottom: 1px solid var(--bg-content);
+  padding: $margin 0;
+}
+
+.faq__question {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $margin;
+  list-style: none;
+  font-size: $font-size-large;
+  font-family: $font-stack-bold;
+  font-weight: bold;
+  cursor: pointer;
+
+  &::-webkit-details-marker {
+    display:none;
+  }
+
+  &:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+
+    svg {
+      scale: 1.5;
+    }
+  }
+
+  svg {
+    flex: 0 0 1.5em;
+    scale: 1.25;
+    transition: rotate 100ms;
+
+    [open] & {
+      rotate: 180deg;
+    }
+  }
+}
+
+.faq__answer {
+  font-size: $font-size-base;
+}
