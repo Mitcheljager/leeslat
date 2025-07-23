@@ -26,10 +26,10 @@ def scrape_amazon(isbn)
 
     document = get_document(url)
 
-    fulfiller = document.css("[offer-display-feature-name='desktop-fulfiller-info'] .offer-display-feature-text").first
-    is_amazon = fulfiller.text.strip == "Amazon"
+    return { url: nil, available: false } unless url.include?("/dp/")
 
-    puts "fulfiller " + fulfiller
+    fulfiller = document.css("[offer-display-feature-name='desktop-fulfiller-info'] .offer-display-feature-text").first
+    is_amazon = fulfiller&.text&.strip == "Amazon"
 
     return { url: url, available: false } if !is_amazon
 
@@ -44,8 +44,7 @@ def scrape_amazon(isbn)
     number_of_pages_label = document.css("#detailBullets_feature_div .a-list-item span:contains('pagina')").first
     number_of_pages = number_of_pages_label&.text&.gsub("pagina's", "")&.strip
 
-    description = document.css("#bookDescription_feature_div .a-expander-content").first.text.strip
-    image = document.css("#landingImage").first.attribute("src").value.strip
+    description = document.css("#bookDescription_feature_div .a-expander-content").first&.text&.strip
 
     { url: url, price: price, description: description, number_of_pages: number_of_pages, condition: :new, available: true }
   end

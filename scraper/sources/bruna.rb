@@ -15,7 +15,7 @@ def scrape_bruna(isbn, title)
   # In this case we use a search engine to find the actual page, if it exists
   url, document = get_search_document("bruna.nl", isbn) unless document.text.include?("Overzicht")
 
-  return { url: nil, available: false } if url.blank? || document.blank?
+  return { url: nil, available: false } if url.blank? || document.blank? || !url.include?("/boeken/") || !document.text.include?("Bezorging in de winkel")
 
   price = document.css(".price-block .colored").first.text.strip
   description = document.css(".description .line-clamp-8").first.text.strip

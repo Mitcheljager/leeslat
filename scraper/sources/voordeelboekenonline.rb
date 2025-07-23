@@ -21,7 +21,7 @@ def scrape_voordeelboekenonline(isbn)
   price = document.css("[data-price-type='finalPrice']").first.attribute("data-price-amount").value.strip
   description = document.css("#descrm .description .value").first.text.strip
   number_of_pages = document.css("[data-th='Bladzijden']").first&.text&.strip
-  table = document.css("product-attribute-specs-table").first
+  table = document.css("#product-attribute-specs-table").first
   condition = table.text.include?("Licht beschadigd") ? :damaged : :new
   available = document.text.include?("Product is op voorraad")
 

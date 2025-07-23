@@ -10,7 +10,7 @@ require_relative "sources/voordeelboekenonline"
 arguments = ARGV.map { |a| a.split("=", 2) }.to_h
 isbn = arguments["isbn"]
 title = arguments["title"]
-scrapers_to_run = arguments["scrapers"]&.split(",") || []
+sources_to_run = arguments["sources"]&.split(",") || []
 
 puts "Running scrapers..."
 
@@ -27,21 +27,21 @@ def run_scraper(source_name, isbn, title)
     puts "#{error.class}: #{error.message}"
     puts error.backtrace.join("\n")
 
-    save_unsuccessful_result(source_name, isbn, **result)
+    save_unsuccessful_result(source_name, isbn)
     update_listing_scraping_status(source_name, isbn, was_successful: false)
   ensure
     puts "---"
   end
 end
 
-def run_all_scrapers(isbn, title, scrapers_to_run)
-  run_scraper("Amazon", isbn, title)                  { scrape_amazon(isbn) } if is_in_run?(scrapers_to_run, "Amazon")
-  run_scraper("Amazon RetourDeals", isbn, title)      { scrape_amazon_retourdeals(isbn) } if is_in_run?(scrapers_to_run, "Amazon RetourDeals")
-  run_scraper("Boekenbalie", isbn, title)             { scrape_boekenbalie(isbn, title) } if is_in_run?(scrapers_to_run, "Boekenbalie")
-  run_scraper("Boeken.nl", isbn, title)               { scrape_boekennl(isbn, title) } if is_in_run?(scrapers_to_run, "Boeken.nl")
-  run_scraper("Bruna", isbn, title)                   { scrape_bruna(isbn, title) } if is_in_run?(scrapers_to_run, "Bruna")
-  # [Broken, CF 403] run_scraper("Libris", isbn, title)                  { scrape_libris(isbn) } if is_in_run?(scrapers_to_run, "Libris")
-  run_scraper("Voordeelboekenonline.nl", isbn, title) { scrape_voordeelboekenonline(isbn) } if is_in_run?(scrapers_to_run, "Voordeelboekenonline.nl")
+def run_all_scrapers(isbn, title, sources_to_run)
+  run_scraper("Amazon", isbn, title)                  { scrape_amazon(isbn) } if is_in_run?(sources_to_run, "Amazon")
+  run_scraper("Amazon RetourDeals", isbn, title)      { scrape_amazon_retourdeals(isbn) } if is_in_run?(sources_to_run, "Amazon RetourDeals")
+  run_scraper("Boekenbalie", isbn, title)             { scrape_boekenbalie(isbn, title) } if is_in_run?(sources_to_run, "Boekenbalie")
+  run_scraper("Boeken.nl", isbn, title)               { scrape_boekennl(isbn, title) } if is_in_run?(sources_to_run, "Boeken.nl")
+  run_scraper("Bruna", isbn, title)                   { scrape_bruna(isbn, title) } if is_in_run?(sources_to_run, "Bruna")
+  # [Broken, CF 403] run_scraper("Libris", isbn, title)                  { scrape_libris(isbn) } if is_in_run?(sources_to_run, "Libris")
+  run_scraper("Voordeelboekenonline.nl", isbn, title) { scrape_voordeelboekenonline(isbn) } if is_in_run?(sources_to_run, "Voordeelboekenonline.nl")
 
   update_book(isbn)
 end
@@ -54,7 +54,7 @@ def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description:
   source = Source.find_by_name(source_name)
 
   listing = Listing.find_or_initialize_by(book_id: book.id, source_id: source.id)
-  listing.price = Float(price)
+  listing.price = Float(price || 0)
   listing.currency = currency
   listing.url = url
   listing.number_of_pages = number_of_pages
@@ -68,7 +68,7 @@ end
 
 # An unsuccessful result means the scrape returned errors. It doesn't mean the scrape simply found nothing.
 # Finding nothing is perfectly valid and should be handled in save_result by setting available to false
-def save_unsuccessful_result
+def save_unsuccessful_result(source_name, isbn)
   book = get_book(isbn)
 
   raise "Book was nil" if book.nil?
@@ -115,14 +115,31 @@ def consolidate_number_of_pages(book)
   end
 end
 
-def is_in_run?(scrapers_to_run, name)
-  scrapers_to_run.blank? || scrapers_to_run.include?(name)
+def is_in_run?(sources_to_run, name)
+  sources_to_run.blank? || sources_to_run.include?(name)
 end
 
-if isbn && title
-  run_all_scrapers(isbn, title, scrapers_to_run)
+start_time = DateTime.now
+
+if isbn.present? && title.present?
+  run_all_scrapers(isbn, title, sources_to_run)
 else
-  Book.all.each do |book|
-    run_all_scrapers(isbn, title, scrapers_to_run)
+  Book.all.each_with_index do |book, index|
+    puts "-----------------------------------------------------"
+    puts "Running scrapers for \"#{book.title}\" (#{book.isbn}) - #{index + 1} out of #{Book.all.size}"
+    puts "-----------------------------------------------------"
+
+    run_all_scrapers(book.isbn, book.title, sources_to_run)
   end
 end
+
+end_time = DateTime.now
+total_seconds = ((end_time - start_time) * 24 * 60 * 60).to_f
+minutes = (total_seconds / 60).to_i
+seconds = (total_seconds % 60).round(2)
+
+puts "===================="
+puts "Run started at #{start_time}"
+puts "Run ended at #{end_time}"
+puts "Total time: #{minutes} minutes and #{seconds} seconds"
+puts "===================="

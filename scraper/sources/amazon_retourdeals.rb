@@ -27,6 +27,8 @@ def scrape_amazon_retourdeals(isbn)
 
     document = get_document(url)
 
+    return { url: nil, available: false } unless url.include?("/dp/")
+
     has_amazon_retour_deals = document.css("#merchant-info:contains('Amazon RetourDeals')")
 
     if has_amazon_retour_deals
@@ -35,11 +37,6 @@ def scrape_amazon_retourdeals(isbn)
     end
 
     price = document.css(".a-accordion-inner:contains('#{amazon_retourdeals_merchant_id}') form input[name*='amount']").first.get_attribute('value')
-
-    number_of_pages_label = document.css("#detailBullets_feature_div .a-list-item span:contains('pagina')").first
-    number_of_pages = number_of_pages_label&.text&.gsub("pagina's", "")&.strip
-
-    description = document.css("#bookDescription_feature_div .a-expander-content").first.text.strip
 
     { url: url, price: price, condition: :used, available: true }
   end
