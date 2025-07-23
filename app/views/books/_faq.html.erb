@@ -12,16 +12,18 @@
     </div>
   </details>
 
-  <details class="faq__item">
-    <summary class="faq__question">
-      Wat betekend het als het boek staat aangegeven als beschadigd?
-      <%= inline_svg_tag "images/icons/icon-caret-down.svg", width: 27, height: 27 %>
-    </summary>
+  <% if @book.listings_with_price.where(condition: :damaged).any? %>
+    <details class="faq__item">
+      <summary class="faq__question">
+        Wat betekend het als het boek staat aangegeven als beschadigd?
+        <%= inline_svg_tag "images/icons/icon-caret-down.svg", width: 27, height: 27 %>
+      </summary>
 
-    <div class="faq__answer">
-      <p>Antwoord</p>
-    </div>
-  </details>
+      <div class="faq__answer">
+        <p>Dit boek is nog nooit gelezen of gebruikt, maar heeft lichte beschadigingen opgelopen tijdens printen, transport of misschien bij opslag. Het is verder volledig leesbaar zonder dat er pagina's missen. Er is eigenlijk niets mis mee!</p>
+      </div>
+    </details>
+  <% end %>
 
   <details class="faq__item">
     <summary class="faq__question">
@@ -30,7 +32,7 @@
     </summary>
 
     <div class="faq__answer">
-      <p>Antwoord</p>
+      <p>"<%= @book.title %>" is geschreven door <%= @book.authors_human_list %>.</p>
     </div>
   </details>
 
@@ -41,7 +43,7 @@
     </summary>
 
     <div class="faq__answer">
-      <p>Wanneer is dit boek uitgebracht?</p>
+      <p>Deze editie van "<%= @book.title %>" is voor het eerst uitgebracht op <%= @book.formatted_published_date %>.</p>
     </div>
   </details>
 </div>

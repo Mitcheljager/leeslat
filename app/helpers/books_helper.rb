@@ -1,11 +1,9 @@
 module BooksHelper
   def book_listings_to_summary(book)
-    return "Dit boek is helaas op het moment nergens beschikbaar." if book.listings_with_price.empty?
+    return "\"#{@book.title}\" is helaas op het moment nergens beschikbaar. Het kan zijn dat wij het nog aan het indexeren zijn." if book.listings_with_price.empty?
 
     sorted = book.listings_with_price.sort_by(&:price)
     cheapest_listing = sorted.first
-
-    cheapest_condition_label = cheapest_listing.condition_label
     cheapest_price = cheapest_listing.price_label
     cheapest_source = cheapest_listing.source.name
 
