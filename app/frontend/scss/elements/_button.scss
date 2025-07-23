@@ -41,4 +41,18 @@ button {
       background: var(--primary--hover);
     }
   }
+
+  &--link {
+    padding: 0;
+    color: inherit;
+    background: transparent;
+    font-family: inherit;
+
+    @include hover-stack {
+      background: transparent;
+      scale: 1;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+    }
+  }
 }

@@ -12,10 +12,20 @@
     <h2>Waar gaat het over?</h2>
 
     <div class="description">
-      <% if @book.description.present? %>
-        <%= simple_format(@book.description) %>
-      <% else %>
-        <p>Sorry, wij weten het niet! Er is helaas geen beschrijving beschikbaar.</p>
+      <div class="<%= "line-clamp" if @book.description.present? && @book.description.size > 1000 %>" id="description">
+        <% if @book.description.present? %>
+          <%= simple_format(@book.description) %>
+        <% else %>
+          <p>Sorry, wij weten het niet! Er is helaas geen beschrijving beschikbaar.</p>
+        <% end %>
+      </div>
+
+      <% if @book.description.present? && @book.description.size > 1000 %>
+        <%= button_tag "Lees meer",
+                      type: "button",
+                      class: "button button--link mt-2",
+                      data: { action: "expand_text", expand_with: "Lees minder", collapse_with: "Lees meer" },
+                      aria: { expanded: false, controls: "description" } %>
       <% end %>
     </div>
 
