@@ -31,7 +31,7 @@ def scrape_amazon(isbn)
 
     puts "fulfiller " + fulfiller
 
-    raise "Amazon page for \"#{isbn}\" was not fulfilled by Amazon" if !is_amazon
+    return { url: url, available: false } if !is_amazon
 
     price_text = document.at_css("#tmm-grid-swatch-PAPERBACK")&.text
     price = price_text.to_s.gsub(/[[:space:]]/, "").gsub("€", "").strip.gsub(",", ".").gsub("Paperback", "").strip
