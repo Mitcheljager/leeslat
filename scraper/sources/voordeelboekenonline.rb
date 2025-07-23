@@ -30,5 +30,5 @@ def scrape_voordeelboekenonline(isbn)
   puts description
   puts number_of_pages
 
-  { url: url, price: price, description: description, number_of_pages: number_of_pages, available: available }
+  { url: url, price: price, description: description, number_of_pages: number_of_pages, available: available, condition: condition }
 end

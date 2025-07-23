@@ -25,5 +25,5 @@ def scrape_boekennl(isbn, title)
   puts description
   puts number_of_pages
 
-  { url: url, price: price, description: description, number_of_pages: number_of_pages, available: price.blank? }
+  { url: url, price: price, description: description, number_of_pages: number_of_pages, available: price.blank?, condition: :new }
 end
