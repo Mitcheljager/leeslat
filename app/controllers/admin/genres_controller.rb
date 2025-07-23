@@ -1,24 +1,19 @@
 class Admin::GenresController < Admin::BaseController
   before_action :set_genre, only: [:show, :edit, :update, :destroy]
 
-
   def index
     @genres = Genre.all
   end
 
-
   def show
   end
-
 
   def new
     @genre = Genre.new
   end
 
-
   def edit
   end
-
 
   def create
     @genre = Genre.new(genre_params)
@@ -30,7 +25,6 @@ class Admin::GenresController < Admin::BaseController
     end
   end
 
-
   def update
     if @genre.update(genre_params)
       redirect_to @genre, notice: "Genre was successfully updated.", status: :see_other
@@ -38,7 +32,6 @@ class Admin::GenresController < Admin::BaseController
       render :edit, status: :unprocessable_entity
     end
   end
-
 
   def destroy
     @genre.destroy!
@@ -50,7 +43,6 @@ class Admin::GenresController < Admin::BaseController
   def set_genre
     @genre = Genre.find_by_slug!(params.expect(:slug))
   end
-
 
   def genre_params
     params.expect(genre: [:name, :slug, :parent_genre_id, :keywords])

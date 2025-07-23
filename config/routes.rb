@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   # Books and related
   resources :books, param: :slug_and_isbn, path: "boek", only: [:show], concerns: :paginatable
+  resources :authors, path: "naam", only: [:show]
+  resources :genres, only: [:show]
 
   # Search
   post "zoeken", to: "search#post", as: :search_post
