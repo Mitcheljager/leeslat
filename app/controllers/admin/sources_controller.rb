@@ -19,7 +19,7 @@ class Admin::SourcesController < Admin::BaseController
     @source = Source.new(source_params)
 
     if @source.save
-      redirect_to @source, notice: "Source was successfully created."
+      redirect_to [:admin, @source], notice: "Source was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Admin::SourcesController < Admin::BaseController
 
   def update
     if @source.update(source_params)
-      redirect_to @source, notice: "Source was successfully updated.", status: :see_other
+      redirect_to [:admin, @source], notice: "Source was successfully updated.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -35,7 +35,7 @@ class Admin::SourcesController < Admin::BaseController
 
   def destroy
     @source.destroy!
-    redirect_to sources_path, notice: "Source was successfully destroyed.", status: :see_other
+    redirect_to admin_sources_path, notice: "Source was successfully destroyed.", status: :see_other
   end
 
   private

@@ -19,7 +19,7 @@ class Admin::AuthorsController < Admin::BaseController
     @author = Author.new(author_params)
 
     if @author.save
-      redirect_to @author, notice: "Author was successfully created."
+      redirect_to [:admin, @author], notice: "Author was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Admin::AuthorsController < Admin::BaseController
 
   def update
     if @author.update(author_params)
-      redirect_to @author, notice: "Author was successfully updated.", status: :see_other
+      redirect_to [:admin, @author], notice: "Author was successfully updated.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -35,7 +35,7 @@ class Admin::AuthorsController < Admin::BaseController
 
   def destroy
     @author.destroy!
-    redirect_to authors_path, notice: "Author was successfully destroyed.", status: :see_other
+    redirect_to admin_authors_path, notice: "Author was successfully destroyed.", status: :see_other
   end
 
   private

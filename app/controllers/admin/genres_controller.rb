@@ -19,7 +19,7 @@ class Admin::GenresController < Admin::BaseController
     @genre = Genre.new(genre_params)
 
     if @genre.save
-      redirect_to @genre, notice: "Genre was successfully created."
+      redirect_to [:admin, @genre], notice: "Genre was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Admin::GenresController < Admin::BaseController
 
   def update
     if @genre.update(genre_params)
-      redirect_to @genre, notice: "Genre was successfully updated.", status: :see_other
+      redirect_to [:admin, @genre], notice: "Genre was successfully updated.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -35,7 +35,7 @@ class Admin::GenresController < Admin::BaseController
 
   def destroy
     @genre.destroy!
-    redirect_to genres_path, notice: "Genre was successfully destroyed.", status: :see_other
+    redirect_to admin_genres_path, notice: "Genre was successfully destroyed.", status: :see_other
   end
 
   private
