@@ -6,7 +6,7 @@ require "nokogiri"
 
 def get_document(url, return_url: false, headers: {})
   default_headers = {
-    "User-Agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "User-Agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
   }
 
   response = HTTParty.get(url, {
@@ -35,8 +35,7 @@ def get_search_document(source_url, isbn, headers: {})
   search_document = get_document(search_url)
   url = search_document.css("h2 a").first.attribute("href")&.value
 
-  puts "source " + source_url
-  puts "url " + url
+  puts "URL found through search engine: " + url
 
   return unless url.include?(source_url)
 
@@ -78,7 +77,7 @@ def get_book(isbn, format = nil, language = nil)
     book.save!
   end
 
-  return book
+  book
 end
 
 def parse_authors_for_book(book, authors)
@@ -115,6 +114,5 @@ end
 
 def find_listing_for_isbn_and_source_name(isbn, source_name)
   book = Book.find_by_isbn(isbn)
-  listing = book&.listings&.joins(:source)&.find_by(sources: { name: source_name })
+  book&.listings&.joins(:source)&.find_by(sources: { name: source_name })
 end
-

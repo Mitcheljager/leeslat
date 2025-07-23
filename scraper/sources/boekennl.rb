@@ -19,18 +19,8 @@ def scrape_boekennl(isbn, title)
   document = get_document(url)
 
   # Document was not an actual page, instead it fell back to some overview page
-  # In this case we search and hope for the best
-  if !document&.text&.include?("Beoordelingen")
-    puts "No document found for Boeken.nl, searching instead..."
-
-    url = "https://www.boeken.nl/zoeken?mefibs-form-search-data-keys=#{isbn}"
-    document = get_document(url)
-
-    return { url: nil, available: false } if url.blank? || document.blank?
-
-    url = document.css("h3 a").first&.attribute("href").value
-    document = get_document(url)
-  end
+  # In this case we use a search engine to find the actual page, if it exists
+  url, document = get_search_document("boeken.nl", isbn) unless document&.text&.include?("Beoordelingen")
 
   return { url: nil, available: false } if url.blank? || document.blank?
 
