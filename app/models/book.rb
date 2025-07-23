@@ -1,5 +1,6 @@
 class Book < ApplicationRecord
   include ActionView::Helpers::NumberHelper
+  include ApplicationHelper
 
   if ENV["BONSAI_URL"]
     include Elasticsearch::Model
@@ -37,7 +38,11 @@ class Book < ApplicationRecord
   end
 
   def listings_with_price
-    listings.where.not(price: 0)
+    listings.where.not(price: 0).where(available: true)
+  end
+
+  def authors_human_list
+    human_list(authors.pluck(:name))
   end
 
   # Returns a - if no number of pages are given, otherwise return a number with "." for the thousands delimiter,
