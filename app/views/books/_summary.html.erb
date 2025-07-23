@@ -1,0 +1,57 @@
+<div class="summary" role="complementary">
+      <div class="summary__label" id="isbn">
+        ISBN
+      </div>
+
+      <div class="summary__value" aria-labelledby="isbn">
+        <%= @book.isbn %>
+      </div>
+
+      <% if @book.genres.any? %>
+        <div class="summary__label" id="genres">
+          Genres
+        </div>
+
+        <div class="summary__value" aria-labelledby="genres">
+          <% @book.genres.each_with_index do |genre, index| %>
+            <%= link_to genre.name, genre_path(genre), class: "genre" %>
+            <%= tag.span ",&nbsp".html_safe if index + 1 < @book.genres.size %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="summary__label" id="language">
+        Taal
+      </div>
+
+      <div class="summary__value" aria-labelledby="language">
+        <% # TODO: Add proper translation keys %>
+        <%= @book.language === "en" ? "Engels" : "Nederlands" %>
+      </div>
+
+      <div class="summary__label" id="format">
+        Formaat
+      </div>
+
+      <div class="summary__value" aria-labelledby="format">
+        <%= @book.format %>
+      </div>
+
+      <div class="summary__label" id="number_of_pages">
+        Pagina's
+      </div>
+
+      <div class="summary__value" aria-labelledby="number_of_pages">
+        <%= @book.formatted_number_of_pages %>
+      </div>
+
+      <% if @book.published_date_text %>
+        <div class="summary__label" id="published_date">
+          Uitgifte
+        </div>
+
+        <div class="summary__value" aria-labelledby="published_date">
+          <%= @book.formatted_published_date %>
+        </div>
+      <% end %>
+    </div>
