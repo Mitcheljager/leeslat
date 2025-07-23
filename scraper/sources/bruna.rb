@@ -21,7 +21,7 @@ def scrape_bruna(isbn, title)
   description = document.css(".description .line-clamp-8").first.text.strip
   number_of_pages_label = document.css(".product-meta-description div:nth-child(3)").first
   number_of_pages = number_of_pages_label&.text&.strip
-  available = !document.include?("Tijdelijk niet voorradig")
+  available = !document.text.include?("Tijdelijk niet voorradig")
 
   puts price
   puts description
