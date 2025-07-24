@@ -10,7 +10,7 @@ def scrape_boekennl(isbn, title)
     a an as at before but by for from is in into like of off on onto per since than the this that to up via with
     voor met op en
   ]
-  title_words = title.downcase.split
+  title_words = title.downcase.gsub("'", "").split
   filtered_words = title_words.reject { |word| stop_words.include?(word) }
   cleaned_title = filtered_words.join(" ")
 
