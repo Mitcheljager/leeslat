@@ -1,0 +1,16 @@
+@use "../variables" as *;
+
+.price {
+  display: flex;
+  justify-content: flex-end;
+  font-size: var(--price-font-size, 1.5rem);
+  font-family: $font-stack-bold;
+  font-weight: bold;
+  text-align: right;
+  line-height: 1;
+}
+
+.price__cents {
+  font-size: 0.75em;
+  line-height: 1.15;
+}

@@ -1,13 +1,9 @@
-<h1>Books</h1>
+<section class="layout">
+  <h1 class="heading">Books</h1>
 
-<hr>
+  <div class="items">
+    <%= render @books %>
+  </div>
 
-<div id="books">
-  <% @books.each do |book| %>
-    <%= render book %>
-    <%= link_to "Show this book", book %>
-    <hr>
-  <% end %>
-</div>
-
-<%= paginate @books, theme: :simple, window: 2 %>
+  <%= paginate @books, theme: :simple, window: 2 %>
+</section>

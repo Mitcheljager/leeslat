@@ -1,57 +1,60 @@
-<div id="<%= dom_id book %>">
-  <%= image_tag book.cover_image.variant(:small), height: 200, loading: :lazy if book.cover_image.attached? %>
+<article class="item">
+  <%= link_to book, class: "item__image", aria: { labelledby: book.isbn } do %>
+    <%= render "books/cover", book: book, small: true %>
+  <% end %>
 
-  <p>
-    <strong>Title:</strong>
-    <%= book.title %>
-  </p>
+  <%= link_to book, class: "item__content", aria: { labelledby: book.isbn } do %>
+    <span class="item__main">
+      <span class="item__heading line-clamp line-clamp--line-1" id="<%= book.isbn %>" role="heading" aria-label="2">
+        <%= book.title %>
 
-  <p>
-    <strong>Subtitle:</strong>
-    <%= book.subtitle %>
-  </p>
+        <%= tag.small "- #{book.subtitle}" if book.subtitle.present? %>
+      </span>
 
-  <p>
-    <strong>Authors:</strong>
-    <% book.authors.each do |author| %>
-      <span><%= author.name %></span>
-    <% end %>
-  </p>
+      <span class="item__details" role="complementary">
+        <span><%= human_list(book.authors.pluck(:name)) %></span>
 
-  <p>
-    <strong>Genres:</strong>
-    <% book.genres.each do |genre| %>
-      <span><%= genre.name %></span>
-    <% end %>
-  </p>
+        <span class="item__separator"></span>
 
-  <p>
-    <strong>Description:</strong>
-    <%= book.description %>
-  </p>
+        <span>
+          <%= book.language_label %>
+        </span>
 
-  <p>
-    <strong>Isbn:</strong>
-    <%= book.isbn %>
-  </p>
+        <span class="item__separator"></span>
 
-  <p>
-    <strong>Number of pages:</strong>
-    <%= book.formatted_number_of_pages %>
-  </p>
+        <span>
+          <%= book.format_label %>
+        </span>
 
-  <p>
-    <strong>Language:</strong>
-    <%= book.language %>
-  </p>
+        <span class="item__separator"></span>
 
-  <p>
-    <strong>Format:</strong>
-    <%= book.format %>
-  </p>
+        <span>
+          <%= book.published_year %>
+        </span>
+      </span>
 
-  <p>
-    <strong>Number of listings:</strong>
-    <%= book.listings_with_price.size %>
-  </p>
-</div>
+      <span class="item__description line-clamp line-clamp--line-2">
+        <%= book.description %>
+
+        <%= tag.em "Geen beschijving beschikbaar" if book.description.blank? %>
+      </span>
+    </span>
+
+    <span class="item__aside">
+      <% if book.listings_with_price.any? %>
+        <span class="item__note">
+          Beschikbaar bij <%= book.listings_with_price.size %> verkopers
+        </span>
+      <% end %>
+
+      <span class="item__price">
+        <% if book.listings_with_price.any? %>
+          <em>Vanaf</em>
+          <%= render "listings/price", listing: book.cheapest_listing %>
+        <% else %>
+          <em>Niet beschikbaar</em>
+        <% end %>
+      </span>
+    </span>
+  <% end %>
+</article>

@@ -1,0 +1,111 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+$image-width: 120px;
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: $margin * 2;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  padding-top: 3rem;
+}
+
+.item__image {
+  --cover-border-radius: #{$border-radius-small};
+  --cover-background-color: var(--bg-content--hover);
+  position: absolute;
+  display: inline-flex;
+  left: $margin;
+  top: 0;
+  width: $image-width;
+  height: auto;
+  border-radius: $border-radius-small;
+  background: var(--bg-content-alt);
+  transition: transform 50ms;
+
+  @include hover-stack {
+    transform: translateY(-0.15rem) scale(1.025);
+
+    .cover :first-child {
+      filter: brightness(1.1);
+    }
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.item__content {
+  display: grid;
+  grid-template-columns: auto 12rem;
+  gap: $margin * 2;
+  width: 100%;
+  min-height: 9.25rem;
+  padding: $margin $margin $margin calc($image-width + $margin * 3);
+  border-radius: $border-radius;
+  background: var(--bg-content);
+  text-decoration: none;
+
+  @include hover-stack {
+    background: var(--bg-content--hover);
+  }
+}
+
+.item__main {
+  max-width: 45rem;
+}
+
+.item__heading {
+  display: block;
+  font-family: $font-stack-serif;
+  font-size: 1.5rem;
+
+  small {
+    opacity: 0.75;
+  }
+}
+
+.item__details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $margin * 0.5 $margin;
+  margin: $margin * 0.5 0 $margin * 1.5;
+  font-size: $font-size-small;
+  line-height: 1;;
+}
+
+.item__separator {
+  width: 1px;
+  height: 0.75em;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+.item__description {
+  font-family: $font-stack-serif;
+}
+
+.item__aside {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  padding: $margin * 0.5;
+}
+
+.item__note {
+  font-size: $font-size-small;
+  font-style: italic;;
+}
+
+.item__price {
+  --price-font-size: 1.75rem;
+  margin-top: auto;
+}

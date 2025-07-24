@@ -25,8 +25,7 @@
       </div>
 
       <div class="summary__value" aria-labelledby="language">
-        <% # TODO: Add proper translation keys %>
-        <%= @book.language === "en" ? "Engels" : "Nederlands" %>
+        <%= @book.language_label %>
       </div>
 
       <div class="summary__label" id="format">
@@ -34,7 +33,7 @@
       </div>
 
       <div class="summary__value" aria-labelledby="format">
-        <%= @book.format %>
+        <%= @book.format_label %>
       </div>
 
       <div class="summary__label" id="number_of_pages">

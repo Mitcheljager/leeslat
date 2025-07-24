@@ -41,6 +41,14 @@ class Book < ApplicationRecord
     listings.where.not(price: 0).where(available: true)
   end
 
+  def lowest_price
+    listings_with_price.pluck(:price).sort.first
+  end
+
+  def cheapest_listing
+    listings_with_price.sort_by(&:price).first
+  end
+
   def authors_human_list
     human_list(authors.pluck(:name))
   end
@@ -63,6 +71,15 @@ class Book < ApplicationRecord
     I18n.l(Date.new(parts[0], parts[1], parts[2]), format: "%-d %B, %Y")
   end
 
+  def published_year
+    return if self.published_date_text.blank?
+
+    return self.published_date_text if self.published_date_text.length === 4 # It's probably a year
+
+    parts = self.published_date_text.split("-").map(&:to_i)
+    parts[0]
+  end
+
   # Keywords are a comma separated list, use this method to get them as an array
   def separated_keywords
     keywords.to_s.split(",").map(&:strip)
@@ -74,6 +91,17 @@ class Book < ApplicationRecord
   def cover_aspect_ratio
     return "" if cover_original_width.blank? || cover_original_height.blank?
     "#{cover_original_width} / #{cover_original_height}"
+  end
+
+  # TODO: Add proper translation keys, this will do just fine for now though.
+  def language_label
+    language === "en" ? "Engels" : "Nederlands"
+  end
+
+  def format_label
+    return "Hardcover" if hardcover_format?
+    return "Paperback" if paperback_format?
+    "Onbekend"
   end
 
   # Consists of 3 matchers;
@@ -139,7 +167,7 @@ class Book < ApplicationRecord
       keywords: keywords,
       authors: authors.map(&:name),
       genres: genres.map(&:name),
-      genre_keywords: genres.flat_map { |g| g.keywords.to_s.split(',').map(&:strip) }
+      genre_keywords: genres.flat_map { |g| g.keywords.to_s.split(",").map(&:strip) }
     }
   end
 end
