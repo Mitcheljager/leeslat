@@ -23,6 +23,12 @@ $gap: #{calc(map.get($breakpoints, max) / 16)};
   text-align: center;
 }
 
+.detail__subheader {
+  font-size: $font-size-large;
+  font-family: $font-stack-serif;
+  opacity: 0.8;
+}
+
 .detail__names {
   font-size: 1.5rem;
 
