@@ -45,15 +45,8 @@
     <%= link_to "View in admin", [:admin, @book], class: "button mt-1" if current_user&.admin? %>
   </aside>
 
-  <figure class="detail__image cover" style="<%= "--aspect-ratio: #{@book.cover_aspect_ratio}" if @book.cover_aspect_ratio.present? %>">
-    <% if @book.cover_image.attached? %>
-      <%= image_tag @book.cover_image.variant(:large), width: 300, height: 475, alt: @book.title %>
-      <%= image_tag @book.cover_image.variant(:large), width: 300, height: 475, class: "cover__blur", alt: "" %>
-    <% else %>
-      <div class="cover__empty">
-        <%= inline_svg_tag "images/icons/icon-no-image.svg", width: 60, height: 60, alt: "Geen cover beschikbaar" %>
-      </div>
-    <% end %>
+  <figure class="detail__image">
+    <%= render "cover", book: @book %>
   </figure>
 
   <section class="detail__content">

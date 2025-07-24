@@ -1,0 +1,14 @@
+<% small ||= false %>
+<% width = small ? 120 : 300 %>
+<% height = (width.to_f / (book.cover_original_width.to_f) * (book.cover_original_height.to_f)).round %>
+
+<div class="cover" style="<%= "--aspect-ratio: #{book.cover_aspect_ratio}" if book.cover_aspect_ratio.present? %>">
+  <% if book.cover_image.attached? %>
+    <%= image_tag book.cover_image.variant(:large), width: width, height: height, alt: book.title %>
+    <%= image_tag book.cover_image.variant(:large), width: width, height: height, class: "cover__blur", alt: "" %>
+  <% else %>
+    <div class="cover__empty">
+      <%= inline_svg_tag "images/icons/icon-no-image.svg", width: 60, height: 60, alt: "Geen cover beschikbaar" %>
+    </div>
+  <% end %>
+</div>
