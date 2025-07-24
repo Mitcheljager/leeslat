@@ -1,3 +1,7 @@
 <%= content_for :page_title, @author.name %>
 
-<h1><%= @author.name %></h1>
+<div class="layout">
+  <h1 class="heading"><%= @author.name %></h1>
+
+  <%= render @books %>
+</div>
