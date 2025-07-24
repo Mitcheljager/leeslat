@@ -25,5 +25,5 @@ def scrape_voordeelboekenonline(isbn)
   condition = table.text.include?("Licht beschadigd") ? :damaged : :new
   available = document.text.include?("Product is op voorraad")
 
-  { url: url, price: price, description: description, number_of_pages: number_of_pages, available: available, condition: condition }
+  { url:, price:, description:, number_of_pages:, available:, condition: }
 end

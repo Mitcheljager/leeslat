@@ -23,9 +23,9 @@ def scrape_boekenbalie(isbn, title)
   number_of_pages = number_of_pages_label&.next_element&.text&.strip
   available = !document.text.include?("Niet op voorraad")
 
-  return { url: url, available: false } if !available
+  return { url:, available: false } if !available
 
   price = document.css(".product-detail-price").first.text.strip.gsub(",", ".")
 
-  { url: url, price: price, description: description, number_of_pages: number_of_pages, condition: :used, available: available }
+  { url:, price:, description:, number_of_pages:, condition: :used, available: available }
 end

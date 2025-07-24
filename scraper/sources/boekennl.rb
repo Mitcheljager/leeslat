@@ -35,5 +35,5 @@ def scrape_boekennl(isbn, title)
   description = document.css(".field-name-body .nxte-shave-expanding-item").first&.text&.strip
   number_of_pages = document.css(".field-name-field-page-count .field-item").first&.text&.strip
 
-  { url: url, price: price, description: description, number_of_pages: number_of_pages, available: !price.blank?, condition: :new }
+  { url:, price:, description:, number_of_pages:, available: !price.blank?, condition: :new }
 end

@@ -38,7 +38,7 @@ def scrape_amazon_retourdeals(isbn)
 
     price = document.css(".a-accordion-inner:contains('#{amazon_retourdeals_merchant_id}') form input[name*='amount']").first.get_attribute('value')
 
-    { url: url, price: price, condition: :used, available: true }
+    { url:, price:, condition: :used, available: true }
   end
 end
 

@@ -31,7 +31,7 @@ def scrape_amazon(isbn)
     fulfiller = document.css("[offer-display-feature-name='desktop-fulfiller-info'] .offer-display-feature-text").first
     is_amazon = fulfiller&.text&.strip == "Amazon"
 
-    return { url: url, available: false } if !is_amazon
+    return { url:, available: false } if !is_amazon
 
     price_text = document.at_css("#tmm-grid-swatch-PAPERBACK")&.text
     price = price_text.to_s.gsub(/[[:space:]]/, "").gsub("€", "").strip.gsub(",", ".").gsub("Paperback", "").strip
@@ -46,7 +46,7 @@ def scrape_amazon(isbn)
 
     description = document.css("#bookDescription_feature_div .a-expander-content").first&.text&.strip
 
-    { url: url, price: price, description: description, number_of_pages: number_of_pages, condition: :new, available: true }
+    { url:, price:, description:, number_of_pages:, condition: :new, available: true }
   end
 end
 

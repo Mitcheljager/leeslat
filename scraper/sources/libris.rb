@@ -20,5 +20,5 @@ def scrape_libris(isbn)
   number_of_pages_label = document.at_css(".grid-column-6.grid-column-xs-6.body-normal:contains('pagina')")
   number_of_pages = number_of_pages_label&.gsub("pagina's", "")&.strip
 
-  { url: url, price: price, description: description, number_of_pages: number_of_pages }
+  { url:, price:, description:, number_of_pages: }
 end
