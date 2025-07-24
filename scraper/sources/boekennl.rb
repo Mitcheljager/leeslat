@@ -27,6 +27,10 @@ def scrape_boekennl(isbn, title)
 
   return { url: nil, available: false } if url.blank? || document.blank?
 
+  is_ebook = document.at_css("h1").text.include?("(e-book)")
+
+  return { url: nil, available: false } if is_ebook
+
   price = document.css(".product-info .uc-price").first.text.gsub("€", "").gsub(",", ".").strip
   description = document.css(".field-name-body .nxte-shave-expanding-item").first&.text&.strip
   number_of_pages = document.css(".field-name-field-page-count .field-item").first&.text&.strip
