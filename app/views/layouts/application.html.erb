@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="<%= theme.present? ? "color-scheme: #{theme}" : "" %>" lang="nl">
+<html style="<%= "color-scheme: #{theme}" if theme.present? %>" lang="nl">
   <head>
     <title><%= content_for(:title).present? ? "#{content_for(:title)} | Gewoon Boeken" :  "Gewoon Boeken - De beste prijzen zonder gedoe" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
