@@ -8,6 +8,6 @@ class AuthorsController < ApplicationController
   private
 
   def set_author
-    @author = Author.find_by_slug!(params.expect(:name))
+    @author = Author.find_by_slug!(params.expect(:slug))
   end
 end
