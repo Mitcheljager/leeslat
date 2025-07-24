@@ -12,15 +12,16 @@ $image-width: 120px;
 .item {
   position: relative;
   display: flex;
-  padding-top: 3rem;
+  padding: 1.5rem 0;
 }
 
 .item__image {
   --cover-background-color: var(--bg-content--hover);
   position: absolute;
   display: inline-flex;
-  left: $margin;
-  top: 0;
+  left: 0;
+  top: 50%;
+  translate: 0 -50%;
   width: $image-width;
   height: auto;
   background: var(--bg-content-alt);
@@ -45,8 +46,9 @@ $image-width: 120px;
   grid-template-columns: auto 12rem;
   gap: $margin * 2;
   width: 100%;
-  min-height: 9.25rem;
-  padding: $margin $margin $margin calc($image-width + $margin * 3);
+  min-height: 9rem;
+  padding: $margin $margin $margin calc($image-width + $margin);
+  margin-left: $margin;
   border-radius: $border-radius;
   background: var(--bg-content);
   text-decoration: none;
