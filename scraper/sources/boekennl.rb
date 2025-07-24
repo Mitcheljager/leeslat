@@ -4,9 +4,12 @@ require "nokogiri"
 def scrape_boekennl(isbn, title)
   listing = find_listing_for_isbn_and_source_name(isbn, "Boeken.nl")
 
-  # Boeken.nl removes certain stop words, they use Drupal with Pathauto. Only their list of English stop words is considered.
+  # Boeken.nl removes certain stop words, they use Drupal with Pathauto. Their full list of English words is considered, as well as some Dutch.
   # List from https://www.drupal.org/docs/extending-drupal/contributed-modules/contributed-modules/contributed-modules-for-managing-urls/pathauto-generate-url-path-aliases-automatically/per-language-strings-to-remove-suggestions
-  stop_words = %w[a an as at before but by for from is in into like of off on onto per since than the this that to up via with]
+  stop_words = %w[
+    a an as at before but by for from is in into like of off on onto per since than the this that to up via with
+    voor met op en
+  ]
   title_words = title.downcase.split
   filtered_words = title_words.reject { |word| stop_words.include?(word) }
   cleaned_title = filtered_words.join(" ")
