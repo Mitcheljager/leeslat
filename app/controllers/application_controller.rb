@@ -29,9 +29,9 @@ class ApplicationController < ActionController::Base
   # Will not work for the very first request, as this tells the browser to include it next time.
   # These headers are used in the theme_dark? method above.
   def set_client_hints
-    response.set_header('Accept-CH', 'Sec-CH-Prefers-Color-Scheme')
-    response.set_header('Permissions-Policy', 'ch-prefers-color-scheme=(self)')
-    response.set_header('Vary', 'Sec-CH-Prefers-Color-Scheme')
+    response.set_header("Accept-CH", "Sec-CH-Prefers-Color-Scheme")
+    response.set_header("Permissions-Policy", "ch-prefers-color-scheme=(self)")
+    response.set_header("Vary", "Sec-CH-Prefers-Color-Scheme")
   end
 
   def redirect_unless_current_user
