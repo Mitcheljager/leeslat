@@ -26,6 +26,7 @@
   display: grid;
   grid-template-columns: 1fr (map.get($breakpoints, max) * 0.5) 1fr;
   justify-content: space-between;
+  align-items: center;
   padding-top: $margin;
   padding-bottom: $margin;
 }
