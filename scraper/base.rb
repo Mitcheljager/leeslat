@@ -109,9 +109,11 @@ end
 
 def parse_authors_for_book(book, authors)
   authors.each do |author_name|
-    author_name = author_name.sub(/\s*\(.*\)\s*$/, '')
+    author_name = author_name.sub(/\s*\(.*\)\s*$/, "").strip.squeeze
 
-    author = Author.find_or_create_by!(name: author_name)
+    author = Author.where("LOWER(name) = ?", normalized_name.downcase).first_or_initialize
+    author.name = author_name
+    author.save!
 
     book.authors << author unless book.authors.include?(author)
   end
@@ -121,7 +123,7 @@ def parse_genres_for_book(book, genre_names)
   genre_names.each do |genre_name|
     clean_genre = genre_name.strip.downcase
 
-    genre = Genre.find_by('LOWER(name) = ?', clean_genre)
+    genre = Genre.find_by("LOWER(name) = ?", clean_genre)
 
     # Try to find by keywords if not found by name
     if genre.nil?

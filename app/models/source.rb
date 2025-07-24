@@ -5,8 +5,8 @@ class Source < ApplicationRecord
     attachable.variant(:medium, resize_to_fill: [64, 64], quality: 95, format: :webp, preprocessed: true)
   end
 
-  validates :name, presence: true, uniqueness: true, uniqueness: { case_sensitive: false }
-  validates :slug, presence: true, uniqueness: true, uniqueness: { case_sensitive: false }
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :slug, presence: true, uniqueness: { case_sensitive: false }
   validates :base_url, presence: true, uniqueness: true
 
   def to_param
