@@ -67,7 +67,11 @@ def get_book(isbn, format = nil, language = nil)
       raise "No title was returned for #{isbn}" if title.blank?
     end
 
-    book.title = title
+    # Some titles include a :, which (almost?) always mean it's a title followed by a subtitle
+    main_title, subtitle = title.split(":", 2).map(&:strip)
+
+    book.title = main_title
+    book.subtitle = subtitle if subtitle.present?
     book.language = language
     book.format = format
     book.published_date_text = published_date if published_date
