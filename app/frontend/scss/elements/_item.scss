@@ -16,7 +16,6 @@ $image-width: 120px;
 }
 
 .item__image {
-  --cover-border-radius: #{$border-radius-small};
   --cover-background-color: var(--bg-content--hover);
   position: absolute;
   display: inline-flex;
