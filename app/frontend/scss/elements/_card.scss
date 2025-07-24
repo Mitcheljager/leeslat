@@ -3,24 +3,25 @@
 
 $image-width: 120px;
 
-.items {
-  display: flex;
-  flex-direction: column;
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: $margin * 2;
 }
 
-.item {
+.card {
   position: relative;
   display: flex;
+  flex-direction: column;
   padding-top: 3rem;
 }
 
-.item__image {
+.card__image {
   --cover-background-color: var(--bg-content--hover);
   position: absolute;
   display: inline-flex;
-  left: $margin;
   top: 0;
+  left: $margin * 2;
   width: $image-width;
   height: auto;
   background: var(--bg-content-alt);
@@ -40,13 +41,12 @@ $image-width: 120px;
   }
 }
 
-.item__content {
-  display: grid;
-  grid-template-columns: auto 12rem;
-  gap: $margin * 2;
+.card__content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   width: 100%;
-  min-height: 9.25rem;
-  padding: $margin $margin $margin calc($image-width + $margin * 3);
+  padding: calc($image-width + $margin * 3) $margin * 2 $margin * 2;
   border-radius: $border-radius;
   background: var(--bg-content);
   text-decoration: none;
@@ -56,47 +56,38 @@ $image-width: 120px;
   }
 }
 
-.item__main {
-  max-width: 45rem;
-}
-
-.item__heading {
+.card__heading {
   display: block;
   font-family: $font-stack-serif;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
+  line-height: 1.35;
 
   small {
     opacity: 0.75;
   }
 }
 
-.item__details {
+.card__details {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: $margin * 0.5 $margin;
   margin: $margin * 0.5 0 $margin * 1.5;
+  opacity: 0.7;
   font-size: $font-size-small;
   line-height: 1;
 }
 
-.item__description {
-  font-family: $font-stack-serif;
-}
-
-.item__aside {
+.card__tray {
   display: flex;
-  flex-direction: column;
-  text-align: right;
-  padding: $margin * 0.5;
-}
-
-.item__note {
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: auto;
   font-size: $font-size-small;
-  font-style: italic;
 }
 
-.item__price {
+.card__price {
   --price-font-size: 1.75rem;
   margin-top: auto;
+  text-align: right;
 }

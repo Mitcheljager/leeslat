@@ -1,0 +1,48 @@
+<article class="card">
+  <%= link_to book, class: "card__image", aria: { labelledby: book.isbn } do %>
+    <%= render "books/cover", book: book, small: true %>
+  <% end %>
+
+  <%= link_to book, class: "card__content", aria: { labelledby: book.isbn } do %>
+    <span class="card__heading line-clamp line-clamp--line-1" id="<%= book.isbn %>" role="heading" aria-label="2">
+      <%= book.title %>
+    </span>
+
+    <span class="font-small line-clamp line-clamp--line-1"><%= human_list(book.authors.pluck(:name)) %></span>
+
+    <span class="card__details" role="complementary">
+      <span>
+        <%= book.language_label %>
+      </span>
+
+      <span class="separator"></span>
+
+      <span>
+        <%= book.format_label %>
+      </span>
+
+      <span class="separator"></span>
+
+      <span>
+        <%= book.published_year %>
+      </span>
+    </span>
+
+    <span class="card__tray">
+      <% if book.listings_with_price.any? %>
+        <span class="card__note">
+          <em>Bij <%= book.listings_with_price.size %> verkoper<%= "s" if book.listings_with_price.many? %></em>
+        </span>
+      <% end %>
+
+      <span class="card__price">
+        <% if book.listings_with_price.any? %>
+          Vanaf
+          <%= render "listings/price", listing: book.cheapest_listing %>
+        <% else %>
+          <em>Niet beschikbaar</em>
+        <% end %>
+      </span>
+    </span>
+  <% end %>
+</article>

@@ -14,19 +14,19 @@
       <span class="item__details" role="complementary">
         <span><%= human_list(book.authors.pluck(:name)) %></span>
 
-        <span class="item__separator"></span>
+        <span class="separator"></span>
 
         <span>
           <%= book.language_label %>
         </span>
 
-        <span class="item__separator"></span>
+        <span class="separator"></span>
 
         <span>
           <%= book.format_label %>
         </span>
 
-        <span class="item__separator"></span>
+        <span class="separator"></span>
 
         <span>
           <%= book.published_year %>
@@ -49,7 +49,7 @@
 
       <span class="item__price">
         <% if book.listings_with_price.any? %>
-          <em>Vanaf</em>
+          Vanaf
           <%= render "listings/price", listing: book.cheapest_listing %>
         <% else %>
           <em>Niet beschikbaar</em>

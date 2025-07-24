@@ -76,3 +76,10 @@ figure {
   @include max-width;
   padding-bottom: $margin * 10;
 }
+
+.separator {
+  width: 1px;
+  height: 0.75em;
+  background: currentColor;
+  opacity: 0.5;
+}

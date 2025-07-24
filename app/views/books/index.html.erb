@@ -1,8 +1,8 @@
 <section class="layout">
   <h1 class="heading">Books</h1>
 
-  <div class="items">
-    <%= render @books %>
+  <div class="cards">
+    <%= render collection: @books, partial: "books/card", as: :book %>
   </div>
 
   <%= paginate @books, theme: :simple, window: 2 %>
