@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   post "actions/run_all_scrapers_for_isbn", to: "actions#run_all_scrapers_for_isbn", as: :run_all_scrapers_for_isbn
   post "actions/generate_ai_description_for_isbn", to: "actions#generate_ai_description_for_isbn", as: :generate_ai_description_for_isbn
   post "actions/generate_ai_keywords_for_isbn", to: "actions#generate_ai_keywords_for_isbn", as: :generate_ai_keywords_for_isbn
+  post "actions/generate_ai_description_for_author", to: "actions#generate_ai_description_for_author", as: :generate_ai_description_for_author
 
   namespace :admin do
     get "/", to: "base#index", as: :root

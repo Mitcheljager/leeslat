@@ -3,6 +3,13 @@
 
   <p><strong>Description</strong>: <%= @author.description %></p>
 
+  <%= button_to "(re)Generate description",
+                generate_ai_description_for_author_path,
+                class: "button",
+                params: { slug: @author.slug },
+                data: { turbo_submits_with: "Running..." },
+                method: :post %>
+
   <div>
     <%= link_to "Edit this author", edit_admin_author_path(@author) %> |
     <%= link_to "Back to authors", admin_authors_path %>

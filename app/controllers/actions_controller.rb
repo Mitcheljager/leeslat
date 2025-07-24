@@ -71,4 +71,18 @@ class ActionsController < ApplicationController
       redirect_to [:admin, @book], status: :unprocessable_entity
     end
   end
+
+  def generate_ai_description_for_author
+    @author = Author.find_by_slug!(params[:slug])
+
+    begin
+      output = `ruby #{Rails.root.join("scraper/ai/openai_author_description.rb")} "#{@author.name}"`
+      Rails.logger.info output
+
+      redirect_to [:admin, @author], notice: "AI completed successfully", status: :see_other
+    rescue => error
+      flash[:alert] = error
+      redirect_to [:admin, @author], status: :unprocessable_entity
+    end
+  end
 end
