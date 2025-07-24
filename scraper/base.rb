@@ -39,19 +39,32 @@ end
 
 # Used as a fallback if accessing a URL directly via an inferred path is not possible
 def get_search_document(source_url, isbn, headers: {})
-  search_url = "https://www.bing.com/search?q=site%3A#{source_url}+boek+isbn+%22#{isbn}%22"
-  puts "Searching bing for #{isbn} at #{search_url}"
+  query = "site:#{source_url} \"#{isbn}\""
+  url = "https://api.search.brave.com/res/v1/web/search"
 
-  search_document = get_document(search_url)
-  url = search_document.css("h2 a").first.attribute("href")&.value
+  headers = {
+    "Accept" => "application/json",
+    "X-Subscription-Token" => ENV["BRAVE_API_KEY"]
+  }
 
-  puts "URL found through search engine: " + url
+  response = HTTParty.get(url, query: { q: query }, headers: headers)
 
-  return unless url.include?(source_url)
+  if response.code != 200
+    puts "Brave API error: #{response.code} - #{response.body}"
+    return nil
+  end
+
+  results = JSON.parse(response.body)
+  first_result = results.dig("web", "results", 0)
+
+  return nil unless first_result
+
+  url = first_result["url"]
+  title = first_result["title"]
+
+  puts "Found via Brave: #{title} (#{url})"
 
   url, document = get_document(url, return_url: true, headers: headers)
-
-  puts document.present?
 
   [url, document]
 end
