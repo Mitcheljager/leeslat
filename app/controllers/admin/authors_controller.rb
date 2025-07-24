@@ -41,10 +41,10 @@ class Admin::AuthorsController < Admin::BaseController
   private
 
   def set_author
-    @author = Author.find(params.expect(:id))
+    @author = Author.find_by_slug(params.expect(:slug))
   end
 
   def author_params
-    params.expect(author: [:name])
+    params.expect(author: [:name, :slug, :description])
   end
 end

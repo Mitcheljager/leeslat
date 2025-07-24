@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   # Books and related
   resources :books, param: :slug_and_isbn, path: "boek", only: [:show], concerns: :paginatable
-  resources :authors, path: "naam", only: [:show]
+  resources :authors, path: "naam", param: :slug, only: [:show]
   resources :genres, only: [:show]
 
   # Search
@@ -39,7 +39,7 @@ Rails.application.routes.draw do
     resources :listings
     resources :sources, param: :slug
     resources :genres, param: :slug
-    resources :authors
+    resources :authors, param: :slug
     resources :users
   end
 end

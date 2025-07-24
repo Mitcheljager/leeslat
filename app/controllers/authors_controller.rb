@@ -2,11 +2,12 @@ class AuthorsController < ApplicationController
   before_action :set_author, only: [:show]
 
   def show
+    @books = @author.books
   end
 
   private
 
   def set_author
-    @author = Author.find(params.expect(:id))
+    @author = Author.find_by_slug!(params.expect(:name))
   end
 end

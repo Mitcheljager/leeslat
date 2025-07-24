@@ -1,6 +1,8 @@
 <%= render "admin/layout", heading: "Author #{@author.name}" do %>
   <%= render @author %>
 
+  <p><strong>Description</strong>: <%= @author.description %></p>
+
   <div>
     <%= link_to "Edit this author", edit_admin_author_path(@author) %> |
     <%= link_to "Back to authors", admin_authors_path %>
@@ -11,6 +13,7 @@
   <hr>
 
   <h2>Books by <%= @author.name %></h3>
+
 
   <%= render collection: @author.books, partial: "admin/books/book" %>
 <% end %>

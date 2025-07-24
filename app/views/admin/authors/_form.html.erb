@@ -16,6 +16,16 @@
     <%= form.text_field :name, class: "form-input" %>
   </div>
 
+  <div>
+    <%= form.label :slug, style: "display: block" %>
+    <%= form.text_field :slug, class: "form-input" %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_area :description, class: "form-input" %>
+  </div>
+
   <div class="mt-1">
     <%= form.submit "Submit", class: "button button--primary" %>
   </div>
