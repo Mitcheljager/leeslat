@@ -47,7 +47,7 @@ def get_search_document(source_url, isbn, headers: {})
     "X-Subscription-Token" => ENV["BRAVE_API_KEY"]
   }
 
-  response = HTTParty.get(url, query: { q: query }, headers: headers)
+  response = HTTParty.get(url, query: { q: query, count: 1, country: "nl" }, headers: headers)
 
   if response.code != 200
     puts "Brave API error: #{response.code} - #{response.body}"
