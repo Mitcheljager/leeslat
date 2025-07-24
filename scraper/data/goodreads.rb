@@ -23,7 +23,7 @@ def get_goodreads_data(isbn)
   genres = extract_book_genres(json["props"]["pageProps"]["apolloState"])
   title = extract_book_title(json["props"]["pageProps"]["apolloState"])
 
-  is_ebook = json_details["format"].include?("Kindle")
+  is_ebook = json_details["format"].include?("Kindle") || json_details["format"].include?("ebook")
   language_text = json_details["language"]["name"]
   publication_time = json_details["publicationTime"]
   published_date = Time.at(publication_time / 1000).to_date.strftime("%Y-%m-%d")
