@@ -16,9 +16,9 @@ class Book < ApplicationRecord
   has_many :genres, through: :book_genres
 
   has_one_attached :cover_image do |attachable|
-    attachable.variant(:large, resize_to_limit: [300, 500], quality: 80, format: :webp, preprocessed: true)
-    attachable.variant(:card,  resize_to_limit: [250, 190], quality: 80, format: :webp, preprocessed: true)
-    attachable.variant(:small, resize_to_limit: [120, 190], quality: 80, format: :webp, preprocessed: true)
+    attachable.variant(:large,       resize_to_limit: [300, 500], quality: 80, format: :webp, preprocessed: true)
+    attachable.variant(:small_wide,  resize_to_limit: [250, 190], quality: 80, format: :webp, preprocessed: true)
+    attachable.variant(:small,       resize_to_limit: [120, 190], quality: 80, format: :webp, preprocessed: true)
   end
 
   enum :format, [:unknown, :paperback, :hardcover], suffix: true
