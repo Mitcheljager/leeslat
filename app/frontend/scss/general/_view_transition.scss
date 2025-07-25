@@ -1,3 +1,13 @@
+@use "../mixins" as *;
+
+html {
+	--theme-toggle-clip-path: 0 0, 100% 0%, 100% 0, 0 0;
+
+	&[style*="color-scheme: dark"] {
+		--theme-toggle-clip-path: 0 100%, 100% 100%, 100% 100%, 0 100%;
+	}
+}
+
 @keyframes curtain {
 	from {
     clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);

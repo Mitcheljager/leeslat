@@ -19,7 +19,6 @@ export default class theme_toggle {
     theme_toggle.html_element.style.setProperty("color-scheme", theme_toggle.theme);
     theme_toggle.html_element.style.viewTransitionName = "changing-theme";
 
-    this.set_clip_path_target();
     this.set_cookie();
 
     if (theme_toggle.theme === "dark") new switch_toggle().toggle(toggle_button, true);
@@ -28,9 +27,8 @@ export default class theme_toggle {
       setTimeout(() => {
         fallback_view_transition(() => {
           const currentTheme = theme_toggle.html_element.style.getPropertyValue("color-scheme") as Theme;
-          theme_toggle.theme = currentTheme === "light" ? "dark" : "light";
 
-          this.set_clip_path_target();
+          theme_toggle.theme = currentTheme === "light" ? "dark" : "light";
           theme_toggle.html_element.style.setProperty("color-scheme", theme_toggle.theme);
 
           this.set_cookie();
@@ -44,13 +42,6 @@ export default class theme_toggle {
     const window_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 
     return (html_theme || window_theme) as Theme;
-  }
-
-  private set_clip_path_target(): void {
-    const light = "0 0, 100% 0%, 100% 0, 0 0";
-    const dark = "0 100%, 100% 100%, 100% 100%, 0 100%";
-
-    theme_toggle.html_element.style.setProperty("--theme-toggle-clip-path", theme_toggle.theme === "dark" ? dark : light);
   }
 
   private set_cookie(): void {
