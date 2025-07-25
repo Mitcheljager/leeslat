@@ -1,0 +1,14 @@
+@use "../mixins" as *;
+
+.wavy-underline {
+  display: inline-block;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='10'><path d='M0 5 Q 30 0, 60 5 T 120 5' stroke='%235d4037' fill='transparent' stroke-width='4' stroke-linecap='round'/></svg>");
+  background-repeat: repeat-x;
+  background-position: 0 100%;
+  background-size: auto 10px;
+  padding-bottom: 10px;
+
+  @include dark {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='10'><path d='M0 5 Q 30 0, 60 5 T 120 5' stroke='%23e7e5db' fill='transparent' stroke-width='4' stroke-linecap='round'/></svg>");
+  }
+}
