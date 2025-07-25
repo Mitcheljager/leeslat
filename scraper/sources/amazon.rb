@@ -1,4 +1,5 @@
 require_relative "../base"
+require_relative "../helpers/date_formatter"
 require "nokogiri"
 
 def scrape_amazon(isbn)
@@ -46,7 +47,11 @@ def scrape_amazon(isbn)
 
     description = document.css("#bookDescription_feature_div .a-expander-content").first&.text&.strip
 
-    { url:, price:, description:, number_of_pages:, condition: :new, available: true }
+    published_date_text = DateFormatter.format_published_date_text(document.css("#rpi-attribute-book_details-publication_date .rpi-attribute-value").first&.text&.strip)
+
+    puts published_date_text
+
+    { url:, price:, description:, number_of_pages:, condition: :new, available: true, published_date_text: }
   end
 end
 

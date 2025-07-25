@@ -1,4 +1,5 @@
 require_relative "../base"
+require_relative "../helpers/date_formatter"
 require "nokogiri"
 
 def scrape_voordeelboekenonline(isbn)
@@ -24,6 +25,7 @@ def scrape_voordeelboekenonline(isbn)
   table = document.css("#product-attribute-specs-table").first
   condition = table.text.include?("Licht beschadigd") ? :damaged : :new
   available = document.text.include?("Product is op voorraad")
+  published_date_text = DateFormatter.format_published_date_text(document.css("[data-th='Verschijningsdatum']").first&.text&.strip)
 
-  { url:, price:, description:, number_of_pages:, available:, condition: }
+  { url:, price:, description:, number_of_pages:, available:, condition:, published_date_text: }
 end

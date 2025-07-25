@@ -1,4 +1,5 @@
 require_relative "../base"
+require_relative "../helpers/date_formatter"
 require "nokogiri"
 
 def scrape_boekennl(isbn, title)
@@ -35,5 +36,7 @@ def scrape_boekennl(isbn, title)
   description = document.css(".field-name-body .nxte-shave-expanding-item").first&.text&.strip
   number_of_pages = document.css(".field-name-field-page-count .field-item").first&.text&.strip
 
-  { url:, price:, description:, number_of_pages:, available: !price.blank?, condition: :new }
+  published_date_text = DateFormatter.format_published_date_text(document.css(".field-name-field-publishing-date .date-display-single").first&.text&.strip)
+
+  { url:, price:, description:, number_of_pages:, available: !price.blank?, condition: :new, published_date_text: }
 end

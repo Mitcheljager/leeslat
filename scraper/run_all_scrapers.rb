@@ -46,7 +46,7 @@ def run_all_scrapers(isbn, title, sources_to_run)
   update_book(isbn)
 end
 
-def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description: nil, number_of_pages: 0, condition: :unknown, condition_details: nil, available: true)
+def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description: nil, number_of_pages: 0, condition: :unknown, condition_details: nil, available: true, published_date_text: nil)
   book = get_book(isbn)
 
   raise "Book was nil" if book.nil?
@@ -62,6 +62,7 @@ def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description:
   listing.condition = condition
   listing.condition_details = condition_details
   listing.available = available
+  listing.published_date_text = published_date_text if published_date_text.present?
 
   listing.save
 end
@@ -99,12 +100,12 @@ def update_book(isbn)
   book = Book.find_by_isbn(isbn)
 
   consolidate_number_of_pages(book)
+  consolidate_published_date_text(book)
+
   book.update(last_scrape_finished_at: DateTime.now)
 end
 
 def consolidate_number_of_pages(book)
-  return if book.blank?
-
   number_of_pages_counts = book.listings.where.not(number_of_pages: 0).pluck(:number_of_pages)
   most_common_number_of_pages = number_of_pages_counts.group_by(&:itself).transform_values(&:count).max_by { |_, count| count }&.first
 
@@ -112,6 +113,20 @@ def consolidate_number_of_pages(book)
 
   if most_common_number_of_pages && book.number_of_pages != most_common_number_of_pages
     book.update(number_of_pages: most_common_number_of_pages)
+  end
+end
+
+# In some cases books scraped from Goodreads don't have published dates, but listings might have them
+def consolidate_published_date_text(book)
+  return if book.published_date_text.present?
+
+  published_date_text_counts = book.listings.where.not(published_date_text: nil).pluck(:published_date_text)
+  most_common_published_date_text = published_date_text_counts.group_by(&:itself).transform_values(&:count).max_by { |_, count| count }&.first
+
+  return if published_date_text_counts.empty?
+
+  if most_common_published_date_text && book.number_of_pages != most_common_published_date_text
+    book.update(published_date_text: most_common_published_date_text)
   end
 end
 

@@ -44,7 +44,7 @@
         <%= @book.formatted_number_of_pages %>
       </div>
 
-      <% if @book.published_date_text %>
+      <% if @book.published_date_text.present? %>
         <div class="summary__label" id="published_date">
           Uitgifte
         </div>
