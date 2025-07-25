@@ -2,7 +2,7 @@ class Admin::BooksController < Admin::BaseController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
   def index
-    @books = Book.order(created_at: :desc).page(params[:page]).per(20)
+    @books = Book.order(created_at: :desc).page(params[:page])
   end
 
   def show
