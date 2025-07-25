@@ -12,7 +12,7 @@ module BooksHelper
     # Optional if cheapest is not new condition: Daarnaast is het ook nieuw te vinden bij Verkoper voor €12.34.
     # Optional if more listings are given: Ook is het te vinden bij Verkoper voor €12.34.
     first_sentence = <<~HTML.strip
-      #{book.title}, door #{human_list(book.authors.pluck(:name))}, is het allergoedkoopst bij #{cheapest_source}, voor maar #{cheapest_price}. #{listing_condition_sentence(cheapest_listing)} #{new_listings_note(sorted, cheapest_listing)}
+      #{book.title}#{", door #{human_list(book.authors.pluck(:name))}," if book.authors.any?} is het allergoedkoopst bij #{cheapest_source}, voor maar #{cheapest_price}. #{listing_condition_sentence(cheapest_listing)} #{new_listings_note(sorted, cheapest_listing)}
     HTML
 
     other_listings = sorted.reject { |l| l == cheapest_listing }

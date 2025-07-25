@@ -1,5 +1,11 @@
 <% if @book.listings_with_price.any? %>
-  <p class="mt-0 mb-1"><em>"<%= @book.title %>" door <%= @book.authors_human_list %> is het goedkoopst bij...</em></p>
+  <p class="mt-0 mb-1">
+    <em>
+      "<%= @book.title %>"
+      <%= "door #{@book.authors_human_list}" if @book.authors.any? %>
+      is het goedkoopst bij...
+    </em>
+  </p>
 
   <%= render "listings/group",
     listings: @listings.where(condition: :new),

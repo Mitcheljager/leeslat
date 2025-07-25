@@ -25,16 +25,18 @@
     </details>
   <% end %>
 
-  <details class="faq__item">
-    <summary class="faq__question">
-      Door wie is dit boek geschreven?
-      <%= inline_svg_tag "images/icons/icon-caret-down.svg", width: 27, height: 27 %>
-    </summary>
+  <% if @book.authors.any? %>
+    <details class="faq__item">
+      <summary class="faq__question">
+        Door wie is dit boek geschreven?
+        <%= inline_svg_tag "images/icons/icon-caret-down.svg", width: 27, height: 27 %>
+      </summary>
 
-    <div class="faq__answer">
-      <p>"<%= @book.title %>" is geschreven door <%= @book.authors_human_list %>.</p>
-    </div>
-  </details>
+      <div class="faq__answer">
+        <p>"<%= @book.title %>" is geschreven door <%= @book.authors_human_list %>.</p>
+      </div>
+    </details>
+  <% end %>
 
   <details class="faq__item">
     <summary class="faq__question">
