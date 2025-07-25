@@ -4,7 +4,7 @@ class BooksController < ApplicationController
   after_action :request_scrape, only: [:show]
 
   def index
-    @books = Book.order(created_at: :desc).where.not(last_scrape_finished_at: nil).page(params[:page])
+    @books = BookFilter.new(Book.order(created_at: :desc), filter_params).filter.page(params[:page])
   end
 
   def show

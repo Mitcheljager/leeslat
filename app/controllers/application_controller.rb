@@ -45,4 +45,8 @@ class ApplicationController < ActionController::Base
   def track_action
     ahoy.track "Visit", request.path_parameters
   end
+
+  def filter_params
+    params.permit(:condition, :available, :year, genres: [])
+  end
 end
