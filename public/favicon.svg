@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 110 110">
+  <defs>
+    <style>
+      .fill {
+        fill: black;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .fill {
+          fill: white;
+        }
+      }
+    </style>
+  </defs>
+
+  <rect class="fill" x="0.563" y="0.563" width="5.438" height="108.875" rx="2.722" ry="2.722"/>
+  <path class="fill" d="M2.722,103.431H106.153a2.722,2.722,0,0,1,0,5.444H2.722A2.722,2.722,0,0,1,2.722,103.431Z" transform="translate(0.563 0.563)"/>
+  <path class="fill" d="M14.888,0H34.106a4,4,0,0,1,4,4V93.988a4,4,0,0,1-4,4H14.888a4,4,0,0,1-4-4V4A4,4,0,0,1,14.888,0Z" transform="translate(0.563 0.563)"/>
+  <path class="fill" d="M69.858,7.106l17.25-2.424a2.178,2.178,0,0,1,2.459,1.853l12.274,87.33a2.178,2.178,0,0,1-1.853,2.459l-17.25,2.424A2.178,2.178,0,0,1,80.278,96.9L68,9.566A2.178,2.178,0,0,1,69.858,7.106Z" transform="translate(0.563 0.563)"/>
+  <path class="fill" d="M47.55,25.722H61.325a4,4,0,0,1,4,4V93.988a4,4,0,0,1-4,4H47.55a4,4,0,0,1-4-4V29.722A4,4,0,0,1,47.55,25.722Z" transform="translate(0.563 0.563)"/>
+</svg>
