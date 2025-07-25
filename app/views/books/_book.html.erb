@@ -20,17 +20,21 @@
           <%= book.language_label %>
         </span>
 
-        <span class="separator"></span>
+        <% if !book.unknown_format? %>
+          <span class="separator"></span>
 
-        <span>
-          <%= book.format_label %>
-        </span>
+          <span>
+            <%= book.format_label %>
+          </span>
+        <% end %>
 
-        <span class="separator"></span>
+        <% if book.published_year.present? %>
+          <span class="separator"></span>
 
-        <span>
-          <%= book.published_year %>
-        </span>
+          <span>
+            <%= book.published_year %>
+          </span>
+        <% end %>
       </span>
 
       <span class="item__description line-clamp line-clamp--line-2">
