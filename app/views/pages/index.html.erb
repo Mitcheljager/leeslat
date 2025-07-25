@@ -1,0 +1,24 @@
+<section class="hero">
+  <h1>Alle boeken, alle prijzen,<br>nu alleen nog kiezen</h1>
+  <h2>Vind boeken van alle webshops op één plek.<br>Nieuw, tweedehands, geen gedoe.<br>Alle deals direct bij elkaar.<h2>
+
+  <div class="hero__grid">
+    <% @sources.each do |source| %>
+      <% if source.logo.attached? %>
+        <div class="hero__logo">
+          <%= image_tag source.logo.variant(:medium), width: 64, height: 64 %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</section>
+
+<section class="layout">
+  <h2 class="mb-4">Iedereen leest deze</h2>
+
+  <div class="cards">
+    <%= render collection: @books, partial: "books/card", as: :book %>
+  </div>
+
+  <%= link_to "Bekijk ze allemaal", books_root_path, class: "button button--large mt-2" %>
+</section>

@@ -1,0 +1,45 @@
+@use "sass:map";
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.hero {
+  @include max-width;
+  max-width: map.get($breakpoints, max) * 0.5;
+  text-align: center;
+  padding-top: $margin * 8;
+  padding-bottom: $margin * 8;
+
+  h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-family: $font-stack-bold;
+    font-weight: bold;
+    font-style: normal;
+    text-transform: lowercase;
+  }
+
+  h2 {
+    margin-top: $margin * 2;
+    font-size: 1.5rem;
+    font-family: $font-stack-serif;
+    font-weight: normal;
+    text-transform: none;
+    line-height: 1.35;
+  }
+}
+
+.hero__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $margin;
+  margin-top: $margin * 4;
+}
+
+.hero__logo {
+  flex: 0 0 4rem;
+  display: flex;
+  background: var(--bg-standout);
+  border-radius: $border-radius-small;
+  overflow: hidden;
+}

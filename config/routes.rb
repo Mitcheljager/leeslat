@@ -17,10 +17,11 @@ Rails.application.routes.draw do
   get "logout", to: "sessions#destroy", as: "logout"
 
   # Books and related
-  resources :books, param: :slug_and_isbn, path: "boek", only: [:index, :show], concerns: :paginatable
+  resources :books, param: :slug_and_isbn, path: "boek", only: [:show], concerns: :paginatable
   resources :authors, path: "naam", param: :slug, only: [:show]
   resources :genres, only: [:show]
 
+  get "boeken", to: "books#index", as: :books_root
   get "book/listings/:slug_and_isbn", to: "books#listings_summary_partial", as: :book_listings_summary
 
   # Search
