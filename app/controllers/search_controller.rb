@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   def index
-    @books = Book.search(params[:query].strip)
+    @books = BookFilter.new(Book.search(params[:query].strip), filter_params).filter
   end
 
   # The search form is a post request, but to preserve nice urls we redirect the query to the
