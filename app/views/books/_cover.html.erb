@@ -1,7 +1,7 @@
 <% small ||= false %>
+<% image_variant ||= :large %>
 <% width = small ? 120 : 300 %>
 <% height = (width.to_f / (book.cover_original_width.to_f) * (book.cover_original_height.to_f)) %>
-<% image_variant = small ? :small : :large %>
 
 <div
   class="cover <%= "cover--small" if small %>"
