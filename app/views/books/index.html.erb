@@ -1,8 +1,29 @@
 <section class="layout">
-  <h1 class="heading">Books</h1>
+  <h1 class="heading">Alle boeken</h1>
 
-  <div class="cards">
-    <%= render collection: @books, partial: "books/card", as: :book %>
+  <div class="filter-columns mt-8">
+    <div class="filter-columns__filter">
+      <h2>Conditie</h2>
+
+      <p>Nieuw</p>
+      <p>Licht beschadigd</p>
+      <p>Tweedehands</p>
+
+      <h2>Formaat</h2>
+
+      <p>Hardcover</p>
+      <p>Paperback</p>
+      <p>Overigen</p>
+
+      <h2>Taal</h2>
+
+      <p>Nederlands</p>
+      <p>Engels</p>
+    </div>
+
+    <div class="cards">
+      <%= render collection: @books, partial: "books/card", as: :book %>
+    </div>
   </div>
 
   <%= paginate @books, theme: :simple, window: 2 %>
