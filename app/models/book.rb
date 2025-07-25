@@ -61,10 +61,12 @@ class Book < ApplicationRecord
   end
 
   def is_scrape_ongoing?
+    return false if last_scrape_started_at.blank?
+
     # Check if a scrape is ongoing either by checking if a start datetime exists without an end datetime,
-    (last_scrape_started_at && !last_scrape_finished_at) ||
+    (last_scrape_started_at.present? && last_scrape_finished_at.blank?) ||
     # or by checking if the finished datetime is before the end datetime, indicating that it has not yet finished.
-    (last_scrape_finished_at < last_scrape_started_at)
+    (last_scrape_finished_at.present? && (last_scrape_finished_at < last_scrape_started_at))
   end
 
   def should_show_scrape_message?
