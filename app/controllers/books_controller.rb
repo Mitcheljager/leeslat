@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show]
+  before_action :set_book, only: [:show, :listings_summary_partial]
 
   after_action :request_scrape, only: [:show]
 
@@ -8,7 +8,12 @@ class BooksController < ApplicationController
   end
 
   def show
-    @listings = @book.listings_with_price
+  end
+
+  def listings_summary_partial
+    return nil if @book.is_scrape_ongoing?
+
+    render partial: "book_listings_summary"
   end
 
   private
@@ -16,10 +21,11 @@ class BooksController < ApplicationController
   def set_book
     isbn = params.expect([:slug_and_isbn]).split("-").last
     @book = Book.find_by_isbn!(isbn)
+    @listings = @book.listings_with_price
   end
 
   def request_scrape
-    return if @book.last_scrape_started_at.present? && @book.last_scrape_started_at > 1.day.ago
+    return unless @book.requires_scrape?
 
     @book.update(last_scrape_started_at: DateTime.now)
 

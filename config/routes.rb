@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   resources :authors, path: "naam", param: :slug, only: [:show]
   resources :genres, only: [:show]
 
+  get "book/listings/:slug_and_isbn", to: "books#listings_summary_partial", as: :book_listings_summary
+
   # Search
   post "zoeken", to: "search#post", as: :search_post
   get "zoeken/(:query)", to: "search#index", as: :search

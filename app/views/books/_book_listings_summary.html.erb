@@ -1,0 +1,21 @@
+<% if @book.listings_with_price.any? %>
+  <p class="mt-0 mb-1"><em>"<%= @book.title %>" door <%= @book.authors_human_list %> is het goedkoopst bij...</em></p>
+
+  <%= render "listings/group",
+    listings: @listings.where(condition: :new),
+    heading: "Gloednieuw",
+    text: "Jij word de eerst eigennaar" %>
+
+  <%= render "listings/group",
+    listings: @listings.where(condition: :used),
+    heading: "Tweedehands",
+    text: "Een tweede kans is altijd fijn" %>
+
+  <%= render "listings/group",
+    listings: @listings.where(condition: :damaged),
+    heading: "Beschadigd",
+    text: "Nieuw maar met krasje, kan gebeuren" %>
+<% elsif !@book.should_show_scrape_message? %>
+  <%# Don't show empty text while scrape is ongoing to avoid confusion %>
+  <p class="mt-0 mb-1"><em>We hebben ons best gedaan, maar we konden het helaas nergens vinden. Misschien over een tijdje opnieuw proberen? Je weet maar nooit!</em></p>
+<% end %>

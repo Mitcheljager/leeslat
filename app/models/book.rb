@@ -53,6 +53,24 @@ class Book < ApplicationRecord
     human_list(authors.pluck(:name))
   end
 
+  def requires_scrape?
+    # Requires scrape if scrape is not ongoing
+    !is_scrape_ongoing? &&
+    # and a scrape has never been started, or the last scrape is past the threshold.
+    (last_scrape_started_at.blank? || (last_scrape_finished_at.present? && last_scrape_finished_at < 1.day.ago))
+  end
+
+  def is_scrape_ongoing?
+    # Check if a scrape is ongoing either by checking if a start datetime exists without an end datetime,
+    (last_scrape_started_at && !last_scrape_finished_at) ||
+    # or by checking if the finished datetime is before the end datetime, indicating that it has not yet finished.
+    (last_scrape_finished_at < last_scrape_started_at)
+  end
+
+  def should_show_scrape_message?
+    requires_scrape? || is_scrape_ongoing?
+  end
+
   # Returns a - if no number of pages are given, otherwise return a number with "." for the thousands delimiter,
   # as that is what is used in Dutch rather than commas.
   def formatted_number_of_pages

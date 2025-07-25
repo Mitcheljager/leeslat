@@ -1,0 +1,24 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.notice {
+  --color: var(--primary);
+  position: relative;
+  padding: $margin;
+  border: 2px solid var(--color);
+  border-radius: $border-radius;
+  overflow: hidden;
+  font-size: $font-size-small;
+  font-style: italic;
+
+  &::before {
+    @include pseudo-fill;
+    background: var(--color);
+    z-index: -1;
+    opacity: 0.15;
+  }
+
+  &--success {
+    --color: #{$green};
+  }
+}

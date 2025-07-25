@@ -53,26 +53,17 @@
     <div>
       <h2 class="mb-1">Waar is het te vinden?</h2>
 
-      <% if @book.listings_with_price.any? %>
-        <p class="mt-0 mb-1"><em>"<%= @book.title %>" door <%= @book.authors_human_list %> is het goedkoopst bij...</em></p>
-
-        <%= render "listings/group",
-          listings: @listings.where(condition: :new),
-          heading: "Gloednieuw",
-          text: "Jij word de eerst eigennaar" %>
-
-        <%= render "listings/group",
-          listings: @listings.where(condition: :used),
-          heading: "Tweedehands",
-          text: "Een tweede kans is altijd fijn" %>
-
-        <%= render "listings/group",
-          listings: @listings.where(condition: :damaged),
-          heading: "Beschadigd",
-          text: "Nieuw maar met krasje, kan gebeuren" %>
-      <% else %>
-        <p class="mt-0 mb-1"><em>We hebben ons best gedaan, maar we konden het helaas nergens vinden. Misschien over een tijdje opnieuw proberen? Je weet maar nooit!</em></p>
+      <% if @book.should_show_scrape_message? %>
+        <p class="notice" data-role="poll_listings_summary_notice" data-final-text="We hebben het bijgewerkt, alles is nu up-to-date. Dankje voor het wachten!">
+          Oei, het is alweer even geleden dat we dit boek voor het laatst hebben onderzocht. We gaan nu alle winkels voor je af om te kijken of alles nog klopt. Dit kan een klein minuutje duren. Ga achterover zitten, pak er een boek bij of geniet van een momentje rust. Of kom later terug, dat is ook oké!
+        </p>
       <% end %>
+
+      <div
+        data-action="<%= "poll_listings_summary" if @book.should_show_scrape_message? %>"
+        data-url="<%= book_listings_summary_path %>">
+        <%= render "book_listings_summary" %>
+      </div>
     </div>
 
     <div class="detail__cutout"></div>
