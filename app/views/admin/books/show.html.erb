@@ -44,7 +44,7 @@
 
   <figure>
     <% if @book.cover_image.attached? %>
-      <%= image_tag @book.cover_image.variant(:large) %>
+      <%= image_tag rails_public_blob_url(@book.cover_image.variant(:large).processed) %>
     <% else %>
       No image
     <% end %>

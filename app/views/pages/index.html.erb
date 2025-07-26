@@ -9,7 +9,7 @@
     <% @sources.each do |source| %>
       <% if source.logo.attached? %>
         <div class="hero__logo">
-          <%= image_tag source.logo.variant(:medium), width: 64, height: 64, alt: source.name %>
+          <%= image_tag rails_public_blob_url(source.logo.variant(:medium).processed), width: 64, height: 64, alt: source.name %>
         </div>
       <% end %>
     <% end %>

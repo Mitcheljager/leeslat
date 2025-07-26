@@ -46,4 +46,12 @@ Rails.application.routes.draw do
     resources :authors, param: :slug
     resources :users
   end
+
+  direct :rails_public_blob do |blob|
+    if ENV["CDN"].present?
+      File.join(ENV["CDN"], blob.key)
+    else
+      url_for(blob)
+    end
+  end
 end

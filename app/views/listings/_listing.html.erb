@@ -1,5 +1,5 @@
 <%= link_to listing.url, class: "listing", target: "_blank", ref: "noreferral nofollow", aria: { labelledby: "listing-#{listing.id}" } do %>
-  <%= image_tag (listing.source.logo.attached? ? listing.source.logo.variant(:medium) : ""), class: "listing__image" %>
+  <%= image_tag (listing.source.logo.attached? ? rails_public_blob_url(listing.source.logo.variant(:medium).processed) : ""), class: "listing__image" %>
 
   <span class="listing__content">
     <span class="listing__name" id="listing-<%= listing.id %>"><%= listing.source.name %></span>

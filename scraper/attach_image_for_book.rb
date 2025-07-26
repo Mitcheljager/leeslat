@@ -34,6 +34,8 @@ def attach_remote_image(book, url)
       content_type: response.headers["content-type"]
     )
 
+    book.cover_image.analyze
+
     file.close
   else
     puts "Failed to fetch image: #{response.code}"

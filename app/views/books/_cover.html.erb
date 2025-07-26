@@ -9,8 +9,8 @@
   style="<%= "--aspect-ratio: #{book.cover_aspect_ratio}" if book.cover_aspect_ratio.present? %>">
 
   <% if book.cover_image.attached? %>
-    <%= image_tag book.cover_image.variant(image_variant), width: width, height: height, alt: book.title, loading: loading %>
-    <%= image_tag book.cover_image.variant(image_variant), width: width, height: height, class: "cover__blur", alt: "", loading: loading if !small %>
+    <%= image_tag rails_public_blob_url(book.cover_image.variant(image_variant).processed), width: width, height: height, alt: book.title, loading: loading %>
+    <%= image_tag rails_public_blob_url(book.cover_image.variant(image_variant).processed), width: width, height: height, class: "cover__blur", alt: "", loading: loading if !small %>
   <% else %>
     <div class="cover__empty">
       <%= inline_svg_tag "images/icons/icon-no-image.svg", width: 60, height: 60, alt: "Geen cover beschikbaar" %>
