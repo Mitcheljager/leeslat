@@ -16,7 +16,9 @@ sources_to_run = arguments["sources"]&.split(",") || []
 
 puts "Running scrapers..."
 
-def run_scraper(source_name, isbn, title)
+def run_scraper(source_name, sources_to_run, isbn, title)
+  return unless is_in_run?(sources_to_run, source_name)
+
   puts "Running #{source_name}..."
 
   begin
@@ -48,16 +50,16 @@ def run_all_scrapers(isbn, sources_to_run)
 
   # Titles are only passed to scrapers that we can build a url for. Those tend to be some combination of the slugified title
   # and the isbn. For websites do not contain the isbn in the title and at that point the title slug won't help either.
-  run_scraper("Amazon", isbn, title)                  { scrape_amazon(isbn) }               if is_in_run?(sources_to_run, "Amazon")
-  run_scraper("Amazon RetourDeals", isbn, title)      { scrape_amazon_retourdeals(isbn) }   if is_in_run?(sources_to_run, "Amazon RetourDeals")
-  run_scraper("Boekenbalie", isbn, title)             { scrape_boekenbalie(isbn, title) }   if is_in_run?(sources_to_run, "Boekenbalie")
-  run_scraper("Boeken.nl", isbn, title)               { scrape_boekennl(isbn, title) }      if is_in_run?(sources_to_run, "Boeken.nl")
-  run_scraper("Bol.com", isbn, title)                 { scrape_bol(isbn) }                  if is_in_run?(sources_to_run, "Bol.com")
-  run_scraper("Bruna", isbn, title)                   { scrape_bruna(isbn, title) }         if is_in_run?(sources_to_run, "Bruna")
-  run_scraper("Paagman", isbn, title)                 { scrape_paagman(isbn) }              if is_in_run?(sources_to_run, "Paagman")
-  run_scraper("Readshop", isbn, title)                { scrape_readshop(isbn, title) }      if is_in_run?(sources_to_run, "Readshop")
-  run_scraper("Voordeelboekenonline.nl", isbn, title) { scrape_voordeelboekenonline(isbn) } if is_in_run?(sources_to_run, "Voordeelboekenonline.nl")
-  # [Broken, CF 403] run_scraper("Libris", isbn, title)                  { scrape_libris(isbn) } if is_in_run?(sources_to_run, "Libris")
+  run_scraper("Amazon", sources_to_run, isbn, title)                  { scrape_amazon(isbn) }
+  run_scraper("Amazon RetourDeals", sources_to_run, isbn, title)      { scrape_amazon_retourdeals(isbn) }
+  run_scraper("Boekenbalie", sources_to_run, isbn, title)             { scrape_boekenbalie(isbn, title) }
+  run_scraper("Boeken.nl", sources_to_run, isbn, title)               { scrape_boekennl(isbn, title) }
+  run_scraper("Bol.com", sources_to_run, isbn, title)                 { scrape_bol(isbn) }
+  run_scraper("Bruna", sources_to_run, isbn, title)                   { scrape_bruna(isbn, title) }
+  run_scraper("Paagman", sources_to_run, isbn, title)                 { scrape_paagman(isbn) }
+  run_scraper("Readshop", sources_to_run, isbn, title)                { scrape_readshop(isbn, title) }
+  run_scraper("Voordeelboekenonline.nl", sources_to_run, isbn, title) { scrape_voordeelboekenonline(isbn) }
+  # [Broken, CF 403] run_scraper("Libris", isbn, title)                  { scrape_libris(isbn) }
 
   end_book(isbn)
 end
