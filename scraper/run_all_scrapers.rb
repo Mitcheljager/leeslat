@@ -11,7 +11,6 @@ require_relative "sources/voordeelboekenonline"
 
 arguments = ARGV.map { |a| a.split("=", 2) }.to_h
 isbn = arguments["isbn"]
-title = arguments["title"]
 sources_to_run = arguments["sources"]&.split(",") || []
 
 puts "Running scrapers..."
@@ -36,8 +35,13 @@ def run_scraper(source_name, isbn, title)
   end
 end
 
-def run_all_scrapers(isbn, title, sources_to_run)
-  start_book(isbn)
+def run_all_scrapers(isbn, sources_to_run)
+  book = start_book(isbn)
+
+  return if book.blank?
+
+  isbn = book.isbn
+  title = book.title
 
   run_scraper("Amazon", isbn, title)                  { scrape_amazon(isbn) }               if is_in_run?(sources_to_run, "Amazon")
   run_scraper("Amazon RetourDeals", isbn, title)      { scrape_amazon_retourdeals(isbn) }   if is_in_run?(sources_to_run, "Amazon RetourDeals")
@@ -105,7 +109,9 @@ end
 
 def start_book(isbn)
   book = get_book(isbn)
-  book.update(last_scrape_started_at: DateTime.now)
+  book.update!(last_scrape_started_at: DateTime.now)
+
+  book
 end
 
 def end_book(isbn)
@@ -148,8 +154,8 @@ end
 
 start_time = DateTime.now
 
-if isbn.present? && title.present?
-  run_all_scrapers(isbn, title, sources_to_run)
+if isbn.present?
+  run_all_scrapers(isbn, sources_to_run)
 else
   Book.all.each_with_index do |book, index|
     puts "-----------------------------------------------------"
