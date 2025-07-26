@@ -1,0 +1,19 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.footer {
+  margin-top: $margin * 16;
+  background: var(--bg-content);
+}
+
+.footer__content {
+  @include max-width;
+  display: flex;
+  gap: $margin * 4;
+  padding-top: $margin * 4;
+  padding-bottom: $margin * 4;
+}
+
+.footer__image {
+  margin-top: $margin * -16;
+}
