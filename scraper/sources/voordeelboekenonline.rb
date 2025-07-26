@@ -17,7 +17,9 @@ def scrape_voordeelboekenonline(isbn)
 
   # No document was returned or the search stayed on a search page. If the isbn was found it would have
   # redirected to the book page directly.
-  return { url: nil, available: false } if document.nil? || url.include?("catalogsearch")
+  # Some ISBN searching return results for other pages some some reason. We double check if the url we
+  # entered actually contains the ISBN we're looking for.
+  return { url: nil, available: false } if document.nil? || url.include?("catalogsearch") || !url.include?(isbn)
 
   price = document.css("[data-price-type='finalPrice']").first.attribute("data-price-amount").value.strip
   description = document.css("#descrm .description .value").first.text.strip
