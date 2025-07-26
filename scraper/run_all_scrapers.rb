@@ -37,6 +37,8 @@ def run_scraper(source_name, isbn, title)
 end
 
 def run_all_scrapers(isbn, title, sources_to_run)
+  start_book(isbn)
+
   run_scraper("Amazon", isbn, title)                  { scrape_amazon(isbn) }               if is_in_run?(sources_to_run, "Amazon")
   run_scraper("Amazon RetourDeals", isbn, title)      { scrape_amazon_retourdeals(isbn) }   if is_in_run?(sources_to_run, "Amazon RetourDeals")
   run_scraper("Boekenbalie", isbn, title)             { scrape_boekenbalie(isbn, title) }   if is_in_run?(sources_to_run, "Boekenbalie")
@@ -47,7 +49,7 @@ def run_all_scrapers(isbn, title, sources_to_run)
   run_scraper("Voordeelboekenonline.nl", isbn, title) { scrape_voordeelboekenonline(isbn) } if is_in_run?(sources_to_run, "Voordeelboekenonline.nl")
   # [Broken, CF 403] run_scraper("Libris", isbn, title)                  { scrape_libris(isbn) } if is_in_run?(sources_to_run, "Libris")
 
-  update_book(isbn)
+  end_book(isbn)
 end
 
 def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description: nil, number_of_pages: 0, condition: :unknown, condition_details: nil, available: true, published_date_text: nil, includes_shipping: false)
@@ -101,7 +103,12 @@ def update_listing_scraping_status(source_name, isbn, was_successful:)
   listing.save!
 end
 
-def update_book(isbn)
+def start_book(isbn)
+  book = get_book(isbn)
+  book.update(last_scrape_started_at: DateTime.now)
+end
+
+def end_book(isbn)
   book = Book.find_by_isbn(isbn)
 
   consolidate_number_of_pages(book)
