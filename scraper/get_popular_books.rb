@@ -1,16 +1,22 @@
 require_relative "base"
 
-isbn_list = []
+# This is a hash containing all collected ISBNs with a popularity score. Higher == better.
+isbn_list = Hash.new(0)
 
 # Bestseller60 - 60 entries
-subpaths = ["", "fictie", "non-fictie", "spanning", "jeugd", "culinair"]
-document = get_document("https://www.debestseller60.nl/")
-document.css(".card__tags__tag").each do |node|
-  # The selector above contains all sorts of tags, not just ISBNs
-  next unless node.text.include?("ISBN")
+subpaths = ["", "fictie", "non-fictie", "spannend", "jeugd", "koken"]
+subpaths.each do |path|
+  document = get_document("https://www.debestseller60.nl/#{path}")
+  document.css(".card__tags__tag").each_with_index do |node, index|
+    # The selector above contains all sorts of tags, not just ISBNs
+    next unless node.text.include?("ISBN")
 
-  isbn = node.text.gsub("ISBN", "").strip
-  isbn_list << isbn if isbn.present?
+    isbn = node.text.gsub("ISBN", "").strip
+    next if isbn.blank?
+
+    score = 60 - index
+    isbn_list[isbn] += score
+  end
 end
 
 # Bol.com - 30 entries per page, 3 pages
@@ -22,7 +28,7 @@ for page in 1..3 do
 
     # Find any 13 digit code, presumably the ISBN
     match = node.to_s.match(/\b\d{13}\b/)
-    isbn_list << match[0] if match
+    isbn_list[match[0]] += 0 if match
   end
 end
 
@@ -40,12 +46,12 @@ for page in 1..2 do
     next if isbn.blank?
     next if isbn_list.include?(isbn)
 
-    isbn_list << isbn
+    isbn_list[isbn] += 0
   end
 end
 
-# Boeken.nl - 100 entries
-isbn_list.each do |isbn|
+# Process all indexed ISBNs, skipping any that are invalid
+isbn_list.each do |isbn, score|
   skippable = SkippableISBN.find_by_isbn(isbn)
 
   # An ISBN has previously attempted to be indexed but failed. It could have failed because there was no Goodreads
@@ -57,6 +63,8 @@ isbn_list.each do |isbn|
 
   begin
     book = get_book(isbn)
+
+    book.update(hotness: score)
     raise "No book was returned from get_book with isbn #{isbn}" if book.nil?
   rescue => error
     puts "Book with #{isbn} failed to be indexed from get_popular_books.rb"
