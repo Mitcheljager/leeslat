@@ -23,6 +23,8 @@ def run_scraper(source_name, isbn, title)
 
     save_result(source_name, isbn, **result)
     update_listing_scraping_status(source_name, isbn, was_successful: true)
+
+    puts "Available on #{source_name}: #{result[:available]}"
   rescue => error
     puts "#{source_name} failed for: #{title} - #{isbn}"
     puts "#{error.class}: #{error.message}"
