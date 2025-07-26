@@ -6,6 +6,6 @@
   <nav class="navigation__items">
     <%= link_to "Books", books_path, class: "navigation__item" %>
 
-    <%= link_to "Admin", admin_root_path, class: "navigation__item" if current_user.present? %>
+    <%= link_to "Admin", admin_root_path, class: "navigation__item" if current_user.present? && current_user.admin? %>
   </nav>
 </div>
