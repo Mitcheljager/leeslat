@@ -6,7 +6,7 @@ def scrape_readshop(isbn, title)
   listing = find_listing_for_isbn_and_source_name(isbn, "Readshop")
 
   slug = title.parameterize
-  url = listing&.url || "https://bruna.nl/boeken/#{slug}-#{isbn}"
+  url = listing&.url || "https://www.readshop.nl/boeken/#{slug}-#{isbn}"
 
   puts "Running Readshop for: " + url
 
@@ -19,7 +19,7 @@ def scrape_readshop(isbn, title)
   return { url: nil, available: false } if url.blank? || !url.include?("/boeken/") || document.blank?
 
   price = document.css(".price-block .colored").first.text.strip
-  description = document.css(".description .line-clamp-8").first.text.strip
+  description = document.css(".description .line-clamp-8").first.text.split("Veelgestelde vragen").first.strip
   number_of_pages_label = document.css(".product-meta-description div:nth-child(3)").first
   number_of_pages = number_of_pages_label&.text&.strip
   available = !document.text.include?("Tijdelijk niet voorradig")
