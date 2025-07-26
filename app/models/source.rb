@@ -7,7 +7,7 @@ class Source < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :slug, presence: true, uniqueness: { case_sensitive: false }
-  validates :base_url, presence: true, uniqueness: true
+  validates :base_url, presence: true
 
   def to_param
     slug
