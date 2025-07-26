@@ -170,7 +170,7 @@ else
     puts "Running scrapers for \"#{book.title}\" (#{book.isbn}) - #{index + 1} out of #{Book.all.size}"
     puts "-----------------------------------------------------"
 
-    run_all_scrapers(book.isbn, book.title, sources_to_run)
+    run_all_scrapers(book.isbn, sources_to_run)
   end
 end
 
