@@ -6,6 +6,7 @@ require_relative "sources/boekennl"
 require_relative "sources/bol"
 require_relative "sources/bruna"
 require_relative "sources/libris"
+require_relative "sources/paagman"
 require_relative "sources/readshop"
 require_relative "sources/voordeelboekenonline"
 
@@ -45,12 +46,15 @@ def run_all_scrapers(isbn, sources_to_run)
   isbn = book.isbn
   title = book.title
 
+  # Titles are only passed to scrapers that we can build a url for. Those tend to be some combination of the slugified title
+  # and the isbn. For websites do not contain the isbn in the title and at that point the title slug won't help either.
   run_scraper("Amazon", isbn, title)                  { scrape_amazon(isbn) }               if is_in_run?(sources_to_run, "Amazon")
   run_scraper("Amazon RetourDeals", isbn, title)      { scrape_amazon_retourdeals(isbn) }   if is_in_run?(sources_to_run, "Amazon RetourDeals")
   run_scraper("Boekenbalie", isbn, title)             { scrape_boekenbalie(isbn, title) }   if is_in_run?(sources_to_run, "Boekenbalie")
   run_scraper("Boeken.nl", isbn, title)               { scrape_boekennl(isbn, title) }      if is_in_run?(sources_to_run, "Boeken.nl")
   run_scraper("Bol.com", isbn, title)                 { scrape_bol(isbn) }                  if is_in_run?(sources_to_run, "Bol.com")
   run_scraper("Bruna", isbn, title)                   { scrape_bruna(isbn, title) }         if is_in_run?(sources_to_run, "Bruna")
+  run_scraper("Paagman", isbn, title)                 { scrape_paagman(isbn) }              if is_in_run?(sources_to_run, "Paagman")
   run_scraper("Readshop", isbn, title)                { scrape_readshop(isbn, title) }      if is_in_run?(sources_to_run, "Readshop")
   run_scraper("Voordeelboekenonline.nl", isbn, title) { scrape_voordeelboekenonline(isbn) } if is_in_run?(sources_to_run, "Voordeelboekenonline.nl")
   # [Broken, CF 403] run_scraper("Libris", isbn, title)                  { scrape_libris(isbn) } if is_in_run?(sources_to_run, "Libris")
