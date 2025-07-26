@@ -1,6 +1,6 @@
 <article class="item">
   <%= link_to book, class: "item__image", aria: { labelledby: book.isbn } do %>
-    <%= render "books/cover", book: book, small: true, image_variant: :small %>
+    <%= render "books/cover", book: book, small: true, image_variant: :small, loading: "lazy" %>
   <% end %>
 
   <%= link_to book, class: "item__content", aria: { labelledby: book.isbn } do %>
