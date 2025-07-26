@@ -111,8 +111,9 @@ def parse_authors_for_book(book, authors)
   authors.each do |author_name|
     author_name = author_name.sub(/\s*\(.*\)\s*$/, "").strip.squeeze
 
-    author = Author.where("LOWER(name) = ?", normalized_name.downcase).first_or_initialize
+    author = Author.where("LOWER(name) = ?", author_name.downcase).first_or_initialize
     author.name = author_name
+    author.slug = author_name.parameterize
     author.save!
 
     book.authors << author unless book.authors.include?(author)
