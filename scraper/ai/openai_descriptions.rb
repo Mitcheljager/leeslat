@@ -29,11 +29,11 @@ response = client.chat(parameters: {
     content: "Please clean up and merge these book descriptions. Please removing awards, reviews, blurbs, quotes, release dates, mentions of the author and translator, and mentions edition of this book. Additionally, please fix any grammar or formatting issues or inconsistencies. Insert new lines where relevant:\n
     \n\n" + descriptions.join("\n\n")
   }],
-  temperature: 0.7,
+  temperature: 0.7
 })
 
 message = response["choices"][0]["message"]["content"]
 
 puts "Summary: #{message}"
 
-book.update(description: message)
+book.update(description: message, description_last_generated_at: DateTime.now)

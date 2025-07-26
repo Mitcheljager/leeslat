@@ -2,6 +2,7 @@ class BooksController < ApplicationController
   before_action :set_book, only: [:show, :listings_summary_partial]
 
   after_action :request_scrape, only: [:show]
+  after_action :request_description, only: [:show]
 
   def index
     @books = BookFilter.new(Book.all, filter_params).filter.page(params[:page])
@@ -27,8 +28,20 @@ class BooksController < ApplicationController
   def request_scrape
     return unless @book.requires_scrape?
 
+    # We set this here rather than in the job so that requests between now and when the
+    # job runs don't request another job.
     @book.update(last_scrape_started_at: DateTime.now)
 
     RequestScrapeJob.perform_async(@book.isbn)
+  end
+
+  def request_description
+    return if @book.description_last_generated_at.present?
+
+    # We set this here rather than in the job so that requests between now and when the
+    # job runs don't request another job.
+    @book.update(description_last_generated_at: DateTime.now)
+
+    RequestDescriptionJob.perform_async(@book.isbn)
   end
 end
