@@ -38,7 +38,7 @@ class Book < ApplicationRecord
   end
 
   def listings_with_price
-    listings.where.not(price: 0).where(available: true)
+    listings.where.not(price: 0).where(available: true).order(price: :asc)
   end
 
   def lowest_price
