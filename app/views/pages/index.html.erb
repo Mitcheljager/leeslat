@@ -4,16 +4,6 @@
     <span class="wavy-underline">nu alleen nog kiezen.</span>
   </h1>
   <h2>Vind boeken van alle webshops op één plek.<br>Nieuw, tweedehands, geen gedoe.<br>Alle deals direct bij elkaar.</h2>
-
-  <div class="hero__grid">
-    <% @sources.each do |source| %>
-      <% if source.logo.attached? %>
-        <div class="hero__logo">
-          <%= image_tag rails_public_blob_url(source.logo.variant(:medium).processed), width: 64, height: 64, alt: source.name %>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
 </section>
 
 <section class="layout">

@@ -4,8 +4,6 @@
 
 .hero {
   @include max-width;
-  max-width: map.get($breakpoints, max) * 0.5;
-  text-align: center;
   padding-top: $margin * 8;
   padding-bottom: $margin * 8;
 
