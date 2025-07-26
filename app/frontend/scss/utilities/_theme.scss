@@ -1,0 +1,15 @@
+@use "../mixins" as *;
+
+.dark-only {
+  display: none;
+
+  @include dark {
+    display: initial;
+  }
+}
+
+.light-only {
+  @include dark {
+    display: none;
+  }
+}

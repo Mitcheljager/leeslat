@@ -4,6 +4,9 @@
 
 .hero {
   @include max-width;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding-top: $margin * 8;
   padding-bottom: $margin * 8;
 
@@ -17,7 +20,7 @@
   }
 
   h2 {
-    margin-top: $margin * 2;
+    margin: $margin * 2 0 0;
     font-size: clamp(1.2rem, 2.5vw, 1.25rem);
     font-family: $font-stack-serif;
     font-weight: normal;
