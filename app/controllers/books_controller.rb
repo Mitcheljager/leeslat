@@ -36,6 +36,8 @@ class BooksController < ApplicationController
   end
 
   def request_description
+    # Stop if there are no listings with descriptions or a description has already been generated.
+    return if @book.listings.where.not(description: nil).none?
     return if @book.description_last_generated_at.present?
 
     # We set this here rather than in the job so that requests between now and when the
