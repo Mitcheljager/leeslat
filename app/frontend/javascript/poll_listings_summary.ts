@@ -11,7 +11,9 @@ export default class poll_listings_summary {
   }
 
   private async poll(resolve: Function, reject: Function): Promise<void> {
-    const url = poll_listings_summary.element!.dataset.url!;
+    const url = poll_listings_summary.element?.dataset.url;
+
+    if (!url) return;
 
     try {
       const response = await fetch(url);
