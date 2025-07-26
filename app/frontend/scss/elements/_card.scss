@@ -50,6 +50,7 @@ $image-width: 120px;
   border-radius: $border-radius;
   background: var(--bg-content);
   text-decoration: none;
+  transition: background-color 100ms;
 
   @include hover-stack {
     background: var(--bg-content--hover);
