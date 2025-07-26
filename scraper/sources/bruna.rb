@@ -13,9 +13,9 @@ def scrape_bruna(isbn, title)
 
   # Document was not an actual page, instead it fell back to some overview page
   # In this case we use a search engine to find the actual page, if it exists
-  url, document = get_search_document("bruna.nl", isbn) unless document.text.include?("Overzicht")
+  url, document = get_search_document("bruna.nl", isbn) unless document.text.include?("| Boek |")
 
-  return { url: nil, available: false } if url.blank? || document.blank? || !url.include?("/boeken/") || !document.text.include?("Bezorging in de winkel")
+  return { url: nil, available: false } if url.blank? || !url.include?("/boeken/") || document.blank?
 
   price = document.css(".price-block .colored").first.text.strip
   description = document.css(".description .line-clamp-8").first.text.strip
@@ -23,5 +23,5 @@ def scrape_bruna(isbn, title)
   number_of_pages = number_of_pages_label&.text&.strip
   available = !document.text.include?("Tijdelijk niet voorradig")
 
-  { url:, price:, description:, number_of_pages:, available: }
+  { url:, price:, description:, number_of_pages:, available:, condition: :new }
 end
