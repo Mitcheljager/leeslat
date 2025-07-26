@@ -34,8 +34,8 @@ def scrape_amazon(isbn)
 
     return { url:, available: false } if !is_amazon
 
-    price_text = document.at_css("#tmm-grid-swatch-PAPERBACK")&.text
-    price = price_text.to_s.gsub(/[[:space:]]/, "").gsub("€", "").strip.gsub(",", ".").gsub("Paperback", "").strip
+    price_text = document.at_css(".swatchElement.selected")&.text
+    price = price_text.to_s.gsub(/[[:space:]]/, "").gsub("€", "").strip.gsub(",", ".").gsub("Paperback", "").gsub("Hardcover", "").strip
 
     if price.blank?
       price_text = document.at_css(".priceToPay span")&.text
