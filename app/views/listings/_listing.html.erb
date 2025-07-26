@@ -12,7 +12,11 @@
     </span>
 
     <span class="listing__shipping">
-      Gratis verzending
+      <% if listing.includes_shipping? %>
+        Gratis verzending
+      <% else %>
+        Source shipping
+      <% end %>
     </span>
   </span>
 <% end %>
