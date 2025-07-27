@@ -1,3 +1,5 @@
+<% content_for :title, filter_params[:query].present? ? "Zoeken" : "Boeken" %>
+
 <section class="layout">
   <h1 class="heading mb-0">
     <% if any_filter_params? %>
