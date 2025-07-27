@@ -1,36 +1,41 @@
 <section class="layout">
   <h1 class="heading wavy-underline mb-0">Alle boeken</h1>
 
-  <div class="filter-columns mt-8">
-    <aside class="filter-columns__filter">
-      <%= form_with url: books_root_path, data: { turbo_frame: "books", turbo_action: "advance" }, method: :get do %>
-        <h2>Conditie</h2>
 
-        <p>Nieuw</p>
-        <p>Licht beschadigd</p>
-        <p>Tweedehands</p>
+    <div class="filter-columns mt-8">
+      <aside class="filter-columns__filter">
+        <%= form_with url: books_path, data: { turbo_frame: "books", turbo_action: "advance" }, method: :get do %>
+          <h2>Conditie</h2>
 
-        <h2>Formaat</h2>
+          <p>Nieuw</p>
+          <p>Licht beschadigd</p>
+          <p>Tweedehands</p>
 
-        <%= check_box_tag :format, "hardcover", params[:format]&.include?("hardcover") %> Hardcover<br>
-        <%= check_box_tag :format, "paperback", params[:format]&.include?("paperback") %> Paperback<br>
-        <%= check_box_tag :format, "overigen", params[:format]&.include?("unknown") %> Overigen<br>
+          <h2>Formaat</h2>
 
-        <h2>Taal</h2>
+          <%= check_box_tag :format, "hardcover", params[:format]&.include?("hardcover") %> Hardcover<br>
+          <%= check_box_tag :format, "paperback", params[:format]&.include?("paperback") %> Paperback<br>
+          <%= check_box_tag :format, "overigen", params[:format]&.include?("unknown") %> Overigen<br>
 
-        <p>Nederlands</p>
-        <p>Engels</p>
+          <h2>Taal</h2>
 
-        <%= submit_tag "Submit", name: nil %>
+          <p>Nederlands</p>
+          <p>Engels</p>
+
+          <%= submit_tag "Submit", class: "button", name: nil, data: { turbo_submits_with: "..." } %>
+        <% end %>
+      </aside>
+
+      <%= turbo_frame_tag "books", target: "_top" do %>
+        <section class="filter-columns__content">
+          <div class="cards">
+            <%= render collection: @books, partial: "books/card", as: :book %>
+          </div>
+        </section>
+
+        <div class="filter-columns__pagination">
+          <%= paginate @books, theme: :simple, window: 2 %>
+        </div>
       <% end %>
-    </aside>
-
-    <section class="filter-columns__content">
-      <%= turbo_frame_tag "books", class: "cards" do %>
-        <%= render collection: @books, partial: "books/card", as: :book %>
-      <% end %>
-    </section>
-  </div>
-
-  <%= paginate @books, theme: :simple, window: 2 %>
+    </div>
 </section>

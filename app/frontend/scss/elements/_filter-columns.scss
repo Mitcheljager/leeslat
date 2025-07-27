@@ -29,3 +29,10 @@
 .filter-columns__content {
   margin-bottom: auto;
 }
+
+// Offset the pagination so that it's height + padding of the content is excluded from the layout.
+// Not a great solution, but meh. Targeting .pagination specifically means this is only applied when
+// the pagination is actually rendered, as it can be null.
+.filter-columns__pagination .pagination {
+  margin-bottom: -3rem - $margin * 4;
+}
