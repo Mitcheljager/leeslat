@@ -46,10 +46,10 @@ def scrape_amazon(isbn)
     number_of_pages = number_of_pages_label&.text&.gsub("pagina's", "")&.strip
 
     description = document.css("#bookDescription_feature_div .a-expander-content").first&.text&.strip
-    includes_shipping = document.css("#mir-layout-DELIVERY_BLOCK").first&.text&.include?("GRATIS bezorging")
+    price_includes_shipping = document.css("#mir-layout-DELIVERY_BLOCK").first&.text&.include?("GRATIS bezorging")
     published_date_text = DateFormatter.format_published_date_text(document.css("#rpi-attribute-book_details-publication_date .rpi-attribute-value").first&.text&.strip)
 
-    { url:, price:, description:, number_of_pages:, condition: :new, available: true, published_date_text:, includes_shipping: }
+    { url:, price:, description:, number_of_pages:, condition: :new, available: true, published_date_text:, price_includes_shipping: }
   end
 end
 

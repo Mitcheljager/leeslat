@@ -55,7 +55,7 @@ def scrape_bol(isbn)
   price_cents = document.at_css(".price-block__price .promo-price__fraction").text.strip.gsub("-", "00")
   price = "#{price_large}.#{price_cents}"
 
-  includes_shipping = document.text.include?("Prijs inclusief verzendkosten")
+  price_includes_shipping = document.text.include?("Prijs inclusief verzendkosten")
 
-  { url:, price:, description:, number_of_pages:, condition: :new, available: available, includes_shipping: }
+  { url:, price:, description:, number_of_pages:, condition: :new, available: available, price_includes_shipping: }
 end

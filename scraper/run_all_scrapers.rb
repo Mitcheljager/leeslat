@@ -64,7 +64,7 @@ def run_all_scrapers(isbn, sources_to_run)
   end_book(isbn)
 end
 
-def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description: nil, number_of_pages: 0, condition: :unknown, condition_details: nil, available: true, published_date_text: nil, includes_shipping: false)
+def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description: nil, number_of_pages: 0, condition: :unknown, condition_details: nil, available: true, published_date_text: nil, price_includes_shipping: false)
   book = get_book(isbn)
 
   raise "Book was nil" if book.nil?
@@ -81,7 +81,7 @@ def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description:
   listing.condition_details = condition_details
   listing.available = available
   listing.published_date_text = published_date_text if published_date_text.present?
-  listing.includes_shipping = includes_shipping
+  listing.price_includes_shipping = price_includes_shipping
 
   listing.save
 end
