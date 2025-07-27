@@ -18,12 +18,6 @@ def scrape_bol(isbn)
     base_url = "https://www.bol.com"
     document = get_document("#{base_url}/nl/nl/s/?searchtext=#{isbn}")
 
-    # No search results were returned for this isbn
-    if !document.include?(isbn)
-      puts "No search results for #{isbn}"
-      return { url: nil, available: false }
-    end
-
     # Sometimes pages display with a consent modal over top. When this happens the entire page markup
     # is completely different. Maybe some old version of their page that is shown behind the modal?
     link_element = document.at_css(".grid .flex.w-full a")
