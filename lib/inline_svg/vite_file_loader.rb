@@ -9,7 +9,7 @@ module InlineSvg
 
       return fetch_from_dev_server(path) if ViteRuby.instance.dev_server_running?
 
-      Rails.public_path.join(path).read
+      Rails.public_path.join(path.delete_prefix("/")).read
     end
 
     def self.fetch_from_dev_server(path)
