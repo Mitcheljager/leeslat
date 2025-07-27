@@ -31,6 +31,26 @@
     <%= form.file_field :logo %>
   </div>
 
+  <div>
+    <%= form.label :shipping_cost, style: "display: block" %>
+    <%= form.number_field :shipping_cost, class: "form-input", step: "0.01", min: 0 %>
+  </div>
+
+  <div>
+    <%= form.label :shipping_cost_currency, style: "display: block" %>
+    <%= form.select :shipping_cost_currency, VALID_CURRENCIES, { prompt: "Select a format" }, { class: "form-input" } %>
+  </div>
+
+  <div>
+    <%= form.label :shipping_cost_free_from_price, style: "display: block" %>
+    <%= form.number_field :shipping_cost_free_from_price, class: "form-input", step: "0.01", min: 0 %>
+  </div>
+
+  <div>
+    <%= form.label :shipping_cost_free_from_quantity, style: "display: block" %>
+    <%= form.number_field :shipping_cost_free_from_quantity, class: "form-input", step: "1", min: 0 %>
+  </div>
+
   <div class="mt-1">
     <%= form.submit "Submit", class: "button button--primary" %>
   </div>

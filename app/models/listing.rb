@@ -6,7 +6,7 @@ class Listing < ApplicationRecord
 
   enum :condition, [:unknown, :new, :used, :damaged], suffix: true
 
-  validates :currency, inclusion: { in: %w[EUR USD GBP], message: "%{value} is not a valid currency" }, allow_nil: true
+  validates :currency, inclusion: { in: VALID_CURRENCIES, message: "%{value} is not a valid currency" }, allow_nil: true
   validates :condition, inclusion: { in: Listing.conditions.keys }
 
   def price_large
