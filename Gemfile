@@ -42,6 +42,7 @@ gem "kaminari"
 gem "inline_svg"
 gem "sidekiq", "~> 6.5"
 gem "aws-sdk-s3", require: false
+gem "turbo-rails"
 
 # Analytics
 gem "ahoy_matey"

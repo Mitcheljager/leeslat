@@ -425,6 +425,9 @@ GEM
     thruster (0.1.14)
     thruster (0.1.14-x86_64-linux)
     timeout (0.4.3)
+    turbo-rails (2.0.16)
+      actionpack (>= 7.1.0)
+      railties (>= 7.1.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2025.2)
@@ -497,6 +500,7 @@ DEPENDENCIES
   solid_queue
   sqlite3 (>= 2.1)
   thruster
+  turbo-rails
   tzinfo-data
   vite_rails
   web-console
