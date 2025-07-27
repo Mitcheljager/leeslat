@@ -17,10 +17,10 @@ export default class turbo_action_progress_bar {
       if (target.getAttribute("data-turbo-action") !== "advance") return;
 
       adapter.formSubmissionStarted();
-    });
+    }, true);
 
     document.addEventListener("turbo:before-fetch-response", () => {
       adapter.formSubmissionFinished();
-    });
+    }, true);
   }
 }

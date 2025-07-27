@@ -23,7 +23,7 @@ export default class theme_toggle {
 
     if (theme_toggle.theme === "dark") new switch_toggle().toggle(toggle_button, true);
 
-    toggle_button.addEventListener("click", () => {
+    toggle_button.maybe_add_event_listener("click", () => {
       setTimeout(() => {
         fallback_view_transition(() => {
           const currentTheme = theme_toggle.html_element.style.getPropertyValue("color-scheme") as Theme;

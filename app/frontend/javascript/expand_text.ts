@@ -3,7 +3,7 @@ export default class expand_text {
     const switch_elements: HTMLButtonElement[] = Array.from(document.querySelectorAll("[data-action~='expand_text']"));
 
     switch_elements.forEach(element => {
-      element.addEventListener("click", () => this.toggle(element));
+      element.maybe_add_event_listener("click", () => this.toggle(element));
     });
   }
 

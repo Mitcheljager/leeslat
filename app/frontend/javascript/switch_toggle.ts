@@ -3,7 +3,7 @@ export default class switch_toggle {
     const switch_elements: HTMLButtonElement[] = Array.from(document.querySelectorAll("[data-action~='switch']"));
 
     switch_elements.forEach(element => {
-      element.addEventListener("click", () => this.toggle(element, !element.classList.contains("switch--active")));
+      element.maybe_add_event_listener("click", () => this.toggle(element, !element.classList.contains("switch--active")));
     });
   }
 
