@@ -21,7 +21,7 @@ module BooksHelper
       other_sentence = "Ook is het te vinden bij " +
         other_listings.map do |listing|
           price = listing.price_label
-          "#{listing.source.name} voor #{price}#{listing.unknown_condition? ? "" : " (#{listing.condition_label})"}"
+          "#{listing.source.name} voor #{price}#{listing.unknown_condition? ? "" : " (#{listing.condition_label.downcase})"}"
         end.to_sentence + "."
     else
       other_sentence = ""
