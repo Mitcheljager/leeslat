@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   helper_method :theme
   helper_method :theme_dark?
   helper_method :current_user
+  helper_method :filter_params
+  helper_method :any_filter_params?
 
   def theme
     cookies[:theme]
@@ -21,6 +23,14 @@ class ApplicationController < ActionController::Base
     return unless session[:user_id]
 
     @current_user ||= User.find_by(id: session[:user_id])
+  end
+
+  def filter_params
+    params.permit(:condition, :format, :available, :year, :sort, :query, genres: [])
+  end
+
+  def any_filter_params?
+    filter_params.to_h.any? { |_, v| v.present? }
   end
 
   private
@@ -44,9 +54,5 @@ class ApplicationController < ActionController::Base
 
   def track_action
     ahoy.track "Visit", request.path_parameters
-  end
-
-  def filter_params
-    params.permit(:condition, :format, :available, :year, :sort, :query, genres: [])
   end
 end

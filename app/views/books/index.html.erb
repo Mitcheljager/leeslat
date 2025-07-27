@@ -1,5 +1,15 @@
 <section class="layout">
-  <h1 class="heading wavy-underline mb-0">Alle boeken</h1>
+  <h1 class="heading mb-0">
+    <% if any_filter_params? %>
+      <% if filter_params[:query].present? %>
+        Resultaten voor "<span class="wavy-underline"><%= filter_params[:query] %></span>"
+      <% else %>
+        <span class="wavy-underline">Op zoek</span> naar een boek
+      <% end %>
+    <% else %>
+      <span class="wavy-underline">Alle</span> boeken
+    <% end %>
+  </h1>
 
   <div class="filter-columns mt-8">
     <aside class="filter-columns__filter">
