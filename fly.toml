@@ -10,8 +10,8 @@ console_command = '/rails/bin/rails console'
 [build]
 
 [env]
-PORT = '8080'
-HTTP_PORT = '8080'
+  PORT = '8080'
+  HTTP_PORT = '8080'
 
 [http_service]
   internal_port = 8080
