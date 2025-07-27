@@ -58,6 +58,10 @@ $image-width: 120px;
   @include hover-stack {
     background: var(--bg-content--hover);
   }
+
+  .card__image:hover + & {
+    background: var(--bg-content--hover);
+  }
 }
 
 .card__heading {
