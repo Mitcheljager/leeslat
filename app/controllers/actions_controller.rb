@@ -18,7 +18,7 @@ class ActionsController < ApplicationController
     @book = Book.find_by_isbn!(params[:isbn])
 
     begin
-      output = `ruby #{Rails.root.join("scraper/attach_image_for_book.rb")} #{@book.isbn}`
+      output = `ruby #{Rails.root.join("scraper/attach_image_for_isbn.rb")} #{@book.isbn}`
       Rails.logger.info output
 
       raise "No image was attached" unless @book.cover_image.attached?

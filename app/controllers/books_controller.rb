@@ -3,6 +3,7 @@ class BooksController < ApplicationController
 
   after_action :request_scrape, only: [:show]
   after_action :request_description, only: [:show]
+  after_action :request_cover, only: [:show]
 
   def index
     @books = BookFilter.new(Book.all, filter_params).filter.page(params[:page])
@@ -45,5 +46,24 @@ class BooksController < ApplicationController
     @book.update(description_last_generated_at: DateTime.now)
 
     RequestDescriptionJob.perform_async(@book.isbn)
+  end
+
+  def request_cover
+    puts "==="
+    puts @book.cover_image.attached?
+    puts @book.cover_last_scraped_at
+    puts "==="
+
+    # Stop if book already has a cover of if it has attempted to get the cover before.
+    # It's possible a book simply has no cover on Goodreads, in which case we don't want
+    # to keep retrying for each request.
+    return if @book.cover_image.attached?
+    return if @book.cover_last_scraped_at.present?
+
+    # This is also done in the method itself, but we do it here to prevent multiple requests
+    # from firing for the same job.
+    @book.update(cover_last_scraped_at: DateTime.now)
+
+    RequestCoverJob.perform_async(@book.isbn)
   end
 end

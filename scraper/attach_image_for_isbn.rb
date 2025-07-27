@@ -9,6 +9,8 @@ puts "Finding and attaching image for #{isbn}..."
 def attach_remote_image(book, url)
   response = HTTParty.get(url)
 
+  book.update(cover_last_scraped_at: DateTime.now)
+
   if response.code == 200
     file = Tempfile.new(["downloaded", File.extname(url)])
     file.binmode
