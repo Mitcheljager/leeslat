@@ -1,22 +1,21 @@
 <section class="layout">
   <h1 class="heading wavy-underline mb-0">Alle boeken</h1>
 
+  <div class="filter-columns mt-8">
+    <aside class="filter-columns__filter">
+      <%= render "filter" %>
+    </aside>
 
-    <div class="filter-columns mt-8">
-      <aside class="filter-columns__filter">
-        <%= render "filter" %>
-      </aside>
-
-      <%= turbo_frame_tag "books", target: "_top" do %>
-        <section class="filter-columns__content">
-          <div class="cards">
-            <%= render collection: @books, partial: "books/card", as: :book %>
-          </div>
-        </section>
-
-        <div class="filter-columns__pagination">
-          <%= paginate @books, theme: :simple, window: 2 %>
+    <%= turbo_frame_tag "books", target: "_top" do %>
+      <section class="filter-columns__content">
+        <div class="cards">
+          <%= render collection: @books, partial: "books/card", as: :book %>
         </div>
-      <% end %>
-    </div>
+      </section>
+
+      <div class="filter-columns__pagination">
+        <%= paginate @books, theme: :simple, window: 2 %>
+      </div>
+    <% end %>
+  </div>
 </section>
