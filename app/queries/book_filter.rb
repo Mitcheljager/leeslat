@@ -11,6 +11,7 @@ class BookFilter
     filter_by_availability
     filter_by_year
     filter_by_genres
+    search
     sort
   end
 
@@ -45,11 +46,19 @@ class BookFilter
     @books = books.joins(:genres).where(genres: { id: genre_ids })
   end
 
+  def search
+    return if params[:query].blank?
+
+    @books = books.search(params[:query].strip)
+  end
+
   def sort
     if params[:sort] == "new"
       @books = books.order(Arel.sql("published_date_text DESC"))
     elsif params[:sort] == "old"
       @books = books.order(Arel.sql("published_date_text ASC"))
+    elsif params[:query].present?
+      @books = books
     else
       @books = books.order(hotness: :desc)
     end

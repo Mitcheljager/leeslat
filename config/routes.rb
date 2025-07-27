@@ -24,10 +24,6 @@ Rails.application.routes.draw do
   get "boeken", to: "books#index", as: :books_root
   get "book/listings/:slug_and_isbn", to: "books#listings_summary_partial", as: :book_listings_summary
 
-  # Search
-  post "zoeken", to: "search#post", as: :search_post
-  get "zoeken/(:query)", to: "search#index", as: :search
-
   # Actions
   get "actions/index_by_isbn/:isbn", to: "actions#index_by_isbn"
   post "actions/attach_image_for_isbn", to: "actions#attach_image_for_isbn", as: :attach_image_for_isbn

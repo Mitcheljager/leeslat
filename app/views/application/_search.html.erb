@@ -1,7 +1,7 @@
 <div itemscope itemtype="https://schema.org/WebSite">
   <meta itemprop="url" content="https://gewoonboeken.nl/"/>
 
-  <%= form_tag search_post_path, class: "search", itemprop: "potentialAction", itemscope: "", itemtype: "https://schema.org/SearchAction", role: "search", method: :post do %>
+  <%= form_tag books_root_path, class: "search", itemprop: "potentialAction", itemscope: "", itemtype: "https://schema.org/SearchAction", role: "search", method: :get do %>
     <meta itemprop="target" content="https://gewoonboeken.nl/zoeken/{query}"/>
 
     <%= search_field_tag :query, params[:query] ? CGI.unescape(params[:query]) : "", placeholder: " ", class: "search__input form-input", itemprop: "query-input", required: "true", autocomplete: "off", id: "query" %>
@@ -9,7 +9,7 @@
       Zoek op <strong>title</strong>, <strong>auteur</strong>, <strong>ISBN</strong>, of <strong>keywoorden</strong>...
     <% end %>
 
-    <%= button_tag class: "search__submit button", type: :submit, aria: { label: "Zoeken" } do %>
+    <%= button_tag class: "search__submit button", type: :submit, name: nil, aria: { label: "Zoeken" } do %>
       <%= inline_svg_tag "images/icons/icon-search.svg", height: 28, width: 28 %>
     <% end %>
   <% end %>
