@@ -30,8 +30,7 @@ FROM base AS build
 
 # Install Node.js and npm
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install --no-install-recommends -y nodejs && \
-    npm install -g npx
+    apt-get install --no-install-recommends -y nodejs
 
 # Copy and install frontend dependencies
 COPY package.json package-lock.json ./
