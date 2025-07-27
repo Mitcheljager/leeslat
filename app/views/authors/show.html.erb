@@ -1,7 +1,9 @@
 <%= content_for :page_title, @author.name %>
 
 <div class="layout">
-  <h1 class="heading"><%= @author.name %></h1>
+  <h1 class="heading">Boeken door <span class="wavy-underline"><%= @author.name %></span></h1>
 
-  <%= render @books %>
+  <div class="cards">
+    <%= render collection: @books, partial: "books/card", as: :book %>
+  </div>
 </div>
