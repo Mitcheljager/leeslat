@@ -43,11 +43,11 @@ def attach_remote_image(book, url)
 end
 
 book = get_book(isbn)
-genres, format, image_url = get_goodreads_data(isbn)
+data = get_goodreads_data(isbn)
 
-if image_url.present?
+if data[:image_url].present?
   begin
-    attach_remote_image(book, image_url)
+    attach_remote_image(book, data[:image_url])
     puts "Image successfully attached for \"#{book.title}\" (#{isbn})"
   rescue => error
     puts error

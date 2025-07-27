@@ -75,29 +75,28 @@ def get_book(isbn, format = nil, language = nil)
     # It also lacks a lot of books that Goodreads does have, so for we we will rely on Goodreads entirely.
     # is_ebook, title, language, authors, published_date = get_google_api_data(isbn)
 
-    # Not actually using image_url, but I am being lazy with the array format returned from this function.
-    genres, format, image_url, is_ebook, title, language, authors, published_date = get_goodreads_data(isbn)
+    data = get_goodreads_data(isbn)
 
-    if is_ebook || title.blank?
+    if data[:is_ebook] || data[:title].blank?
       # Store that this book failed to fetch and may be skipped in future runs. Ebooks are always skipped
       # and as such are marked as permanent. Other books may be re-tried over time. A rake task will
       # periodically destroy entries that are not marked as permanent.
-      SkippableISBN.create(isbn: isbn, permanent: is_ebook == true)
+      SkippableISBN.create(isbn: isbn, permanent: data[:is_ebook] == true)
 
-      raise "Given book \"#{title}\" (#{isbn}) is an ebook" if is_ebook
-      raise "No title was returned for #{isbn}" if title.blank?
+      raise "Given book \"#{data[:title]}\" (#{isbn}) is an ebook" if data[:is_ebook]
+      raise "No title was returned for #{isbn}" if data[:title].blank?
     end
 
     # Some titles include a :, which (almost?) always mean it's a title followed by a subtitle
-    main_title, subtitle = title.split(":", 2).map(&:strip)
+    main_title, subtitle = data[:title].split(":", 2).map(&:strip)
 
     book.title = main_title
     book.subtitle = subtitle if subtitle.present?
-    book.language = language
-    book.format = format
-    book.published_date_text = published_date if published_date
+    book.language = data[:language]
+    book.format = data[:format]
+    book.published_date_text = data[:published_date] if data[:published_date]
 
-    parse_authors_for_book(book, authors) if authors.present?
+    parse_authors_for_book(book, data[:authors]) if data[:authors].present?
 
     book.save!
   end

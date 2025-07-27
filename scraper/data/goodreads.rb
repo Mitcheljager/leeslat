@@ -41,7 +41,7 @@ def get_goodreads_data(isbn)
   image_url = document.css(".BookCover__image img")&.first&.attribute("src")&.value
   image_url = nil if image_url&.include?("no-cover")
 
-  [genres, format, image_url, is_ebook, title, language, authors, published_date]
+  { genres:, format:, image_url:, is_ebook:, title:, language:, authors:, published_date: }
 end
 
 # The json object contains multiple "Book:" keys with values, but only one of these has
