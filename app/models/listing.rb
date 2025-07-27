@@ -24,6 +24,12 @@ class Listing < ApplicationRecord
     "€#{price_large},#{price_cents}"
   end
 
+  def shipping_label
+    # If the listing price includes shipping or if the price includes the sources free shipping cost threshold
+    return "Gratis verzending" if includes_shipping? || price >= source.shipping_cost_free_from_price
+    "+€#{source.shipping_cost.to_s.gsub(".", ",")} verzenden"
+  end
+
   def condition_label
     return "Nieuw" if new_condition?
     return "Tweedehands" if used_condition?
