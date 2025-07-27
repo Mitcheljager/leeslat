@@ -3,7 +3,7 @@
 
   <div class="filter-columns mt-8">
     <aside class="filter-columns__filter">
-      <%= form_with url: books_root_path, data: { turbo_frame: "books" }, method: :get do %>
+      <%= form_with url: books_root_path, data: { turbo_frame: "books", turbo_action: "advance" }, method: :get do %>
         <h2>Conditie</h2>
 
         <p>Nieuw</p>
