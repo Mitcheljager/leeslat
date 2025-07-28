@@ -7,6 +7,13 @@
   gap: 0.25rem;
 }
 
+.checkbox-switches-group__heading {
+  margin: 0 0 $margin;
+  padding: 0 0 $margin;
+  border-bottom: 2px solid var(--bg-content);
+  font-size: $font-size-large;
+}
+
 .checkbox-switch {
   --switch-color: var(--bg-content);
   position: relative;
