@@ -59,9 +59,6 @@ class BookFilter
   def filter_by_languages
     return if params[:languages].blank?
 
-    puts " ==================="
-    puts params[:languages]
-
     @books = books.where(language: params[:languages])
   end
 
