@@ -11,24 +11,27 @@ class BookFilter
     filter_by_availability
     filter_by_year
     filter_by_genres
-    filter_by_format
+    filter_by_formats
+    filter_by_languages
     search
     sort
+
+    @books.distinct
   end
 
   private
 
   def filter_by_condition
-    return if params[:condition].blank?
+    return if params[:conditions].blank?
 
-    @books = books.joins(:listings).where(listings: { condition: params[:condition] })
+    @books = books.joins(:listings).where(listings: { condition: params[:conditions], available: true })
   end
 
   def filter_by_availability
     return if params[:available].nil?
 
     available = ActiveModel::Type::Boolean.new.cast(params[:available])
-    @books = books.joins(:listings).where(listings: { available: available }).where.not(listings: { price: 0 })
+    @books = books.joins(:listings).where(listings: { available: available }).where.not(listings: { price: 0 }).where.not(listings: { price: 0 })
   end
 
   def filter_by_year
@@ -47,10 +50,19 @@ class BookFilter
     @books = books.joins(:genres).where(genres: { id: genre_ids })
   end
 
-  def filter_by_format
-    return if params[:format].blank?
+  def filter_by_formats
+    return if params[:formats].blank?
 
-    @books = books.where(format: params[:format])
+    @books = books.where(format: params[:formats])
+  end
+
+  def filter_by_languages
+    return if params[:languages].blank?
+
+    puts " ==================="
+    puts params[:languages]
+
+    @books = books.where(language: params[:languages])
   end
 
   def search
