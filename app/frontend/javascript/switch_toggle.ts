@@ -8,6 +8,10 @@ export default class switch_toggle {
   }
 
   toggle(element: HTMLButtonElement, state: boolean): void {
+    const current_state = element.classList.contains("switch--active");
+
+    if (state === current_state) return;
+
     const indicator_element = element.querySelector("[data-role~='switch_indicator']");
     const transition_duration = parseFloat(window.getComputedStyle(indicator_element!).transitionDuration) * 1000;
 
