@@ -44,6 +44,8 @@ export default class turbo_action_progress_bar {
   }
 
   private remove_loading_state(): void {
+    if (!turbo_action_progress_bar.frame) return;
+
     turbo_action_progress_bar.frame.style.removeProperty("opacity");
     turbo_action_progress_bar.frame.style.removeProperty("transition");
   }
