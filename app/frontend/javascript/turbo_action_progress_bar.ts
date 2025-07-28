@@ -7,21 +7,44 @@ import { Turbo } from "@hotwired/turbo-rails";
  * https://github.com/hotwired/turbo/issues/540#issuecomment-1783752175
  */
 export default class turbo_action_progress_bar {
+  static frame: HTMLElement;
+
   bind(): void {
     const adapter = Turbo.navigator.delegate.adapter;
 
     document.addEventListener("turbo:before-fetch-request", (event) => {
-      const target = event.target;
+      if (!(event.target instanceof HTMLElement)) return;
+      if (event.target.dataset.turboAction === undefined) return;
 
-      if (!(target instanceof HTMLElement)) return;
-      if (target.dataset.turboAction === undefined) return;
+      turbo_action_progress_bar.frame = event.target;
 
       adapter.progressBar.setValue(0);
       adapter.progressBar.show();
+
+      // Fade the turbo frame out while loading
+      if (turbo_action_progress_bar.frame.dataset.turboFade !== "true") return;
+
+      turbo_action_progress_bar.frame.style.transition = "opacity 200ms";
+      turbo_action_progress_bar.frame.style.opacity = "0.35";
     }, true);
 
     document.addEventListener("turbo:before-fetch-response", () => {
       adapter.progressBar.hide();
+
+      turbo_action_progress_bar.frame?.style.removeProperty("pointer-events");
+
+      if (turbo_action_progress_bar.frame?.dataset.turboFade !== "true") return;
+
+      this.remove_loading_state();
     }, true);
+
+    document.addEventListener("turbo:before-cache", () => {
+      this.remove_loading_state();
+    });
+  }
+
+  private remove_loading_state(): void {
+    turbo_action_progress_bar.frame.style.removeProperty("opacity");
+    turbo_action_progress_bar.frame.style.removeProperty("transition");
   }
 }
