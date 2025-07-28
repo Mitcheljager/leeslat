@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   end
 
   def filter_params
-    params.permit(:available, :year, :sort, :query, genres: [], conditions: [], formats: [], languages: [])
+    params.permit(:available, :year_from, :year_to, :sort, :query, genres: [], conditions: [], formats: [], languages: [])
   end
 
   def any_filter_params?

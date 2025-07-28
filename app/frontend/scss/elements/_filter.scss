@@ -1,0 +1,9 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.filter__heading {
+  margin: 0 0 $margin;
+  padding: 0 0 $margin;
+  border-bottom: 2px solid var(--bg-content);
+  font-size: $font-size-large;
+}

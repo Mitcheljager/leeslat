@@ -35,12 +35,12 @@ class BookFilter
   end
 
   def filter_by_year
-    return if params[:year].blank?
+    return if params[:year_from].blank? && params[:year_to].blank?
 
-    year = params[:year].to_s.strip
-    return unless year.match?(/^\d{4}$/)
+    from =  params[:year_from]&.to_i || 0
+    to = params[:year_to]&.to_i || Date.current.year
 
-    @books = books.where("published_date_text LIKE ?", "#{year}%")
+    @books = books.where("CAST(SUBSTR(published_date_text, 1, 4) AS INTEGER) BETWEEN ? AND ?", from, to)
   end
 
   def filter_by_genres

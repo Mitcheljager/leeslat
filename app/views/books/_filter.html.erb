@@ -1,8 +1,7 @@
-<%= form_with url: books_path, data: { action: "form_filter" }, method: :get do %>
+<%= form_with url: books_path, class: "filter", data: { action: "form_filter" }, method: :get do %>
+  <h2 class="filter__heading">Conditie</h2>
 
   <div class="checkbox-switches-group">
-    <h2 class="checkbox-switches-group__heading">Conditie</h2>
-
     <% condition_labels = { "new" => "Nieuw", "used" => "Tweedehands", "damaged" => "Licht beschadigd" } %>
     <% Listing.conditions.keys.each do |condition| %>
       <% next unless condition_labels[condition] %>
@@ -13,9 +12,9 @@
     <% end %>
   </div>
 
-  <div class="checkbox-switches-group mt-4">
-    <h2 class="checkbox-switches-group__heading">Taal</h2>
+  <h2 class="filter__heading mt-4">Taal</h2>
 
+  <div class="checkbox-switches-group">
     <% language_labels = { "dutch" => "Nederlands", "english" => "Engels" } %>
     <% Book.languages.keys.each do |language| %>
       <%= label_tag "", class: "checkbox-switch" do %>
@@ -25,9 +24,9 @@
     <% end %>
   </div>
 
-  <div class="checkbox-switches-group mt-4">
-    <h2 class="checkbox-switches-group__heading">Formaat</h2>
+  <h2 class="filter__heading mt-4">Formaat</h2>
 
+  <div class="checkbox-switches-group">
     <% format_labels = { "hardcover" => "Hardcover", "paperback" => "Paperback", "unknown" => "Overigen" } %>
     <% Book.formats.keys.reverse.each do |format| %>
       <%= label_tag "", class: "checkbox-switch" do %>
@@ -36,6 +35,11 @@
       <% end %>
     <% end %>
   </div>
+
+  <h2 class="filter__heading mt-4">Uitgifte</h2>
+
+  <%= text_field_tag :year_from %>
+  <%= text_field_tag :year_to %>
 
   <noscript>
     <%= submit_tag "Submit", class: "button", name: nil %>
