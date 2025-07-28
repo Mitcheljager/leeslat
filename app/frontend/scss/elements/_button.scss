@@ -21,6 +21,7 @@ button {
   text-decoration: none;
   font-weight: bold;
   color: $white;
+  cursor: pointer;
 
   @include hover-grow;
 
