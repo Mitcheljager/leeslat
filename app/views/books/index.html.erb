@@ -18,16 +18,14 @@
       <%= render "filter" %>
     </aside>
 
-    <%= turbo_frame_tag "books", target: "_top" do %>
-      <section class="filter-columns__content">
-        <div class="cards">
-          <%= render collection: @books, partial: "books/card", as: :book %>
-        </div>
-      </section>
+    <section class="filter-columns__content">
+      <%= turbo_frame_tag "form_filter_content", class: "cards", data: { turbo_action: "replace" }, target: "_top" do %>
+        <%= render collection: @books, partial: "books/card", as: :book %>
+      <% end %>
+    </section>
 
-      <div class="filter-columns__pagination">
-        <%= paginate @books, theme: :simple, window: 2 %>
-      </div>
-    <% end %>
+    <nav class="filter-columns__pagination">
+      <%= paginate @books, theme: :simple, window: 2 %>
+    </nav>
   </div>
 </section>

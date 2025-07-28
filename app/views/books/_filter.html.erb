@@ -1,4 +1,4 @@
-<%= form_with url: books_path, data: { turbo_frame: "books", turbo_action: "advance" }, method: :get do %>
+<%= form_with url: books_path, data: { action: "form_filter" }, method: :get do %>
   <h2>Conditie</h2>
 
   <p>Nieuw</p>
@@ -16,5 +16,7 @@
   <p>Nederlands</p>
   <p>Engels</p>
 
-  <%= submit_tag "Submit", class: "button", name: nil, data: { turbo_submits_with: "..." } %>
+  <noscript>
+    <%= submit_tag "Submit", class: "button", name: nil %>
+  </noscript>
 <% end %>
