@@ -22,13 +22,6 @@ export default class form_filter {
     const params = new URLSearchParams(form_data as any);
     const url = `${form.action}?${params.toString()}`;
 
-    document.removeEventListener("turbo:frame-load", this.show_progress);
-
     Turbo.visit(url, { frame: "form_filter_content" });
-  }
-
-  private show_progress(): void {
-    const adapter = Turbo.navigator.delegate.adapter;
-    adapter.formSubmissionStarted();
   }
 }
