@@ -19,12 +19,13 @@ export default class form_filter {
   private submit(form: HTMLFormElement): void {
     const form_data = new FormData(form);
 
-    for (const key of form_data.keys()) {
-      if (!(form_data.get(key) as string)?.trim()) form_data.delete(key);
+    const params = Object.fromEntries(form_data);
+    for (const key in params) {
+      if (!params[key]) delete params[key];
     }
 
-    const params = new URLSearchParams(form_data as any);
-    const url = `${form.action}?${params.toString()}`;
+    const urlParams = new URLSearchParams(params as any);
+    const url = `${form.action}?${urlParams.toString()}`;
 
     Turbo.visit(url, { frame: "form_filter_content" });
   }
