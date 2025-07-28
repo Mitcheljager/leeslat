@@ -1,7 +1,9 @@
 <%= form_with url: books_path, class: "filter", data: { action: "form_filter" }, method: :get do %>
+  <%= hidden_field_tag :query, filter_params[:query] %>
+
   <h2 class="filter__heading">Sorteer.</h2>
 
-  <% sorting_options = [["Populariteit", nil], ["Nieuw naar oud", "new"], ["Oud naar nieuw", "old"]] %>
+  <% sorting_options = [["Relevantie", nil], ["Nieuw naar oud", "new"], ["Oud naar nieuw", "old"]] %>
   <%= select_tag "sort", options_for_select(sorting_options, filter_params[:sort]), { class: "form-input" } %>
 
   <h2 class="filter__heading mt-4">Conditie.</h2>
