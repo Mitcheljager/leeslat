@@ -14,13 +14,13 @@ export default class turbo_action_progress_bar {
       const target = event.target;
 
       if (!(target instanceof HTMLElement)) return;
-      if (target.dataset.TurboAction !== undefined) return;
+      if (target.dataset.turboAction === undefined) return;
 
-      adapter.formSubmissionStarted();
+      adapter.progressBar.show();
     }, true);
 
     document.addEventListener("turbo:before-fetch-response", () => {
-      adapter.formSubmissionFinished();
+      adapter.progressBar.hide();
     }, true);
   }
 }
