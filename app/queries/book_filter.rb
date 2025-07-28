@@ -11,6 +11,7 @@ class BookFilter
     filter_by_availability
     filter_by_year
     filter_by_genres
+    filter_by_format
     search
     sort
   end
@@ -44,6 +45,12 @@ class BookFilter
 
     genre_ids = Genre.where(slug: Array(params[:genres])).pluck(:id)
     @books = books.joins(:genres).where(genres: { id: genre_ids })
+  end
+
+  def filter_by_format
+    return if params[:format].blank?
+
+    @books = books.where(format: params[:format])
   end
 
   def search
