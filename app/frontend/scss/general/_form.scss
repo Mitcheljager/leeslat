@@ -15,3 +15,27 @@ input {
   font-size: 1rem;
   max-width: 100%;
 }
+
+.form-select {
+  @extend .form-input;
+  width: 100%;
+}
+
+.input-group {
+  display: grid;
+  gap: $margin;
+  grid-template-columns: 1fr 1fr;
+}
+
+.form-label {
+  color: var(--text-color-alt);
+}
+
+.label-group {
+  display: flex;
+  justify-content: space-between;
+
+  &:last-child {
+    text-align: right;
+  }
+}

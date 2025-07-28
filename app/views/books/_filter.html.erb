@@ -1,10 +1,10 @@
-<%= form_with url: books_path, class: "filter", data: { action: "form_filter" }, method: :get do %>
+<%= form_with url: books_path, class: "filter", data: { action: "form_filter" }, autocomplete: "off", method: :get do %>
   <%= hidden_field_tag :query, filter_params[:query] %>
 
   <h2 class="filter__heading">Sorteer.</h2>
 
   <% sorting_options = [["Relevantie", nil], ["Nieuw naar oud", "new"], ["Oud naar nieuw", "old"]] %>
-  <%= select_tag "sort", options_for_select(sorting_options, filter_params[:sort]), { class: "form-input" } %>
+  <%= select_tag "sort", options_for_select(sorting_options, filter_params[:sort]), { class: "form-select" } %>
 
   <h2 class="filter__heading mt-4">Conditie.</h2>
 
@@ -45,8 +45,15 @@
 
   <h2 class="filter__heading mt-4">Uitgifte.</h2>
 
-  <%= text_field_tag :year_from, filter_params[:year_from] || nil, class: "form-input" %>
-  <%= text_field_tag :year_to, filter_params[:year_to] || nil, class: "form-input" %>
+  <div class="label-group">
+    <%= label_tag :year_from, "Van", class: "form-label" %>
+    <%= label_tag :year_to, "Tot", class: "form-label" %>
+  </div>
+
+  <div class="input-group">
+    <%= number_field_tag :year_from, filter_params[:year_from] || 1900, min: 1900, max: Date.current.year, class: "form-input" %>
+    <%= number_field_tag :year_to, filter_params[:year_to] || Date.current.year, min: 1900, max: Date.current.year, class: "form-input" %>
+  <div>
 
   <noscript>
     <%= submit_tag "Submit", class: "button", name: nil %>
