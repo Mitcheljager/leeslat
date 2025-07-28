@@ -1,5 +1,10 @@
 <%= form_with url: books_path, class: "filter", data: { action: "form_filter" }, method: :get do %>
-  <h2 class="filter__heading">Conditie.</h2>
+  <h2 class="filter__heading">Sorteer.</h2>
+
+  <% sorting_options = [["Populariteit", nil], ["Nieuw naar oud", "new"], ["Oud naar nieuw", "old"]] %>
+  <%= select_tag "sort", options_for_select(sorting_options, filter_params[:sort]), { class: "form-input" } %>
+
+  <h2 class="filter__heading mt-4">Conditie.</h2>
 
   <div class="checkbox-switches-group">
     <% condition_labels = { "new" => "Nieuw", "used" => "Tweedehands", "damaged" => "Licht beschadigd" } %>
@@ -38,8 +43,8 @@
 
   <h2 class="filter__heading mt-4">Uitgifte.</h2>
 
-  <%= text_field_tag :year_from %>
-  <%= text_field_tag :year_to %>
+  <%= text_field_tag :year_from, filter_params[:year_from] || nil, class: "form-input" %>
+  <%= text_field_tag :year_to, filter_params[:year_to] || nil, class: "form-input" %>
 
   <noscript>
     <%= submit_tag "Submit", class: "button", name: nil %>
