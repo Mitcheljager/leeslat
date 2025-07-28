@@ -14,7 +14,7 @@ export default class turbo_action_progress_bar {
       const target = event.target;
 
       if (!(target instanceof HTMLElement)) return;
-      if (target.getAttribute("data-turbo-action") !== "advance") return;
+      if (target.dataset.TurboAction !== undefined) return;
 
       adapter.formSubmissionStarted();
     }, true);
