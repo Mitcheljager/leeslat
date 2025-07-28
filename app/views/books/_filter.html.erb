@@ -6,6 +6,15 @@
   <% sorting_options = [["Relevantie", nil], ["Nieuw naar oud", "new"], ["Oud naar nieuw", "old"]] %>
   <%= select_tag "sort", options_for_select(sorting_options, filter_params[:sort]), { class: "form-select" } %>
 
+  <h2 class="filter__heading mt-4">Beschikbaarheid.</h2>
+
+  <div class="checkbox-switches-group">
+    <%= label_tag "", class: "checkbox-switch" do %>
+      <%= check_box_tag :available, :true, filter_params[:available] === "true" %>
+      <span class="checkbox-switch__label">Took alleen beschikbaar</span>
+    <% end %>
+  </div>
+
   <h2 class="filter__heading mt-4">Conditie.</h2>
 
   <div class="checkbox-switches-group">
