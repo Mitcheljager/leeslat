@@ -1,6 +1,11 @@
 @use "../variables" as *;
 @use "../mixins" as *;
 
+.filter {
+  position: relative;
+  z-index: 1;
+}
+
 .filter__heading {
   margin: 0 0 $margin;
   padding: 0 0 $margin;
