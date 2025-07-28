@@ -11,13 +11,17 @@ export default class form_filter {
   }
 
   private bind_inputs(form: HTMLFormElement): void {
-    const inputs: HTMLInputElement[] = Array.from(form.querySelectorAll("input"));
+    const inputs: HTMLInputElement[] = Array.from(form.querySelectorAll("input, select"));
 
     inputs.forEach(input => input.maybe_add_event_listener("change", () => this.submit(form)));
   }
 
   private submit(form: HTMLFormElement): void {
     const form_data = new FormData(form);
+
+    for (const key of form_data.keys()) {
+      if (!(form_data.get(key) as string)?.trim()) form_data.delete(key);
+    }
 
     const params = new URLSearchParams(form_data as any);
     const url = `${form.action}?${params.toString()}`;
