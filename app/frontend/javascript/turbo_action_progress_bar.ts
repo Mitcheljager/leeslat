@@ -16,6 +16,7 @@ export default class turbo_action_progress_bar {
       if (!(target instanceof HTMLElement)) return;
       if (target.dataset.turboAction === undefined) return;
 
+      adapter.progressBar.setValue(0);
       adapter.progressBar.show();
     }, true);
 
