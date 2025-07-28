@@ -1,34 +1,40 @@
 <%= form_with url: books_path, data: { action: "form_filter" }, method: :get do %>
-  <h2>Conditie</h2>
+  <h2 class="mt-0 mb-1">Conditie</h2>
 
-  <% condition_labels = { "new" => "Nieuw", "used" => "Tweedehands", "damaged" => "Licht beschadigd" } %>
-  <% Listing.conditions.keys.each do |condition| %>
-    <% next unless condition_labels[condition] %>
-    <%= label_tag "", class: "checkbox-switch" do %>
-      <%= check_box_tag "conditions[]", condition, filter_params[:conditions]&.include?(condition) %>
-      <span class="checkbox-switch__label"><%= condition_labels[condition] %></span>
+  <div class="checkbox-switches-group">
+    <% condition_labels = { "new" => "Nieuw", "used" => "Tweedehands", "damaged" => "Licht beschadigd" } %>
+    <% Listing.conditions.keys.each do |condition| %>
+      <% next unless condition_labels[condition] %>
+      <%= label_tag "", class: "checkbox-switch" do %>
+        <%= check_box_tag "conditions[]", condition, filter_params[:conditions]&.include?(condition) %>
+        <span class="checkbox-switch__label"><%= condition_labels[condition] %></span>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 
-  <h2>Taal</h2>
+  <h2 class="mt-4 mb-1">Taal</h2>
 
-  <% language_labels = { "dutch" => "Nederlands", "english" => "Engels" } %>
-  <% Book.languages.keys.each do |language| %>
-    <%= label_tag "", class: "checkbox-switch" do %>
-      <%= check_box_tag "languages[]", language, filter_params[:languages]&.include?(language) %>
-      <span class="checkbox-switch__label"><%= language_labels[language] %></span>
+  <div class="checkbox-switches-group">
+    <% language_labels = { "dutch" => "Nederlands", "english" => "Engels" } %>
+    <% Book.languages.keys.each do |language| %>
+      <%= label_tag "", class: "checkbox-switch" do %>
+        <%= check_box_tag "languages[]", language, filter_params[:languages]&.include?(language) %>
+        <span class="checkbox-switch__label"><%= language_labels[language] %></span>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 
-  <h2>Formaat</h2>
+  <h2 class="mt-4 mb-1">Formaat</h2>
 
-  <% format_labels = { "hardcover" => "Hardcover", "paperback" => "Paperback", "unknown" => "Overigen" } %>
-  <% Book.formats.keys.reverse.each do |format| %>
-    <%= label_tag "", class: "checkbox-switch" do %>
-      <%= check_box_tag "formats[]", format, filter_params[:formats]&.include?(format) %>
-      <span class="checkbox-switch__label"><%= format_labels[format] %></span>
+  <div class="checkbox-switches-group">
+    <% format_labels = { "hardcover" => "Hardcover", "paperback" => "Paperback", "unknown" => "Overigen" } %>
+    <% Book.formats.keys.reverse.each do |format| %>
+      <%= label_tag "", class: "checkbox-switch" do %>
+        <%= check_box_tag "formats[]", format, filter_params[:formats]&.include?(format) %>
+        <span class="checkbox-switch__label"><%= format_labels[format] %></span>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 
   <noscript>
     <%= submit_tag "Submit", class: "button", name: nil %>

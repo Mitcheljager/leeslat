@@ -50,6 +50,7 @@ $shadow-huge:
   --bg-content-alt--hover: #493028;
   --bg-standout: #{$white};
   --text-color-base: #5d4037;
+  --text-color-alt: #866b64;
 }
 
 @mixin dark_variables {
@@ -62,4 +63,5 @@ $shadow-huge:
   --bg-content-alt--hover: #75726e;
   --bg-standout: #141413;
   --text-color-base: #e7e5db;
+  --text-color-alt: #b1afa8;
 }

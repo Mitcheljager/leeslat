@@ -26,7 +26,7 @@ $gap: #{calc(map.get($breakpoints, max) / 16)};
 .detail__subheader {
   font-size: $font-size-large;
   font-family: $font-stack-serif;
-  opacity: 0.8;
+  opacity: var(--text-color-alt);
 }
 
 .detail__names {
