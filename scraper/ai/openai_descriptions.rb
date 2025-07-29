@@ -34,6 +34,15 @@ response = client.chat(parameters: {
 
 message = response["choices"][0]["message"]["content"]
 
+# AI likely provided no usable response. Likely responding with something along the lines of:
+# "It appears that you did not provide any book descriptions to clean up and merge."
+# A description could technically contain both these phrases and be perfectly valid, but that
+# feels like an edge case that is not worth worrying about... for now.
+if message.downcase.include?("clean up") && message.downcase.include?("merge")
+  puts "AI provided no valid results for descriptions of #{isbn}"
+end
+
 puts "Summary: #{message}"
+
 
 book.update(description: message, description_last_generated_at: DateTime.now)
