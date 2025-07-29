@@ -32,12 +32,14 @@
 @mixin hover-grow($scale: 1.05) {
   transition: scale 50ms;
 
-  @include hover-stack {
-    scale: $scale;
-  }
+  @include motion {
+    &:hover:not([disabled]) {
+      scale: $scale;
+    }
 
-  &:active {
-    scale: 1;
+    &:active:not([disabled]) {
+      scale: 1;
+    }
   }
 }
 
