@@ -7,8 +7,15 @@ $switch-side-size: 3rem;
 .switch {
   position: relative;
   display: flex;
+  width: 2.25rem;
+  height: 2.25rem;
   background: transparent;
   border-radius: $border-radius-rounded;
+
+  @include breakpoint(mobile) {
+    width: auto;
+    height: auto;
+  }
 
   @include hover-stack {
     .switch__indicator {
@@ -18,51 +25,82 @@ $switch-side-size: 3rem;
 }
 
 .switch__indicator {
+  z-index: -1;
   position: absolute;
   height: 100%;
-  width: $switch-side-size;
+  width: 100%;
   border-radius: $border-radius-rounded;
   background: var(--bg-content-alt);
-  transition: transform 100ms, width 100ms;
+
+  @include breakpoint(mobile) {
+    width: $switch-side-size;
+    transition: transform 100ms, width 100ms;
+  }
 
   .switch--active & {
-    transform: translateX(calc($switch-side-size - $margin));
+    @include breakpoint(mobile) {
+      transform: translateX(calc($switch-side-size - $margin));
+    }
   }
 
   .switch--switching & {
-    width: 100%;
-    transform: none;
+    @include breakpoint(mobile) {
+      width: 100%;
+      transform: none;
+    }
   }
 }
 
 .switch__side {
   z-index: 1;
-  position: relative;
+  position: absolute;
   display: flex;
   justify-content: center;
-  padding: $margin * 0.5 $margin;
   height: 100%;
-  transition: padding 100ms, color 100ms 50ms;
+  padding: 0.25rem;
+
+  @include breakpoint(mobile) {
+    position: relative;
+    padding: $margin * 0.5 $margin;
+    transition: padding 100ms, color 100ms 50ms;
+  }
 
   &--left {
     color: var(--bg-base);
+
+    @include breakpoint(mobile) {
+      z-index: unset;
+    }
 
     @include dark {
       color: inherit;
     }
 
     .switch--active & {
-      padding-left: 0;
-      color: inherit;
+      z-index: -1;
+
+      @include breakpoint(mobile) {
+        padding-left: 0;
+        color: inherit;
+      }
     }
   }
 
   &--right {
+    z-index: -1;
     padding-right: 0;
 
+    @include breakpoint(mobile) {
+      z-index: unset;
+    }
+
     .switch--active & {
-      padding-right: $margin;
-      color: var(--bg-base);
+      z-index: 1;
+
+      @include breakpoint(mobile) {
+        padding-right: $margin;
+        color: var(--bg-base);
+      }
 
       @include dark {
         color: inherit;
