@@ -49,6 +49,18 @@
   }
 }
 
+@mixin pointer() {
+  @media (pointer: fine) {
+    @content;
+  }
+}
+
+@mixin touch() {
+  @media (pointer: coarse) {
+    @content;
+  }
+}
+
 @mixin focus-visible-outline($prepend: '') {
   outline-offset: 0;
 
