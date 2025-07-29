@@ -3,13 +3,20 @@
 @use "../mixins" as *;
 
 .faq {
+  @include max-width();
   width: 100%;
-  margin: $margin * 10 0;
-  @include max-width(map.get($breakpoints, max) * 0.25 + calc(map.get($breakpoints, max) / 8));
+  margin: $margin * 4 0;
+
+  @include breakpoint(max) {
+    @include max-width(map.get($breakpoints, max) * 0.25 + calc(map.get($breakpoints, max) / 8));
+    margin: $margin * 12 auto;
+  }
 }
 
 .faq__heading {
-  text-align: center;
+  @include breakpoint(max) {
+    text-align: center;
+  }
 }
 
 .faq__item {

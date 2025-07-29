@@ -5,16 +5,23 @@
 $gap: #{calc(map.get($breakpoints, max) / 16)};
 
 .detail {
+  @include max-width;
   display: grid;
   grid-template:
-    "header header header"
-    "aside image content";
-  grid-template-columns: 1fr 300px 1fr;
+    "header header"
+    "content image"
+    "aside aside";
+  grid-template-columns: 2fr 1fr;
   gap: 0 $gap;
   align-items: flex-start;
   padding-bottom: $margin * 4;
 
-  @include max-width;
+  @include breakpoint(max) {
+    grid-template:
+      "header header header"
+      "aside image content";
+    grid-template-columns: 1fr 300px 1fr;
+  }
 }
 
 .detail__header {
@@ -46,6 +53,11 @@ $gap: #{calc(map.get($breakpoints, max) / 16)};
 
 .detail__aside {
   grid-area: aside;
+  margin-top: $margin * 8;
+
+  @include breakpoint(max) {
+    margin-top: 0;
+  }
 }
 
 .detail__image {
@@ -62,6 +74,10 @@ $gap: #{calc(map.get($breakpoints, max) / 16)};
   position: relative;
   min-height: 100%;
 
+  @include breakpoint(max) {
+    max-width: unset;
+  }
+
   > * {
     z-index: 1;
     position: relative;
@@ -70,12 +86,20 @@ $gap: #{calc(map.get($breakpoints, max) / 16)};
   &::after {
     @include pseudo-fill;
     z-index: 0;
-    width: 70vw;
+    width: 100vw;
     min-height: calc(100% + $margin * 8);
     top: $margin * -4;
-    left: calc(($gap * -0.5) - (map.get($breakpoints, max) / 3 / 2));
+    left: auto;
+    right: calc(-33% - $gap * 0.5);
     background: var(--bg-standout);
-    border-radius: $border-radius-huge 0 0 $border-radius-huge;
+    border-radius: 0 $border-radius-huge $border-radius-huge 0;
+
+    @include breakpoint(max) {
+      width: 70vw;
+      left: calc(($gap * -0.5) - (map.get($breakpoints, max) / 3 / 2));
+      right: auto;
+      border-radius: $border-radius-huge 0 0 $border-radius-huge;
+    }
   }
 }
 
