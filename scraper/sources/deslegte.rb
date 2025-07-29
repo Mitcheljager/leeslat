@@ -21,7 +21,7 @@ def scrape_deslegte(isbn)
   else
     puts "Running new url for De Slegte"
 
-    # Bol.com doesn't have nice enough urls to visit them directly via slug + isbn.
+    # De Slegte doesn't have nice enough urls to visit them directly via slug + isbn.
     # Instead, we search first and get first result
     base_url = "https://www.deslegte.com"
     document = get_document("#{base_url}/boeken/?q=#{isbn}")
