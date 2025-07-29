@@ -4,6 +4,7 @@
 
 .navigation {
   @include max-width;
+  overflow-x: auto;
 
   @include breakpoint(desktop) {
     display: grid;
