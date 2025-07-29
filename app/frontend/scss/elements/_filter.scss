@@ -2,8 +2,19 @@
 @use "../mixins" as *;
 
 .filter {
+  display: none;
   position: relative;
   z-index: 1;
+  margin-top: $margin * 2;
+
+  @include breakpoint(desktop) {
+    display: block;
+    margin-top: 0;
+  }
+
+  &--visible {
+    display: block;
+  }
 }
 
 .filter__heading {
@@ -11,4 +22,18 @@
   padding: 0 0 $margin;
   border-bottom: 2px solid var(--bg-content);
   font-size: $font-size-large;
+}
+
+.filter__submit {
+  @include breakpoint(desktop) {
+    display: none;
+  }
+}
+
+.filter__noscript {
+  display: none;
+
+  @include breakpoint(desktop) {
+    display: block;
+  }
 }

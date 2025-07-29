@@ -49,6 +49,12 @@ button {
     font-size: $font-size-large;
   }
 
+  &--full-width {
+    width: 100%;
+
+    @include hover-grow(1.015);
+  }
+
   &--link {
     padding: 0;
     color: inherit;

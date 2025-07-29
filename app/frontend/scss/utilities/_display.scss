@@ -1,0 +1,18 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
+.hidden {
+  display: none;
+}
+
+@each $identifier, $breakpoint in $breakpoints {
+  @include breakpoint(#{$identifier}) {
+    .#{$identifier}\:visible {
+      display: initial;
+    }
+
+    .#{$identifier}\:hidden {
+      display: none;
+    }
+  }
+}

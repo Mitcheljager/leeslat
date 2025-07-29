@@ -1,4 +1,14 @@
-<%= form_with url: books_path, class: "filter", data: { action: "form_filter" }, autocomplete: "off", method: :get do %>
+<%= button_tag any_filter_params? ? "Filter actief" : "Filter boeken",
+               class: "button button--full-width desktop:hidden #{"button--primary" if any_filter_params?}",
+               type: "button",
+               data: {
+                action: "toggle_content",
+                target: "filter",
+                shows_with: any_filter_params? ? "Filter actief" : "Filter boeken",
+                hides_with: "Filter verbergen",
+                toggle_class: "filter--visible" } %>
+
+<%= form_with url: books_path, class: "filter", data: { action: "form_filter", toggleable: "filter" }, autocomplete: "off", method: :get do %>
   <%= hidden_field_tag :query, filter_params[:query] %>
 
   <h2 class="filter__heading">Sorteer.</h2>
@@ -62,9 +72,14 @@
   <div class="input-group">
     <%= number_field_tag :year_from, filter_params[:year_from] || 1900, min: 1900, max: Date.current.year, class: "form-input" %>
     <%= number_field_tag :year_to, filter_params[:year_to] || Date.current.year, min: 1900, max: Date.current.year, class: "form-input" %>
-  <div>
+  </div>
+
+  <% # There's 2 different submit buttons, one for mobile, where the filter does not auto submit, and one for noscript.
+    # Visually they are identical but only 1 should show at a time %>
+
+  <%= submit_tag "Filter toepassen", class: "button button--primary button--full-width filter__submit mt-2", name: nil, data: { role: "filter_submit", turbo_submits_with: "..." } %>
 
   <noscript>
-    <%= submit_tag "Submit", class: "button", name: nil %>
+    <%= submit_tag "Filter toepassen", class: "button button--primary button--full-width filter__noscript mt-2", name: nil %>
   </noscript>
 <% end %>

@@ -7,6 +7,7 @@ import expand_text from "../javascript/expand_text";
 import poll_listings_summary from "../javascript/poll_listings_summary";
 import turbo_action_progress_bar from "../javascript/turbo_action_progress_bar";
 import form_filter from "../javascript/form_filter";
+import toggle_content from "../javascript/toggle_content";
 
 // Events that are attached to the document are bound through here,
 // otherwise they would be re-bound every time turbo:loads fires.
@@ -21,6 +22,7 @@ document.addEventListener("turbo:load", () => {
   new switch_toggle().bind();
   new expand_text().bind();
   new form_filter().bind();
+  new toggle_content().bind();
 
   new poll_listings_summary().run();
 });
