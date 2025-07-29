@@ -5,6 +5,7 @@ $white: #fff;
 $green: #5ce65c;
 
 $margin: px-to-rem(10);
+$gutter: max(#{$margin * 2}, 5vw);
 
 $border-radius-small: 0.5rem;
 $border-radius: 0.75rem;

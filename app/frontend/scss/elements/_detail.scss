@@ -8,13 +8,24 @@ $gap: #{calc(map.get($breakpoints, max) / 16)};
   @include max-width;
   display: grid;
   grid-template:
-    "header header"
-    "content image"
+    "header image"
+    "content content"
     "aside aside";
   grid-template-columns: 2fr 1fr;
-  gap: 0 $gap;
   align-items: flex-start;
+  gap: 0 max($margin * 2, 5vw);
+  margin-top: $margin * 8;
   padding-bottom: $margin * 4;
+
+  @include breakpoint(mobile) {
+    grid-template:
+      "header header"
+      "content image"
+      "aside aside";
+    grid-template-columns: 2fr 1fr;
+    gap: 0 $gap;
+    margin-top: 0;
+  }
 
   @include breakpoint(max) {
     grid-template:
@@ -26,8 +37,11 @@ $gap: #{calc(map.get($breakpoints, max) / 16)};
 
 .detail__header {
   grid-area: header;
-  margin: $margin * 10 0 $margin * 8;
-  text-align: center;
+
+  @include breakpoint(mobile) {
+    margin: $margin * 10 0 $margin * 8;
+    text-align: center;
+  }
 }
 
 .detail__subheader {
@@ -37,7 +51,12 @@ $gap: #{calc(map.get($breakpoints, max) / 16)};
 }
 
 .detail__names {
-  font-size: 1.5rem;
+  margin-top: $margin;
+  font-size: $font-size-large;
+
+  @include breakpoint(mobile) {
+    font-size: 1.5rem;
+  }
 
   a {
     color: inherit;
@@ -67,12 +86,21 @@ $gap: #{calc(map.get($breakpoints, max) / 16)};
   min-height: 10rem;
   width: 100%;
   margin: 0;
+
+  @include breakpoint(mobile) {
+    max-width: unset;
+  }
 }
 
 .detail__content {
   grid-area: content;
   position: relative;
-  min-height: 100%;
+  margin-top: $margin * 8;
+
+  @include breakpoint(mobile) {
+    margin-top: 0;
+    min-height: 100%;
+  }
 
   @include breakpoint(max) {
     max-width: unset;
@@ -87,17 +115,23 @@ $gap: #{calc(map.get($breakpoints, max) / 16)};
     @include pseudo-fill;
     z-index: 0;
     width: 100vw;
-    min-height: calc(100% + $margin * 8);
-    top: $margin * -4;
-    left: auto;
-    right: calc(-33% - $gap * 0.5);
+    min-height: calc(100% + $gutter * 2);
+    top: calc($gutter * -1);
+    left: calc($gutter * -1);
     background: var(--bg-standout);
-    border-radius: 0 $border-radius-huge $border-radius-huge 0;
+
+    @include breakpoint(mobile) {
+      min-height: calc(100% + $margin * 8);
+      top: $margin * -4;
+      right: calc(-33% - $gap * 0.5);
+      left: auto;
+      border-radius: 0 $border-radius-huge $border-radius-huge 0;
+    }
 
     @include breakpoint(max) {
       width: 70vw;
-      left: calc(($gap * -0.5) - (map.get($breakpoints, max) / 3 / 2));
       right: auto;
+      left: calc(($gap * -0.5) - (map.get($breakpoints, max) / 3 / 2));
       border-radius: $border-radius-huge 0 0 $border-radius-huge;
     }
   }

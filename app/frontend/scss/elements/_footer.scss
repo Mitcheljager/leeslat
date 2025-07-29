@@ -2,8 +2,12 @@
 @use "../mixins" as *;
 
 .footer {
-  margin-top: $margin * 16;
+  margin-top: $margin * 8;
   background: var(--bg-content);
+
+  @include breakpoint(desktop) {
+    margin-top: $margin * 16;
+  }
 }
 
 .footer__content {
