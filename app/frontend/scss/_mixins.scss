@@ -14,7 +14,7 @@
 }
 
 @mixin max-width($width: map.get($breakpoints, max)) {
-  $padding: #{$margin * 3};
+  $padding: max(#{$margin * 2}, 5vw);
   max-width: calc($width + $padding * 2);
   margin-right: auto;
   margin-left: auto;
