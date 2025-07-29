@@ -57,5 +57,5 @@ def scrape_bol(isbn)
 
   price_includes_shipping = document.text.include?("Prijs inclusief verzendkosten")
 
-  { url:, price:, description:, number_of_pages:, condition: :new, available: available, price_includes_shipping: }
+  { url:, price:, description:, number_of_pages:, condition: :new, available:, price_includes_shipping: }
 end
