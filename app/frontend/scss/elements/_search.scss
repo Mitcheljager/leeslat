@@ -30,8 +30,19 @@
   left: $margin * 2;
   top: 50%;
   transform: translateY(-50%);
+  max-width: calc(100% - $margin * 4);
+  overflow: hidden;
   font-style: italic;
+  line-height: 1.5rem;
   pointer-events: none;
+
+  @include breakpoint(large) {
+    font-size: $font-size-small;
+  }
+
+  @include breakpoint(max) {
+    font-size: $font-size-base;
+  }
 
   .search__input:placeholder-shown + & {
     display: block;
@@ -40,6 +51,24 @@
   strong {
     font-family: $font-stack-bold;
     font-style: normal;
+  }
+}
+
+.search__text {
+  white-space: nowrap;
+
+  &--short {
+    @include breakpoint(large) {
+      display: none;
+    }
+  }
+
+  &--full {
+    display: none;
+
+    @include breakpoint(large) {
+      display: block;
+    }
   }
 }
 

@@ -4,15 +4,30 @@
 
 .navigation {
   @include max-width;
-  display: grid;
-  grid-template-columns: 1fr (map.get($breakpoints, max) * 0.5) 1fr;
-  align-items: center;
+
+  @include breakpoint(desktop) {
+    display: grid;
+    grid-template-columns: 1fr (map.get($breakpoints, max) * 0.33) 1fr;
+    align-items: center;
+  }
+
+  @include breakpoint(max) {
+    grid-template-columns: 1fr (map.get($breakpoints, max) * 0.5) 1fr;
+  }
 }
 
 .navigation__subtitle {
+  display: none;
   margin: 0;
-  font-size: $font-size-large;
   font-family: $font-stack-serif;
+
+  @include breakpoint(desktop) {
+    display: block;
+  }
+
+  @include breakpoint(large) {
+    font-size: $font-size-large;
+  }
 }
 
 .navigation__items {
