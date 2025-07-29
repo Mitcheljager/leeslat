@@ -5,6 +5,9 @@
 .navigation {
   @include max-width;
   overflow-x: auto;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  margin: -0.25rem auto;
 
   @include breakpoint(desktop) {
     display: grid;
