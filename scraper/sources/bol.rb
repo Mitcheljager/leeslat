@@ -25,10 +25,12 @@ def scrape_bol(isbn)
 
     first_url = link_element&.attribute("href")&.value
 
-    if !document.include?(isbn)
-      puts "Search document did not include url for #{isbn}"
-      return { url: nil, available: false }
-    end
+    return { url: nil, available: false } if first_url.blank?
+
+    parent_element = document.at_css(".product-item__content")
+
+    # A link was shown, but for a different product entirely. Might be a fuzzy search match.
+    return { url: nil, available: false } if !parent_element&.text&.include?(isbn)
 
     # Get document again for url that was fetched from search
     url = base_url + first_url
