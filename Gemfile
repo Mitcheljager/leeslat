@@ -40,7 +40,7 @@ gem "vite_rails"
 gem "paper_trail"
 gem "kaminari"
 gem "inline_svg"
-gem "sidekiq", "~> 6.5"
+gem "sidekiq", "~> 8.0"
 gem "aws-sdk-s3", require: false
 gem "turbo-rails"
 
