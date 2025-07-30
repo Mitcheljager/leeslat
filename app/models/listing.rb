@@ -26,7 +26,7 @@ class Listing < ApplicationRecord
 
   def shipping_label
     # If the listing price includes shipping or if the price includes the sources free shipping cost threshold
-    return "Gratis verzending" if price_includes_shipping? || price >= source.shipping_cost_free_from_price
+    return "Gratis verzending" if price_includes_shipping? || (source.shipping_cost_free_from_price > 0 && price >= source.shipping_cost_free_from_price) || source.shipping_cost == 0
     "+€#{source.shipping_cost.to_s.gsub(".", ",")} verzenden"
   end
 
