@@ -4,9 +4,8 @@ require_relative "base"
 isbn_list = Hash.new(0)
 
 # Bestseller60 - 60 entries
-subpaths = ["", "fictie", "non-fictie", "spannend", "jeugd", "koken"]
 subpaths.each do |path|
-  document = get_document("https://www.debestseller60.nl/#{path}")
+  document = get_document("https://www.debestseller60.nl/")
   document.css(".card__tags__tag").each_with_index do |node, index|
     # The selector above contains all sorts of tags, not just ISBNs
     next unless node.text.include?("ISBN")
@@ -17,7 +16,6 @@ subpaths.each do |path|
     score = 60 - index
     isbn_list[isbn] += score
   end
-end
 
 # Bol.com - 30 entries per page, 3 pages
 for page in 1..3 do
