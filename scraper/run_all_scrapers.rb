@@ -30,11 +30,14 @@ def run_scraper(source_name, sources_to_run, isbn, title)
     save_result(source_name, isbn, **result)
     update_listing_scraping_status(source_name, isbn, was_successful: true)
 
-    puts "Available on #{source_name}: #{result[:available]}"
+    color = result[:available] ? "\e[32m" : "\e[31m"
+    puts "Available on #{source_name}:#{color} #{result[:available]} \e[0m"
   rescue => error
+    puts "\e[31m"
     puts "#{source_name} failed for: #{title} - #{isbn}"
     puts "#{error.class}: #{error.message}"
     puts error.backtrace.join("\n")
+    puts "\e[0m"
 
     save_unsuccessful_result(source_name, isbn)
     update_listing_scraping_status(source_name, isbn, was_successful: false)
@@ -173,7 +176,7 @@ if isbn.present?
 else
   Book.all.each_with_index do |book, index|
     puts "-----------------------------------------------------"
-    puts "Running scrapers for \"#{book.title}\" (#{book.isbn}) - #{index + 1} out of #{Book.all.size}"
+    puts "Running scrapers for \e[35m\"#{book.title}\"\e[0m (\e[3m#{book.isbn}\e[0m) - \e[44m #{index + 1} out of #{Book.all.size} \e[0m"
     puts "-----------------------------------------------------"
 
     run_all_scrapers(book.isbn, sources_to_run)
@@ -185,8 +188,10 @@ total_seconds = ((end_time - start_time) * 24 * 60 * 60).to_f
 minutes = (total_seconds / 60).to_i
 seconds = (total_seconds % 60).round(2)
 
+puts "\e[34m"
 puts "===================="
 puts "Run started at #{start_time}"
 puts "Run ended at #{end_time}"
 puts "Total time: #{minutes} minutes and #{seconds} seconds"
 puts "===================="
+puts "\e[0m"
