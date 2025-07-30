@@ -176,7 +176,7 @@ if isbn.present?
 else
   Book.all.each_with_index do |book, index|
     puts "-----------------------------------------------------"
-    puts "Running scrapers for \e[35m\"#{book.title}\"\e[0m (\e[3m#{book.isbn}\e[0m) - \e[44m #{index + 1} out of #{Book.all.size} \e[0m"
+    puts "Running scrapers for \e[35m\"#{book.title}\"\e[0m | \e[4m#{book.isbn}\e[0m | \e[44m #{index + 1} out of #{Book.all.size} \e[0m"
     puts "-----------------------------------------------------"
 
     run_all_scrapers(book.isbn, sources_to_run)
