@@ -47,6 +47,23 @@ for page in 1..2 do
   end
 end
 
+# Bruna.nl - 100 entries
+document = get_document("https://www.bruna.nl/boeken-top-100")
+document.css(".ankeiler-wrapper [data-test-id='titleAndSubtitle'] a").each do |node|
+  # The only place the isbn is present on these overview pages is in the URLs of each book
+  url = node.attribute("href").value
+
+  next if url.blank?
+  next if !url.include?("/boeken/")
+
+  isbn = url.match(/(\d{10,13})(?:$|\D)/)&.captures&.first
+
+  next if isbn.blank?
+  next if isbn_list.include?(isbn)
+
+  isbn_list[isbn] += 0
+end
+
 # Process all indexed ISBNs, skipping any that are invalid
 isbn_list.each do |isbn, score|
   skippable = SkippableISBN.find_by_isbn(isbn)
