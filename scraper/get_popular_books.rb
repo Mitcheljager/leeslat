@@ -4,18 +4,17 @@ require_relative "base"
 isbn_list = Hash.new(0)
 
 # Bestseller60 - 60 entries
-subpaths.each do |path|
-  document = get_document("https://www.debestseller60.nl/")
-  document.css(".card__tags__tag").each_with_index do |node, index|
-    # The selector above contains all sorts of tags, not just ISBNs
-    next unless node.text.include?("ISBN")
+document = get_document("https://www.debestseller60.nl/")
+document.css(".card__tags__tag").each_with_index do |node, index|
+  # The selector above contains all sorts of tags, not just ISBNs
+  next unless node.text.include?("ISBN")
 
-    isbn = node.text.gsub("ISBN", "").strip
-    next if isbn.blank?
+  isbn = node.text.gsub("ISBN", "").strip
+  next if isbn.blank?
 
-    score = 60 - index
-    isbn_list[isbn] += score
-  end
+  score = 60 - index
+  isbn_list[isbn] += score
+end
 
 # Bol.com - 30 entries per page, 3 pages
 for page in 1..3 do
