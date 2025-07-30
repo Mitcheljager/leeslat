@@ -39,15 +39,12 @@ def scrape_bol(isbn)
 
   return { url: nil, available: false } if document.nil?
 
-  json_element = document.at_css("script[type='application/ld+json']")
-  json = JSON.parse(json_element.text)
-
-  description = json["description"]
-  number_of_pages = json["workExample"][0]["numberOfPages"]
-  price = document.at_css(".price-block__price .promo_price")
+  description = document.at_css("[data-test='description']")&.text&.strip
+  number_of_pages_label = document.at_css(".product-small-specs li:contains('pagina')")
+  number_of_pages = number_of_pages_label&.text&.gsub("pagina's", "")&.strip
 
   # Only return listing for books actually sold by Bol.com, partners are handled separately
-  available = document.text.include?("Verkoop door bol")
+  available = document.at_css("product-seller")&.text&.include?("Verkoop door bol")
 
   return { url:, available: false, description:, number_of_pages: } if !available
 
