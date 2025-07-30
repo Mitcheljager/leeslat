@@ -23,6 +23,7 @@ RUN apt-get update -qq && \
     libvips \
     sqlite3 \
     git \
+    imagemagick \
     && rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
