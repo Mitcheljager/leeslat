@@ -145,9 +145,3 @@ def find_listing_for_isbn_and_source_name(isbn, source_name)
   book = Book.find_by_isbn(isbn)
   book&.listings&.joins(:source)&.find_by(sources: { name: source_name })
 end
-
-url = ARGV[0]
-
-if url.present?
-  puts get_document(url)
-end
