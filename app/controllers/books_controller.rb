@@ -49,11 +49,6 @@ class BooksController < ApplicationController
   end
 
   def request_cover
-    puts "==="
-    puts @book.cover_image.attached?
-    puts @book.cover_last_scraped_at
-    puts "==="
-
     # Stop if book already has a cover of if it has attempted to get the cover before.
     # It's possible a book simply has no cover on Goodreads, in which case we don't want
     # to keep retrying for each request.
