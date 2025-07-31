@@ -27,24 +27,21 @@ def scrape_bol(isbn)
 
     return { url: nil, available: false } if first_url.blank?
 
-    parent_element = document.at_css(".product-item__content")
-
-    # A link was shown, but for a different product entirely. Might be a fuzzy search match.
-    return { url: nil, available: false } if !parent_element&.text&.include?(isbn)
-
     # Get document again for url that was fetched from search
     url = base_url + first_url
     document = get_document(url)
   end
 
-  return { url: nil, available: false } if document.nil?
+  # A link was found from search results, but for a different product entirely. Might be a fuzzy search match.
+  return { url: nil, available: false } if document.nil? || !document&.at_css(".product-small-specs")&.text&.include?(isbn)
 
   description = document.at_css("[data-test='description']")&.text&.strip
   number_of_pages_label = document.at_css(".product-small-specs li:contains('pagina')")
   number_of_pages = number_of_pages_label&.text&.gsub("pagina's", "")&.strip
 
-  # Only return listing for books actually sold by Bol.com, partners are handled separately
-  available = document.at_css(".product-seller")&.text&.include?("Verkoop door bol")
+  # Only return listing for books actually sold by Bol.com, partners are handled separately.
+  # Also skip books that are marked as "Niet leverbaar".
+  available = document.at_css(".product-seller")&.text&.include?("Verkoop door bol") && !document.text.include?("Niet leverbaar")
 
   return { url:, available: false, description:, number_of_pages: } if !available
 
