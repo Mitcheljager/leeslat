@@ -44,7 +44,7 @@ def scrape_bol(isbn)
   number_of_pages = number_of_pages_label&.text&.gsub("pagina's", "")&.strip
 
   # Only return listing for books actually sold by Bol.com, partners are handled separately
-  available = document.at_css("product-seller")&.text&.include?("Verkoop door bol")
+  available = document.at_css(".product-seller")&.text&.include?("Verkoop door bol")
 
   return { url:, available: false, description:, number_of_pages: } if !available
 
