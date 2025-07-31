@@ -33,6 +33,8 @@ class BooksController < ApplicationController
     # job runs don't request another job.
     @book.update(last_scrape_started_at: DateTime.now)
 
+    puts "Requested new scrape"
+
     RequestScrapeJob.perform_async(@book.isbn)
   end
 
@@ -40,6 +42,8 @@ class BooksController < ApplicationController
     # Stop if there are no listings with descriptions or a description has already been generated.
     return if @book.listings.where.not(description: nil).none?
     return if @book.description_last_generated_at.present?
+
+    puts "Requested new description"
 
     # We set this here rather than in the job so that requests between now and when the
     # job runs don't request another job.
@@ -54,6 +58,8 @@ class BooksController < ApplicationController
     # to keep retrying for each request.
     return if @book.cover_image.attached?
     return if @book.cover_last_scraped_at.present?
+
+    puts "Requested new cover"
 
     # This is also done in the method itself, but we do it here to prevent multiple requests
     # from firing for the same job.
