@@ -5,6 +5,8 @@ require "httparty"
 require "nokogiri"
 
 def get_document(url, return_url: false, headers: {})
+  puts "Fetching URL: #{url}"
+
   user_agents = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0",
