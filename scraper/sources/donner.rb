@@ -19,7 +19,16 @@ def scrape_donner(isbn)
   description = document.at_css(".product-details__description")&.text&.strip
   number_of_pages_label = document.at_css(".product-specifications__item:contains('Pagina')")
   number_of_pages = number_of_pages_label&.text&.gsub("Pagina's", "")&.strip
-  available = !document.at_css(".product-details__product").text.include?("Tijdelijk niet leverbaar")
+
+  # Donner fetches it's availability data via an internal API request after entering the page. We can't get
+  # to that. They do however include the availability in a json object. However... this object often contains
+  # errors. Unescapted quotes, missing quoutes, you name it. We can't actually parse the json. So we just
+  # look for a string inside of it. This is also why we're not using the same json above, which would
+  # contain all the fields we'd need.
+  # One downside is that they only mark books is InStock or SoldOut, even when a different status would be
+  # relevant, such as back-orders or pre-orders. So Unfortunately it's all or nothing.
+  json_element = document.at_css("script[type='application/ld+json']")
+  available = json_element&.text&.include?("InStock")
 
   { url:, price:, description:, number_of_pages:, available:, condition: :new }
 end
