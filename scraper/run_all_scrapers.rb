@@ -47,30 +47,33 @@ def run_scraper(source_name, sources_to_run, isbn, title)
 end
 
 def run_all_scrapers(isbn, sources_to_run)
-  book = start_book(isbn)
+  begin
+    book = start_book(isbn)
 
-  return if book.blank?
+    return if book.blank?
 
-  isbn = book.isbn
-  title = book.title
+    isbn = book.isbn
+    title = book.title
 
-  # Titles are only passed to scrapers that we can build a url for. Those tend to be some combination of the slugified title
-  # and the isbn. For websites do not contain the isbn in the title and at that point the title slug won't help either.
-  run_scraper("Amazon", sources_to_run, isbn, title)                  { scrape_amazon(isbn) }
-  run_scraper("Amazon RetourDeals", sources_to_run, isbn, title)      { scrape_amazon_retourdeals(isbn) }
-  run_scraper("Boekenbalie", sources_to_run, isbn, title)             { scrape_boekenbalie(isbn, title) }
-  run_scraper("Boekenkraam", sources_to_run, isbn, title)             { scrape_boekenkraam(isbn) }
-  run_scraper("Boeken.nl", sources_to_run, isbn, title)               { scrape_boekennl(isbn, title) }
-  run_scraper("Bol.com", sources_to_run, isbn, title)                 { scrape_bol(isbn) }
-  run_scraper("Bruna", sources_to_run, isbn, title)                   { scrape_bruna(isbn, title) }
-  run_scraper("De Slegte", sources_to_run, isbn, title)               { scrape_deslegte(isbn) }
-  run_scraper("Donner", sources_to_run, isbn, title)                  { scrape_donner(isbn) }
-  run_scraper("Paagman", sources_to_run, isbn, title)                 { scrape_paagman(isbn) }
-  run_scraper("Readshop", sources_to_run, isbn, title)                { scrape_readshop(isbn, title) }
-  run_scraper("Voordeelboekenonline.nl", sources_to_run, isbn, title) { scrape_voordeelboekenonline(isbn) }
-  # [Broken, CF 403] run_scraper("Libris", isbn, title)                  { scrape_libris(isbn) }
-
-  end_book(isbn)
+    # Titles are only passed to scrapers that we can build a url for. Those tend to be some combination of the slugified title
+    # and the isbn. For websites do not contain the isbn in the title and at that point the title slug won't help either.
+    run_scraper("Amazon", sources_to_run, isbn, title)                  { scrape_amazon(isbn) }
+    run_scraper("Amazon RetourDeals", sources_to_run, isbn, title)      { scrape_amazon_retourdeals(isbn) }
+    run_scraper("Boekenbalie", sources_to_run, isbn, title)             { scrape_boekenbalie(isbn, title) }
+    run_scraper("Boekenkraam", sources_to_run, isbn, title)             { scrape_boekenkraam(isbn) }
+    run_scraper("Boeken.nl", sources_to_run, isbn, title)               { scrape_boekennl(isbn, title) }
+    run_scraper("Bol.com", sources_to_run, isbn, title)                 { scrape_bol(isbn) }
+    run_scraper("Bruna", sources_to_run, isbn, title)                   { scrape_bruna(isbn, title) }
+    run_scraper("De Slegte", sources_to_run, isbn, title)               { scrape_deslegte(isbn) }
+    run_scraper("Donner", sources_to_run, isbn, title)                  { scrape_donner(isbn) }
+    run_scraper("Paagman", sources_to_run, isbn, title)                 { scrape_paagman(isbn) }
+    run_scraper("Readshop", sources_to_run, isbn, title)                { scrape_readshop(isbn, title) }
+    run_scraper("Voordeelboekenonline.nl", sources_to_run, isbn, title) { scrape_voordeelboekenonline(isbn) }
+    # [Broken, CF 403] run_scraper("Libris", isbn, title)                  { scrape_libris(isbn) }
+  rescue
+  ensure
+    end_book(isbn)
+  end
 end
 
 def save_result(source_name, isbn, url:, price: 0, currency: "EUR", description: nil, number_of_pages: 0, condition: :unknown, condition_details: nil, available: true, published_date_text: nil, price_includes_shipping: false)
