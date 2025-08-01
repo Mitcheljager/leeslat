@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_client_hints
 
-  after_action :track_action, only: [:index, :show, :new]
+  # after_action :track_action, only: [:index, :show, :new]
 
   helper_method :theme
   helper_method :theme_dark?
@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, status: :see_other unless current_user&.admin?
   end
 
-  def track_action
-    ahoy.track "Visit", request.path_parameters
-  end
+  # def track_action
+  #   ahoy.track "Visit", request.path_parameters
+  # end
 end

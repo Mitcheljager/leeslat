@@ -4,6 +4,9 @@ class Ahoy::Store < Ahoy::DatabaseStore
   end
 end
 
+# Disable Ahoy for the time being by excluding all requests
+Ahoy.exclude_method = ->(controller, request) { true }
+
 # set to true for JavaScript tracking
 Ahoy.api = false
 
