@@ -33,6 +33,9 @@ Rails.application.routes.draw do
   post "actions/generate_ai_keywords_for_isbn", to: "actions#generate_ai_keywords_for_isbn", as: :generate_ai_keywords_for_isbn
   post "actions/generate_ai_description_for_author", to: "actions#generate_ai_description_for_author", as: :generate_ai_description_for_author
 
+  # Pages
+  get "over-ons", to: "pages#about", as: :about
+
   namespace :admin do
     get "/", to: "base#index", as: :root
 

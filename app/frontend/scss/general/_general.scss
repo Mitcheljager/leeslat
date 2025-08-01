@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "../mixins" as *;
 @use "../variables" as *;
 
@@ -75,6 +76,10 @@ figure {
 .layout {
   @include max-width;
   padding-bottom: $margin * 10;
+
+  &--thin {
+    @include max-width(map.get($breakpoints, max) * 0.5);
+  }
 }
 
 .separator {
