@@ -1,22 +1,24 @@
 <% content_for :title, "Login" %>
 
-<h2>Login</h2>
+<div class="layout">
+  <h2 aria-level="1" class="heading">Login</h2>
 
-<%= form_with url: sessions_path do |form| %>
-  <div>
-    <%= form.label :username, "Username" %>
-    <%= form.text_field :username, placeholder: "Username" %>
-  </div>
+  <%= form_with url: sessions_path do |form| %>
+    <div>
+      <%= form.label :username, "Username" %>
+      <%= form.text_field :username, placeholder: "Username", class: "form-input" %>
+    </div>
 
-  <div>
-    <%= form.label :password, "Password" %>
-    <%= form.password_field :password, placeholder: "Password" %>
-  </div>
+    <div class="mt-1">
+      <%= form.label :password, "Password" %>
+      <%= form.password_field :password, placeholder: "Password", class: "form-input" %>
+    </div>
 
-  <div>
-    <%= form.check_box :remember_me %>
-    <%= form.label :remember_me, "Remember me (uses cookies)" %>
-  </div>
+    <div class="checkbox-group mt-1">
+      <%= form.check_box :remember_me %>
+      <%= form.label :remember_me, "Remember me (uses cookies)" %>
+    </div>
 
-  <%= submit_tag "Submit", class: "button", data: { turbo_submits_with: "Submitting..." } %>
-<% end %>
+    <%= submit_tag "Submit", class: "button mt-1", data: { turbo_submits_with: "Submitting..." } %>
+  <% end %>
+</div>
