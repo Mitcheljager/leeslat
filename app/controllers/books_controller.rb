@@ -29,10 +29,6 @@ class BooksController < ApplicationController
   def request_scrape
     return unless @book.requires_scrape?
 
-    # We set this here rather than in the job so that requests between now and when the
-    # job runs don't request another job.
-    @book.update(last_scrape_started_at: DateTime.now)
-
     puts "Requested new scrape"
 
     RequestScrapeJob.perform_async(@book.isbn)
@@ -45,10 +41,6 @@ class BooksController < ApplicationController
 
     puts "Requested new description"
 
-    # We set this here rather than in the job so that requests between now and when the
-    # job runs don't request another job.
-    @book.update(description_last_generated_at: DateTime.now)
-
     RequestDescriptionJob.perform_async(@book.isbn)
   end
 
@@ -60,10 +52,6 @@ class BooksController < ApplicationController
     return if @book.cover_last_scraped_at.present?
 
     puts "Requested new cover"
-
-    # This is also done in the method itself, but we do it here to prevent multiple requests
-    # from firing for the same job.
-    @book.update(cover_last_scraped_at: DateTime.now)
 
     RequestCoverJob.perform_async(@book.isbn)
   end

@@ -18,8 +18,7 @@ class ActionsController < ApplicationController
     @book = Book.find_by_isbn!(params[:isbn])
 
     begin
-      output = `ruby #{Rails.root.join("scraper/attach_image_for_isbn.rb")} #{@book.isbn}`
-      Rails.logger.info output
+      RequestCoverJob.new.perform(@book.isbn, force: true)
 
       raise "No image was attached" unless @book.cover_image.attached?
 
@@ -34,7 +33,7 @@ class ActionsController < ApplicationController
     @book = Book.find_by_isbn!(params[:isbn])
 
     begin
-      RequestScrapeJob.new.perform(@book.isbn)
+      RequestScrapeJob.new.perform(@book.isbn, force: true)
 
       redirect_to [:admin, @book], notice: "Scrapers completed successfully", status: :see_other
     rescue => error
@@ -48,8 +47,7 @@ class ActionsController < ApplicationController
     @book = Book.find_by_isbn!(params[:isbn])
 
     begin
-      output = `ruby #{Rails.root.join("scraper/ai/openai_descriptions.rb")} #{@book.isbn}`
-      Rails.logger.info output
+      RequestDescriptionJob.new.perform(@book.isbn, force: true)
 
       redirect_to [:admin, @book], notice: "AI completed successfully", status: :see_other
     rescue => error
