@@ -4,8 +4,12 @@
 .summary {
   display: grid;
   grid-template-columns: auto 1fr;
-  align-items: center;
+  align-items: flex-start;
   gap: $margin $margin * 2;
+}
+
+.summary__label {
+  line-height: 1.25rem;
 }
 
 .summary__value {
@@ -26,3 +30,4 @@
     }
   }
 }
+
