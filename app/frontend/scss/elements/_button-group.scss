@@ -1,0 +1,8 @@
+@use "../variables" as *;
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: $margin * 0.5;
+}
