@@ -137,7 +137,7 @@ def create_genre(name, slug, parent_slug = nil, keywords: "")
     genre.keywords = keywords
     genre.parent_genre_id = parent&.id
 
-    puts "Created genre: #{attributes[:name]}"
+    puts "Created genre: #{name}"
   end
 end
 
