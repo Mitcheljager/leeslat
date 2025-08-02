@@ -97,6 +97,7 @@ def get_book(isbn, format = nil, language = nil)
     book.format = data[:format]
     book.published_date_text = data[:published_date] if data[:published_date]
 
+    parse_genres_for_book(book, data[:genres]) if data[:genres].present?
     parse_authors_for_book(book, data[:authors]) if data[:authors].present?
 
     book.save!
