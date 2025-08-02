@@ -69,9 +69,9 @@ def get_search_document(source_url, isbn, headers: {})
 end
 
 def get_book(isbn, format = nil, language = nil)
-  book = Book.find_or_initialize_by(isbn: isbn)
+  Book.find_or_initialize_by(isbn: isbn).tap do |book|
+    next unless book.new_record?
 
-  if book.new_record?
     # Google API is somewhat limited. It has rate limited, but this can be increased on request.
     # It also lacks a lot of books that Goodreads does have, so for we we will rely on Goodreads entirely.
     # is_ebook, title, language, authors, published_date = get_google_api_data(isbn)
@@ -101,8 +101,6 @@ def get_book(isbn, format = nil, language = nil)
 
     book.save!
   end
-
-  book
 end
 
 def parse_authors_for_book(book, authors)
