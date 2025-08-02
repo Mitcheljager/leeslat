@@ -1,3 +1,134 @@
+#### Sources
+sources = [
+  {
+    name: "Amazon",
+    slug: "amazon",
+    base_url: "https://www.amazon.nl",
+    shipping_cost: 2.99,
+    shipping_cost_currency: "EUR",
+    shipping_cost_free_from_price: 20.0,
+    shipping_cost_free_from_quantity: 0
+  },
+  {
+    name: "Amazon RetourDeals",
+    slug: "amazon-retourdeals",
+    base_url: "https://www.amazon.nl",
+    shipping_cost: 2.99,
+    shipping_cost_currency: "EUR",
+    shipping_cost_free_from_price: 20.0,
+    shipping_cost_free_from_quantity: 0
+  },
+  {
+    name: "Boeken.nl",
+    slug: "boeken-nl",
+    base_url: "https://www.boeken.nl",
+    shipping_cost: 2.95,
+    shipping_cost_currency: "EUR",
+    shipping_cost_free_from_price: 19.95,
+    shipping_cost_free_from_quantity: 0
+  },
+  {
+    name: "Bruna",
+    slug: "bruna",
+    base_url: "https://bruna.nl",
+    shipping_cost: 2.95,
+    shipping_cost_currency: "EUR",
+    shipping_cost_free_from_price: 20.0,
+    shipping_cost_free_from_quantity: 0
+  },
+  {
+    name: "Boekenbalie",
+    slug: "boekenbalie",
+    base_url: "https://www.boekenbalie.nl",
+    shipping_cost: 3.15,
+    shipping_cost_currency: "EUR",
+    shipping_cost_free_from_price: 40.0,
+    shipping_cost_free_from_quantity: 4
+  },
+  {
+    name: "Voordeelboekenonline.nl",
+    slug: "voordeelboekenonline",
+    base_url: "https://www.voordeelboekenonline.nl",
+    shipping_cost: 3.5,
+    shipping_cost_currency: "EUR",
+    shipping_cost_free_from_price: 0.0,
+    shipping_cost_free_from_quantity: 0
+  },
+  {
+    name: "Readshop",
+    slug: "readshop",
+    base_url: "https://www.readshop.nl",
+    shipping_cost: 2.95,
+    shipping_cost_currency: "EUR",
+    shipping_cost_free_from_price: 20.0,
+    shipping_cost_free_from_quantity: 0
+  },
+  {
+    name: "De Slegte",
+    slug: "de-slegte",
+    base_url: "https://www.deslegte.com",
+    shipping_cost: 3.5,
+    shipping_cost_currency: "EUR",
+    shipping_cost_free_from_price: 20.0,
+    shipping_cost_free_from_quantity: 0
+  },
+  {
+    name: "Bol.com",
+    slug: "bol",
+    base_url: "https://www.bol.com",
+    shipping_cost: 2.99,
+    shipping_cost_currency: "EUR",
+    shipping_cost_free_from_price: 25.0,
+    shipping_cost_free_from_quantity: 0
+  },
+  {
+    name: "Paagman",
+    slug: "paagman",
+    base_url: "https://www.paagman.nl",
+    shipping_cost: 4.95,
+    shipping_cost_currency: "EUR",
+    shipping_cost_free_from_price: 20.0,
+    shipping_cost_free_from_quantity: 0
+  },
+  {
+    name: "Boekenkraam",
+    slug: "boekenkraam",
+    base_url: "https://www.boekenkraam.nl",
+    shipping_cost: 3.99,
+    shipping_cost_currency: "EUR",
+    shipping_cost_free_from_price: 42.5,
+    shipping_cost_free_from_quantity: 0
+  },
+  {
+    name: "Donner",
+    slug: "donner",
+    base_url: "https://www.donner.nl",
+    shipping_cost: 2.9,
+    shipping_cost_currency: "EUR",
+    shipping_cost_free_from_price: 15.0,
+    shipping_cost_free_from_quantity: 0
+  },
+  {
+    name: "Broese",
+    slug: "broese",
+    base_url: "https://www.broese.nl",
+    shipping_cost: 2.95,
+    shipping_cost_currency: "EUR",
+    shipping_cost_free_from_price: 20.0,
+    shipping_cost_free_from_quantity: 0
+  }
+]
+
+sources.each do |attributes|
+  Source.find_or_create_by!(slug: attributes[:slug]) do |source|
+    source.assign_attributes(attributes)
+
+    puts "Created source: #{attributes[:name]}"
+  end
+end
+
+#### Genres
+
 def create_genre(name, slug, parent_slug = nil, keywords: "")
   parent = Genre.find_by!(slug: parent_slug) if parent_slug
 
@@ -5,6 +136,8 @@ def create_genre(name, slug, parent_slug = nil, keywords: "")
     genre.name = name
     genre.keywords = keywords
     genre.parent_genre_id = parent&.id
+
+    puts "Created genre: #{attributes[:name]}"
   end
 end
 
