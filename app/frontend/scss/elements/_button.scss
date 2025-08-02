@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "../variables" as *;
 @use "../mixins" as *;
 
@@ -41,6 +42,14 @@ button {
 
     @include hover-stack {
       background: var(--primary--hover);
+    }
+  }
+
+  &--danger {
+    background: $red;
+
+    @include hover-stack {
+      background: color.adjust($red, $lightness: 10%);
     }
   }
 
