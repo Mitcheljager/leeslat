@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :listings_summary_partial]
+  before_action :redirect_isbn, only: [:index]
 
   after_action :request_scrape, only: [:show]
   after_action :request_description, only: [:show]
@@ -24,6 +25,18 @@ class BooksController < ApplicationController
     isbn = params.expect([:slug_and_isbn]).split("-").last
     @book = Book.includes(:authors, listings: :source).find_by_isbn!(isbn)
     @listings = @book.listings_with_price
+  end
+
+  def redirect_isbn
+    return unless params[:query]
+
+    is_isbn = params[:query].match?(/\A97[89]\d{10}\z/)
+
+    return unless is_isbn
+
+    book = Book.find_by_isbn(params[:query])
+
+    redirect_to book if book.present?
   end
 
   def request_scrape
