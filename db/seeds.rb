@@ -1,9 +1,114 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+def create_genre(name, slug, parent_slug = nil, keywords: "")
+  parent = Genre.find_by!(slug: parent_slug) if parent_slug
+
+  Genre.find_or_create_by!(slug: slug) do |genre|
+    genre.name = name
+    genre.keywords = keywords
+    genre.parent_genre_id = parent&.id
+  end
+end
+
+### Primary genres
+create_genre("Fictie", "fictie", nil, keywords: "Fiction")
+create_genre("Non-fictie", "non-fictie", nil, keywords: "Nonfiction")
+create_genre("Kookboeken", "kookboeken", nil, keywords: "Cookbooks")
+
+## Fiction
+
+# Novel
+create_genre("Romans", "romans", "fictie", keywords: "Novel")
+create_genre("Novella", "novella", "fictie", keywords: "Novella")
+create_genre("Korte verhalen", "korte-verhalen", "fictie", keywords: "Short Stories, Collections, Short Story Collection")
+create_genre("Literaire romans", "literaire-romans", "romans", keywords: "Literature")
+create_genre("Historische romans", "historische-romans", "romans", keywords: "Historical Fiction")
+create_genre("Klassieke romans", "klassieke-romans", "romans", keywords: "Classic Fiction")
+
+# Thriller
+create_genre("Thrillers", "thrillers", "fictie", keywords: "Thrillers")
+create_genre("Detective", "detective", "thrillers", keywords: "Detective")
+create_genre("Mysterie", "mysterie", "thrillers", keywords: "Mystery")
+create_genre("Spannend", "spanning", "thrillers", keywords: "Suspense")
+create_genre("Spionage", "spionage", "thrillers", keywords: "Spy, Espionage")
+create_genre("Psychologische Thriller", "psychologische-thriller", "thrillers", keywords: "Psychological Thriller, Psychological")
+
+# Scifi
+create_genre("Scifi", "scifi", "fictie", keywords: "Sci-fi, Science Fiction, Sciencefiction")
+create_genre("Dystopisch", "dystopisch", "scifi", keywords: "Dystopian")
+create_genre("Utopisch", "utopisch", "scifi", keywords: "Uptopia")
+create_genre("Apocalyptisch", "apocalyptisch", "scifi", keywords: "Apocalypse")
+create_genre("Space opera", "space-opera", "scifi", keywords: "Space Opera")
+create_genre("Tijdreizen", "tijdreizen", "scifi", keywords: "Timetravel, Time Travel")
+create_genre("Cyberpunk", "cyberpunk", "scifi", keywords: "Cyperpunk")
+create_genre("Aliens", "aliens", "scifi", keywords: "Aliens")
+
+# Fantasy
+create_genre("Fantasy", "fantasy", "fictie", keywords: "Fantasy")
+create_genre("High fantasy", "high-fantasy", "fantasy", keywords: "High Fantasy")
+create_genre("Urban fantasy", "urban-fantasy", "fantasy", keywords: "Urban Fantasy")
+create_genre("Epische fantasy", "epische-fantasy", "fantasy", keywords: "Epic Fantasy")
+create_genre("Dark fantasy", "dark-fantasy", "fantasy", keywords: "Dark Fantasy")
+
+# Horror
+create_genre("Horror", "horror", "fictie", keywords: "Horror")
+create_genre("Bovennatuurlijk", "bovennatuurlijk", "horror", keywords: "Supernatural")
+create_genre("Klassieke horror", "klassieke-horror", "horror", keywords: "Classic Horror")
+create_genre("Monster horror", "monster-horror", "horror", keywords: "Monster Horror")
+
+# Children
+create_genre("Kinderboeken", "kinderboeken", "fictie", keywords: "Children")
+create_genre("Prentenboeken", "prentenboeken", "kinderboeken", keywords: "Picture Books")
+create_genre("Voorleesboeken", "voorleesboeken", "kinderboeken", keywords: "Storytime")
+create_genre("Avonturenverhalen", "avonturenverhalen", "kinderboeken", keywords: "Chapter Books")
+
+# Romance
+create_genre("Romantiek", "romantiek", "fictie", keywords: "Romance")
+create_genre("Historische romantiek", "historische-romantiek", "romantiek", keywords: "Historical Romance")
+create_genre("Moderne romantiek", "moderne-romantiek", "romantiek", keywords: "Contemporary Romance")
+create_genre("Romantische komedie", "romantische-komedie", "romantiek", keywords: "Romantic Comedy")
+
+# Random
+create_genre("Young Adult", "young-adult", "fictie", keywords: "Young Adult")
+create_genre("LGBTQ+", "lgbtq", "fictie", keywords: "LGBTQ+, LGBT, Gay, Lesbian, Queer, Bisexual")
+create_genre("Feelgood", "feelgood", "fictie", keywords: "Feelgood, Feel Good")
+create_genre("Knus", "knus", "fictie", keywords: "Cozy")
+create_genre("Humor", "humor", "fictie", keywords: "Humor, Comedy")
+
+## Non-fictie
+create_genre("Biografieën", "biografieen", "non-fictie", keywords: "Biographies, Biography")
+create_genre("Waargebeurde verhalen", "waargebeurde-verhalen", "non-fictie", keywords: "True Stories, True Story")
+create_genre("Reizen & Cultuur", "reizen-cultuur", "non-fictie", keywords: "Travel, Culture")
+create_genre("Economie", "economie", "non-fictie", keywords: "Economics")
+create_genre("Educatie", "educatie", "non-fictie", keywords: "Education, Learning, Study")
+create_genre("Financiën", "financien", "non-fictie", keywords: "Personal Finance, Money")
+
+# Politics
+create_genre("Maatschappij & Politiek", "maatschappij-politiek", "non-fictie", keywords: "Politics, Society")
+
+# Mindset
+create_genre("Zelfhulp", "zelfhulp", "non-fictie", keywords: "Self Help, Self")
+create_genre("Spiritualiteit & Religie", "spiritualiteit-religie", "non-fictie", keywords: "Religion, Spirituality")
+create_genre("Mindfulness", "mindfulness", "non-fictie", keywords: "Mindfulness")
+create_genre("Gezondheid", "gezondheid", "non-fictie", keywords: "Health, Healthy")
+
+# Science
+create_genre("Wetenschap & Natuur", "wetenschap-natuur", "non-fictie", keywords: "Nature, Science")
+create_genre("Astronomie", "astronomie", "wetenschap-natuur", keywords: "Astronomy")
+create_genre("Biologie", "biologie", "wetenschap-natuur", keywords: "Biology")
+create_genre("Ecologie", "ecologie", "wetenschap-natuur", keywords: "Ecology")
+
+# Art & Culture
+create_genre("Kunst & Cultuur", "kunst-cultuur", "non-fictie", keywords: "Art, Culture")
+create_genre("Muziek", "muziek", "kunst-cultuur", keywords: "Music")
+create_genre("Film & TV", "film-tv", "kunst-cultuur", keywords: "Film, Television, TV")
+create_genre("Architectuur", "architectuur", "kunst-cultuur", keywords: "Architecture")
+
+# Language
+create_genre("Taal", "taal", "non-fictie", keywords: "Language, ")
+
+# Cookbooks
+create_genre("Vegetarisch", "vegetarisch", "kookboeken", keywords: "vegetarian")
+create_genre("Vegen", "vegen", "kookboeken", keywords: "vegan")
+create_genre("Bakken & Desserts", "bakken-desserts", "kookboeken", keywords: "Desserts, Baking")
+create_genre("Dieet & Voeding", "dieet-voeding", "kookboeken", keywords: "Diet")
+create_genre("Dranken", "dranken", "kookboeken", keywords: "Alcohol, Beverages")
+create_genre("Gastronomie", "gastronomie", "kookboeken", keywords: "Gastronomy")
