@@ -123,7 +123,7 @@ sources.each do |attributes|
   Source.find_or_create_by!(slug: attributes[:slug]) do |source|
     source.assign_attributes(attributes)
 
-    puts "Created source: #{attributes[:name]}"
+    puts "Created source: #{source[:name]}"
   end
 end
 
