@@ -137,7 +137,7 @@ def start_book(isbn)
 end
 
 def end_book(isbn)
-  book = Book.find_by_isbn(isbn)
+  book = Book.find_by_isbn!(isbn)
 
   consolidate_number_of_pages(book)
   consolidate_published_date_text(book)
