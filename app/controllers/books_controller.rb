@@ -14,7 +14,7 @@ class BooksController < ApplicationController
   end
 
   def listings_summary_partial
-    return nil if @book.is_scrape_ongoing?
+    return nil if @book.requires_scrape? || @book.is_scrape_ongoing?
 
     render partial: "book_listings_summary"
   end
