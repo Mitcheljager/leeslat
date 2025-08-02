@@ -26,7 +26,7 @@ def scrape_deslegte(isbn)
     base_url = "https://www.deslegte.com"
     document = get_document("#{base_url}/boeken/?q=#{isbn}")
 
-    return { url: nil, available: false } if document.nil?
+    return { url: nil, available: false } if document.nil? || document&.text&.include?("0 uitgaven gevonden")
 
     link_element = document.at_css(".searchresult__item a")
     first_url = link_element&.attribute("href")&.value
