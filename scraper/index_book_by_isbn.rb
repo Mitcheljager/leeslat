@@ -8,7 +8,7 @@ begin
     return
   end
 
-  book = get_book(isbn)
+  book = get_book(isbn, attach_image: true)
   puts "Successfully indexed book \"#{book.title}\" (#{book.isbn})"
 rescue => error
   puts "Indexing of book #{isbn} was not successful"

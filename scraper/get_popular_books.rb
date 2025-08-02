@@ -76,7 +76,7 @@ isbn_list.each do |isbn, score|
   end
 
   begin
-    book = get_book(isbn)
+    book = get_book(isbn, attach_image: true)
 
     book.update(hotness: score)
     raise "No book was returned from get_book with isbn #{isbn}" if book.nil?
