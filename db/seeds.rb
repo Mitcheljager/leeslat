@@ -40,6 +40,7 @@ create_genre("Space opera", "space-opera", "scifi", keywords: "Space Opera")
 create_genre("Tijdreizen", "tijdreizen", "scifi", keywords: "Timetravel, Time Travel")
 create_genre("Cyberpunk", "cyberpunk", "scifi", keywords: "Cyperpunk")
 create_genre("Aliens", "aliens", "scifi", keywords: "Aliens")
+create_genre("First contact", "first-contact", "aliens", keywords: "First Contact")
 
 # Fantasy
 create_genre("Fantasy", "fantasy", "fictie", keywords: "Fantasy")
@@ -50,9 +51,11 @@ create_genre("Dark fantasy", "dark-fantasy", "fantasy", keywords: "Dark Fantasy"
 
 # Horror
 create_genre("Horror", "horror", "fictie", keywords: "Horror")
-create_genre("Bovennatuurlijk", "bovennatuurlijk", "horror", keywords: "Supernatural")
+create_genre("Bovennatuurlijk", "bovennatuurlijk", "horror", keywords: "Supernatural, Paranormal, Ghost Stories, Ghosts")
 create_genre("Klassieke horror", "klassieke-horror", "horror", keywords: "Classic Horror")
 create_genre("Monster horror", "monster-horror", "horror", keywords: "Monster Horror")
+create_genre("Lovecraftian", "lovecraftian", "horror", keywords: "Lovecraftian")
+create_genre("Zombies", "Zombies", "horror", keywords: "Zombies")
 
 # Children
 create_genre("Kinderboeken", "kinderboeken", "fictie", keywords: "Children")
@@ -72,6 +75,9 @@ create_genre("LGBTQ+", "lgbtq", "fictie", keywords: "LGBTQ+, LGBT, Gay, Lesbian,
 create_genre("Feelgood", "feelgood", "fictie", keywords: "Feelgood, Feel Good")
 create_genre("Knus", "knus", "fictie", keywords: "Cozy")
 create_genre("Humor", "humor", "fictie", keywords: "Humor, Comedy")
+create_genre("Militaire fictie", "militaire-fictie", "fictie", keywords: "Military Fiction")
+create_genre("Avontuur", "avontuur", "fictie", keywords: "Adventure")
+create_genre("Actie", "actie", "fictie", keywords: "Action")
 
 ## Non-fictie
 create_genre("Biografieën", "biografieen", "non-fictie", keywords: "Biographies, Biography")
