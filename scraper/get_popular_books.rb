@@ -89,8 +89,12 @@ document.css(".ankeiler-wrapper [data-test-id='titleAndSubtitle'] a").each do |n
   index += 1
 end
 
+start_time = DateTime.now
+count = 0
+
 # Process all indexed ISBNs, skipping any that are invalid
 isbn_list.each do |isbn, score|
+  count += 1
   skippable = SkippableISBN.find_by_isbn(isbn)
 
   # An ISBN has previously attempted to be indexed but failed. It could have failed because there was no Goodreads
@@ -99,6 +103,8 @@ isbn_list.each do |isbn, score|
     puts "Skipped #{isbn}"
     next
   end
+
+  puts "\e[44m #{count} out of #{isbn_list.count} \e[0m"
 
   begin
     book = get_book(isbn, attach_image: true)
@@ -118,3 +124,16 @@ isbn_list.each do |isbn, score|
   # It's also limited to 1000 per day, but that's another issue.
   # sleep 1
 end
+
+end_time = DateTime.now
+total_seconds = ((end_time - start_time) * 24 * 60 * 60).to_f
+minutes = (total_seconds / 60).to_i
+seconds = (total_seconds % 60).round
+
+puts "\e[34m"
+puts "===================="
+puts "Run started at #{start_time}"
+puts "Run ended at #{end_time}"
+puts "Total time: #{minutes} minutes and #{seconds} seconds"
+puts "===================="
+puts "\e[0m"
