@@ -109,7 +109,7 @@ isbn_list.each do |isbn, score|
   begin
     book = get_book(isbn, attach_image: true)
 
-    book.update(hotness: score)
+    book.update(hotness: score) unless book.hotness == score
     raise "No book was returned from get_book with isbn #{isbn}" if book.nil?
   rescue => error
     puts "Book with #{isbn} failed to be indexed from get_popular_books.rb"
