@@ -75,14 +75,14 @@ def get_book(isbn, attach_image: false)
 
   data = get_goodreads_data(isbn)
 
-  if data&[:is_ebook] || data&[:title].blank?
+  if data.nil? || data&[:is_ebook] || data&[:title].blank?
     # Store that this book failed to fetch and may be skipped in future runs. Ebooks are always skipped
     # and as such are marked as permanent. Other books may be re-tried over time. A rake task will
     # periodically destroy entries that are not marked as permanent.
-    SkippableISBN.create(isbn: isbn, permanent: data[:is_ebook] == true)
+    SkippableISBN.create(isbn: isbn, permanent: data&[:is_ebook] == true)
 
+    raise "No title was returned for #{isbn}" if data&[:title].blank? || data.nil?
     raise "Given book \"#{data[:title]}\" (#{isbn}) is an ebook" if data[:is_ebook]
-    raise "No title was returned for #{isbn}" if data[:title].blank?
   end
 
   # Some titles include a :, which (almost?) always mean it's a title followed by a subtitle
