@@ -18,7 +18,7 @@ end
 
 # Bol.com - 30 entries per page, 3 pages
 for page in 1..3 do
-  document = get_document("https://www.bol.com/nl/nl/l/boeken/8299")
+  document = get_document("https://www.bol.com/nl/nl/l/boeken/8299/?page=#{page}")
   document.css(".product-item__content").each do |node|
     next if node.include?("Gesponsord")
     next if node.include?("Ebook") # Specifically Ebook, not e-book, as that would include the other variant sections
@@ -74,6 +74,10 @@ isbn_list.each do |isbn, score|
     puts "Skipped #{isbn}"
     next
   end
+
+  puts score
+
+  next
 
   begin
     book = get_book(isbn, attach_image: true)
