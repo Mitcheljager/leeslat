@@ -1,7 +1,8 @@
 @use "../variables" as *;
 @use "../mixins" as *;
 
-$image-width: 120px;
+$image-offset: 120px;
+$card-padding: $margin * 2;
 
 .cards {
   display: grid;
@@ -22,8 +23,8 @@ $image-width: 120px;
   position: absolute;
   display: inline-flex;
   top: 0;
-  left: $margin * 2;
-  width: $image-width;
+  left: $card-padding;
+  max-width: calc(100% - $card-padding * 2);
   height: auto;
   background: var(--bg-content-alt);
   transition: transform 50ms;
@@ -40,6 +41,10 @@ $image-width: 120px;
     width: 100%;
     height: auto;
   }
+
+  .cover__empty {
+    width: $image-offset;
+  }
 }
 
 .card__content {
@@ -48,7 +53,7 @@ $image-width: 120px;
   flex-direction: column;
   height: 100%;
   width: 100%;
-  padding: calc($image-width + $margin * 2) $margin * 2 $margin * 2;
+  padding: calc($image-offset + $card-padding) $card-padding $card-padding;
   border-radius: $border-radius;
   background: var(--bg-content);
   transition: background-color 100ms;
