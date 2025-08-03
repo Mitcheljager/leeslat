@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :theme
   helper_method :theme_dark?
+  helper_method :theme_light?
   helper_method :current_user
   helper_method :filter_params
   helper_method :any_filter_params?
@@ -17,6 +18,10 @@ class ApplicationController < ActionController::Base
 
   def theme_dark?
     theme === "dark" || headers["Sec-CH-Prefers-Color-Scheme"] === "dark"
+  end
+
+  def theme_light?
+    !theme_dark?
   end
 
   def current_user

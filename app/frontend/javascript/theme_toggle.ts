@@ -32,6 +32,7 @@ export default class theme_toggle {
           theme_toggle.html_element.style.setProperty("color-scheme", theme_toggle.theme);
 
           this.set_cookie();
+          this.toggle_theme_images();
         }, !prefers_reduced_motions());
       }, window.ViewTransition ? 200 : 0);
     });
@@ -46,5 +47,14 @@ export default class theme_toggle {
 
   private set_cookie(): void {
     document.cookie = `theme=${theme_toggle.theme}; path=/; max-age=31536000`;
+  }
+
+  private toggle_theme_images() {
+    const elements = Array.from(document.querySelectorAll("[data-theme]")) as (HTMLImageElement | HTMLSourceElement)[]
+
+    elements.forEach(element => {
+      if (element.dataset.src) element.src = element.dataset.src
+      if (element.dataset.srcset) element.srcset = element.dataset.srcset
+    })
   }
 }
