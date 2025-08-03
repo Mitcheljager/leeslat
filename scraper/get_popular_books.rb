@@ -21,7 +21,7 @@ document.css(".card__tags__tag").each do |node|
   index += 1
 end
 
-# Bol.com - 30 entries per page, 3 pages
+# Bol.com - 30 entries per page, 10 pages
 # Subpaths are to get Dutch and English books separately. 8292 is Enlgish, 8293 is Dutch
 subpaths = ["8292", "8293"]
 subpaths.each do |path|
