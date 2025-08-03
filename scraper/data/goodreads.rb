@@ -26,7 +26,7 @@ def get_goodreads_data(isbn)
   is_ebook = json_details["format"].include?("Kindle") || json_details["format"].include?("ebook")
   language_text = json_details["language"]["name"]
   publication_time = json_details["publicationTime"]
-  published_date = Time.at(publication_time / 1000).to_date.strftime("%Y-%m-%d")
+  published_date = publication_time ? Time.at(publication_time / 1000).to_date.strftime("%Y-%m-%d") : nil
 
   language = nil
   language = "nl" if language_text.include?("Dutch")
