@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   # Books and related
   resources :authors, path: "naam", param: :slug, only: [:show]
-  resources :genres, only: [:show]
+  resources :genres, param: :slug, only: [:show]
 
   get "boek/:slug_and_isbn", to: "books#show", as: :book
   get "boeken", to: "books#index", as: :books, concerns: :paginatable

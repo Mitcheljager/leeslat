@@ -49,6 +49,7 @@
   color: var(--text-color-base);
   text-decoration: none;
   text-transform: lowercase;
+  white-space: nowrap;
 
   @include hover-grow;
 
