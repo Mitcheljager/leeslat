@@ -23,6 +23,7 @@ console_command = "/rails/bin/rails console"
 
 [processes]
   app = "bundle exec rails server"
+  worker = "bundle exec rails solid_queue:work"
 
 [[vm]]
   memory = "512mb"
