@@ -26,6 +26,15 @@ console_command = "/rails/bin/rails console"
   worker = "bundle exec rails solid_queue:start"
 
 [[vm]]
+  name = "app_vm"
+  memory = "1024mb"
+  cpu_kind = "shared"
+  cpus = 1
+  processes = ["app"]
+
+[[vm]]
+  name = "worker_vm"
   memory = "512mb"
   cpu_kind = "shared"
   cpus = 1
+  processes = ["worker"]
