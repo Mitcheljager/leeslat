@@ -44,7 +44,7 @@ class BooksController < ApplicationController
 
     puts "Requested new scrape"
 
-    RequestScrapeJob.perform_async(@book.isbn)
+    RequestScrapeJob.perform_later(@book.isbn)
   end
 
   def request_description
@@ -54,7 +54,7 @@ class BooksController < ApplicationController
 
     puts "Requested new description"
 
-    RequestDescriptionJob.perform_async(@book.isbn)
+    RequestDescriptionJob.perform_later(@book.isbn)
   end
 
   def request_cover
@@ -66,6 +66,6 @@ class BooksController < ApplicationController
 
     puts "Requested new cover"
 
-    RequestCoverJob.perform_async(@book.isbn)
+    RequestCoverJob.perform_later(@book.isbn)
   end
 end

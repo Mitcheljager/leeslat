@@ -23,7 +23,6 @@ console_command = "/rails/bin/rails console"
 
 [processes]
   app = "bundle exec rails server"
-  worker = "bundle exec sidekiq"
 
 [[vm]]
   memory = "512mb"

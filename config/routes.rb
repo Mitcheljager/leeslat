@@ -1,5 +1,3 @@
-require "sidekiq/web"
-
 Rails.application.routes.draw do
   concern :paginatable do
     get "(pagina/:page)", action: :index, on: :collection, as: ""
@@ -8,7 +6,6 @@ Rails.application.routes.draw do
   root "pages#index"
 
   get "up", to: "rails/health#show", as: :rails_health_check
-  mount Sidekiq::Web => "/sidekiq"
 
   # User and session
   resources :sessions, only: [:create, :destroy]

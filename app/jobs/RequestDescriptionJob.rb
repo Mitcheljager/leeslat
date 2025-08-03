@@ -1,8 +1,4 @@
-require "sidekiq"
-
-class RequestDescriptionJob
-  include Sidekiq::Job
-
+class RequestDescriptionJob < ApplicationJob
   def perform(isbn, force: false)
     puts "Requesting description for #{isbn}"
 

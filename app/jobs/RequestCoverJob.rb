@@ -1,8 +1,4 @@
-require "sidekiq"
-
-class RequestCoverJob
-  include Sidekiq::Job
-
+class RequestCoverJob < ApplicationJob
   def perform(isbn, force: false)
     puts "Requesting cover for #{isbn}"
 

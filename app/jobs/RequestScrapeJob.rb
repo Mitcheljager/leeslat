@@ -1,8 +1,4 @@
-require "sidekiq"
-
-class RequestScrapeJob
-  include Sidekiq::Job
-
+class RequestScrapeJob < ApplicationJob
   def perform(isbn, force: false)
     puts "Requesting scrape for #{isbn}"
 
