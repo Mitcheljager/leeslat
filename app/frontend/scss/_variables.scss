@@ -1,3 +1,4 @@
+@use "sass:list";
 @use "functions" as *;
 
 $black: #000;
@@ -7,6 +8,7 @@ $red: #b33834;
 
 $margin: px-to-rem(10);
 $gutter: max(#{$margin * 2}, 5vw);
+$fallback-aspect-ratio: list.slash(300, 470);
 
 $border-radius-small: 0.5rem;
 $border-radius: 0.75rem;

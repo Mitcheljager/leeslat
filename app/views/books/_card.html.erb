@@ -1,5 +1,8 @@
 <article class="card">
-  <%= link_to book, class: "card__image", aria: { labelledby: book.isbn } do %>
+  <%= link_to book,
+    class: "card__image",
+    style: book.cover_aspect_ratio.present? ? "--aspect-ratio: #{book.cover_aspect_ratio}" : nil,
+    aria: { labelledby: book.isbn } do %>
     <%= render "books/cover", book: book, small: true, image_variant: :small_wide, loading: "lazy" %>
   <% end %>
 

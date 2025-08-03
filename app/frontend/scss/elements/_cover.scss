@@ -1,8 +1,5 @@
-@use "sass:list";
 @use "../variables" as *;
 @use "../mixins" as *;
-
-$fallback-aspect-ratio: list.slash(300, 470);
 
 .cover {
   --background-color: var(--cover-background-color, var(--bg-content));

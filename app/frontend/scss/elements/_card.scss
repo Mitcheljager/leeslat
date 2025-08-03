@@ -2,6 +2,7 @@
 @use "../mixins" as *;
 
 $image-offset: 120px;
+$image-max-height: 190px;
 $card-padding: $margin * 2;
 
 .cards {
@@ -24,8 +25,10 @@ $card-padding: $margin * 2;
   display: inline-flex;
   top: 0;
   left: $card-padding;
+  height: 100%;
   max-width: calc(100% - $card-padding * 2);
-  height: auto;
+  max-height: $image-max-height;
+  aspect-ratio: var(--aspect-ratio);
   background: var(--bg-content-alt);
   transition: transform 50ms;
 
