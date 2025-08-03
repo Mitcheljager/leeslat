@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root "pages#index"
 
   get "up", to: "rails/health#show", as: :rails_health_check
+  mount MissionControl::Jobs::Engine, at: "/jobs"
 
   # User and session
   resources :sessions, only: [:create, :destroy]
