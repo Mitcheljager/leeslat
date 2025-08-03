@@ -43,6 +43,8 @@
         <% if book.listings_with_price.any? %>
           Vanaf
           <%= render "listings/price", listing: book.cheapest_listing %>
+        <% elsif book.last_scrape_finished_at.nil? %>
+          <em>Onbekend</em>
         <% else %>
           <em>Niet beschikbaar</em>
         <% end %>
