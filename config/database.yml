@@ -32,5 +32,5 @@ production:
 
   queue:
     <<: *primary_production
-    url: <%= ENV['QUEUE_DATABASE_URL'] %>
+    url: <%= ENV["QUEUE_DATABASE_URL"] %>
     migrations_paths: db/queue_migrate
