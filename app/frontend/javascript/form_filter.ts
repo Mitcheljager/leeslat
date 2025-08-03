@@ -23,10 +23,7 @@ export default class form_filter {
 
     const form_data = new FormData(form);
 
-    const params = Object.fromEntries(form_data);
-    for (const key in params) {
-      if (!params[key]) delete params[key];
-    }
+    const params = this.form_data_to_params(form_data);
 
     const urlParams = new URLSearchParams(params as any);
     const url = `${form.action}?${urlParams.toString()}`;
@@ -41,5 +38,32 @@ export default class form_filter {
 
     if (!button) return false;
     return (window.getComputedStyle(button).display !== "none");
+  }
+
+  // Remove empty values and values that match min/max values of inputs.
+  // The goal is to keep the URL as clean as possible, removing anything that
+  // doesn't actually do anything.
+  private form_data_to_params(form_data: FormData): Record<string, FormDataEntryValue> {
+    const params = Object.fromEntries(form_data);
+
+    for (const key in params) {
+      const value = params[key];
+
+      if (!value) {
+        delete params[key];
+        continue;
+      }
+
+      const matching_input = document.querySelector(`[name="${key}"]`) as HTMLInputElement;
+
+      if (!matching_input) continue;
+
+      if (matching_input.type === "number") {
+        if (matching_input.min === value) delete params[key];
+        if (matching_input.max === value) delete params[key];
+      }
+    }
+
+    return params;
   }
 }
