@@ -157,10 +157,13 @@ create_genre("Historische romans", "historische-romans", "romans", keywords: "Hi
 create_genre("Klassieke romans", "klassieke-romans", "romans", keywords: "Classic Fiction")
 
 # Thriller
-create_genre("Thrillers", "thrillers", "fictie", keywords: "Thrillers")
+create_genre("Thrillers", "thrillers", "fictie", keywords: "Thrillers, Thriller")
 create_genre("Detective", "detective", "thrillers", keywords: "Detective")
+create_genre("Whodunit", "whodunit", "detective", keywords: "Whodunit")
+create_genre("Noir", "noir", "detective", keywords: "Noir")
 create_genre("Mysterie", "mysterie", "thrillers", keywords: "Mystery")
 create_genre("Spannend", "spanning", "thrillers", keywords: "Suspense")
+create_genre("Misdaad", "misdaad", "thrillers", keywords: "Crime")
 create_genre("Spionage", "spionage", "thrillers", keywords: "Spy, Espionage")
 create_genre("Psychologische Thriller", "psychologische-thriller", "thrillers", keywords: "Psychological Thriller, Psychological")
 
