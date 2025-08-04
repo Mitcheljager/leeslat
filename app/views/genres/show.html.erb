@@ -1,15 +1,17 @@
 <div class="layout">
   <h1 class="heading wavy-underline"><%= @genre.name %></h1>
 
-  <section class="mt-8">
-    <h2 class="mb-4">Populaire op het moment.</h2>
+  <% if @hot_books.any? %>
+    <section class="mt-8">
+      <h2 class="mb-4">Populaire op het moment.</h2>
 
-    <div class="cards">
-      <%= render collection: @hot_books, partial: "books/card", as: :book %>
-    </div>
+      <div class="cards">
+        <%= render collection: @hot_books, partial: "books/card", as: :book %>
+      </div>
 
-    <%= link_to "Bekijk alles in #{@genre.name}", books_path(genres: [@genre]), class: "button button--large mt-2" %>
-  </section>
+      <%= link_to "Bekijk alles in #{@genre.name}", books_path(genres: [@genre]), class: "button button--large mt-2" %>
+    </section>
+  <% end %>
 
   <% @subgenres.each do |subgenre| %>
     <% if subgenre.books.any? %>
