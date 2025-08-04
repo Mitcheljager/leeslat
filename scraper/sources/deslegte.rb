@@ -48,7 +48,7 @@ def scrape_deslegte(isbn)
   prices = price_label&.scan(/\d+,\d+/)&.map { |p| p.gsub(',', '.').to_f }
   price = prices&.min
 
-  condition = price_label.include?("Tweedehands vanaf") ? :used : :new
+  condition = price_label&.include?("Tweedehands vanaf") ? :used : :new
 
   # Price is only shown via the above element if the item is available. It's empty otherwise.
   available = price.present?
