@@ -1,0 +1,8 @@
+<div class="<%= "pl-1" if genre.parent_genre_id.present? %>">
+  <%= label_tag "", class: "checkbox-group" do %>
+    <%= check_box_tag "genres[]", genre.slug, filter_params[:genres]&.include?(genre) %>
+    <span><%= genre.name %></span>
+  <% end %>
+
+  <%= render collection: genre.subgenres, partial: "books/filter/filter_genre", as: :genre %>
+</div>

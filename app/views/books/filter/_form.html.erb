@@ -18,7 +18,7 @@
 
   <h2 class="filter__heading mt-4">Beschikbaarheid.</h2>
 
-  <div class="checkbox-switches-group">
+  <div>
     <%= label_tag "", class: "checkbox-switch" do %>
       <%= check_box_tag :available, :true, filter_params[:available] === "true" %>
       <span class="checkbox-switch__label">Alleen beschikbaar</span>
@@ -27,7 +27,7 @@
 
   <h2 class="filter__heading mt-4">Conditie.</h2>
 
-  <div class="checkbox-switches-group">
+  <div>
     <% condition_labels = { "new" => "Nieuw", "used" => "Tweedehands", "damaged" => "Licht beschadigd" } %>
     <% Listing.conditions.keys.each do |condition| %>
       <% next unless condition_labels[condition] %>
@@ -40,7 +40,7 @@
 
   <h2 class="filter__heading mt-4">Taal.</h2>
 
-  <div class="checkbox-switches-group">
+  <div>
     <% language_labels = { "dutch" => "Nederlands", "english" => "Engels" } %>
     <% Book.languages.keys.each do |language| %>
       <%= label_tag "", class: "checkbox-group" do %>
@@ -52,7 +52,7 @@
 
   <h2 class="filter__heading mt-4">Formaat.</h2>
 
-  <div class="checkbox-switches-group">
+  <div>
     <% format_labels = { "hardcover" => "Hardcover", "paperback" => "Paperback", "unknown" => "Overigen" } %>
     <% Book.formats.keys.reverse.each do |format| %>
       <%= label_tag "", class: "checkbox-group" do %>
@@ -72,6 +72,12 @@
   <div class="input-group">
     <%= number_field_tag :year_from, filter_params[:year_from] || 1900, min: 1900, max: Date.current.year, class: "form-input" %>
     <%= number_field_tag :year_to, filter_params[:year_to] || Date.current.year, min: 1900, max: Date.current.year, class: "form-input" %>
+  </div>
+
+  <h2 class="filter__heading mt-4">Genres.</h2>
+
+  <div>
+    <%= render collection: @genres, partial: "books/filter/filter_genre", as: :genre %>
   </div>
 
   <% # There's 2 different submit buttons, one for mobile, where the filter does not auto submit, and one for noscript.

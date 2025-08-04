@@ -15,7 +15,7 @@
 
   <div class="filter-columns mt-8">
     <aside class="filter-columns__filter">
-      <%= render "filter" %>
+      <%= render "books/filter/form" %>
     </aside>
 
     <%= turbo_frame_tag "form_filter_content", data: { turbo_action: "replace", turbo_fade: true }, target: "_top" do %>

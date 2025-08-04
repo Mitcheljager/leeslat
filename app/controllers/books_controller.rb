@@ -8,6 +8,7 @@ class BooksController < ApplicationController
 
   def index
     @books = BookFilter.new(Book.all, filter_params).filter.page(params[:page])
+    @genres = Genre.where(parent_genre_id: nil)
   end
 
   def show
