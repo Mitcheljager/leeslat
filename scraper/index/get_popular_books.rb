@@ -38,8 +38,10 @@ for page in 1..10 do
     match = node.to_s.match(/\b\d{13}\b/)
     next unless match.present?
 
-    score = [200, 1].max
+    score = [200 - (page * 30) - index * 3, 1].max
     isbn_list[match[0]] += score
+
+    puts score
 
     index += 1
   end
