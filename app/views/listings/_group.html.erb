@@ -1,6 +1,6 @@
 <% if listings.any? %>
   <h3 class="mb-0 mt-2"><%= heading %></h3>
-  <p class="mt-0 mb-1"><em><%= text %></em></p>
+  <p class="mt-0 mb-1 color-alt"><em><%= text %></em></p>
   <div class="listings">
     <%= render collection: listings, partial: "listings/listing" %>
   </div>
