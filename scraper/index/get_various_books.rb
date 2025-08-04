@@ -39,9 +39,6 @@ subpaths.each do |subpath|
         next unless match.present?
 
         isbn_list << match[0]
-
-        # Add slight grace period to not hit any potential request limits
-        sleep(2)
       end
     end
   end
