@@ -13,7 +13,7 @@ def scrape_amazon(isbn)
 
     document = get_document("#{base_path}/s?k=#{isbn}")
 
-    return { url: nil, available: false } if document&.text&.include?("Geen resultaten")
+    return { url: nil, available: false } if document.nil? || document&.text&.include?("Geen resultaten")
 
     first_search_item_path = document.css("[role='listitem'] a").first.attribute("href").value
     url = clean_url(base_path + first_search_item_path)
