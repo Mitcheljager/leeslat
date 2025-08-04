@@ -28,7 +28,7 @@ subpaths = ["8292", "8293"]
 subpaths.each do |path|
   index = 0
 
-  for page in 1..3 do
+  for page in 1..10 do
     # + 11209 is the category for books, which means we exclude Ebooks and Audiobooks
     document = get_document("https://www.bol.com/nl/nl/l/boeken/8299/#{path}+11209/?page=#{page}")
     document.css(".product-item__content").each do |node|
