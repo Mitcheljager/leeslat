@@ -24,27 +24,24 @@ document.css(".card__tags__tag").each do |node|
 end
 
 # Bol.com - 30 entries per page, 10 pages
-# Subpaths are to get Dutch and English books separately. 8292 is Enlgish, 8293 is Dutch
-subpaths = ["8292", "8293"]
-subpaths.each do |path|
-  index = 0
 
-  for page in 1..10 do
-    # + 11209 is the category for books, which means we exclude Ebooks and Audiobooks
-    document = get_document("https://www.bol.com/nl/nl/l/boeken/8299/#{path}+11209/?page=#{page}")
-    document.css(".product-item__content").each do |node|
-      next if node.include?("Gesponsord")
-      next if node.include?("Ebook") # Specifically Ebook, not e-book, as that would include the other variant sections
+index = 0
 
-      # Find any 13 digit code, presumably the ISBN
-      match = node.to_s.match(/\b\d{13}\b/)
-      next unless match.present?
+for page in 1..10 do
+  # + 11209 is the category for books, which means we exclude Ebooks and Audiobooks
+  document = get_document("https://www.bol.com/nl/nl/l/boeken/8299/11209/?page=#{page}")
+  document.css(".product-item__content").each do |node|
+    next if node.include?("Gesponsord")
+    next if node.include?("Ebook") # Specifically Ebook, not e-book, as that would include the other variant sections
 
-      score = [200, 1].max
-      isbn_list[match[0]] += score
+    # Find any 13 digit code, presumably the ISBN
+    match = node.to_s.match(/\b\d{13}\b/)
+    next unless match.present?
 
-      index += 1
-    end
+    score = [200, 1].max
+    isbn_list[match[0]] += score
+
+    index += 1
   end
 end
 
