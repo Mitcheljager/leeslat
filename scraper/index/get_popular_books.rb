@@ -93,8 +93,6 @@ end
 
 count = 0
 
-isbn_list = []
-
 # Process all indexed ISBNs, skipping any that are invalid
 isbn_list.each do |isbn, score|
   count += 1
