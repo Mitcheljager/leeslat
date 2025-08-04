@@ -1,4 +1,5 @@
-require_relative "base"
+require_relative "../base"
+require_relative "../helpers/log_time"
 
 # This is a hash containing all collected ISBNs with a popularity score. Higher == better.
 isbn_list = Hash.new(0)
@@ -92,6 +93,8 @@ end
 start_time = DateTime.now
 count = 0
 
+isbn_list = []
+
 # Process all indexed ISBNs, skipping any that are invalid
 isbn_list.each do |isbn, score|
   count += 1
@@ -125,15 +128,4 @@ isbn_list.each do |isbn, score|
   # sleep 1
 end
 
-end_time = DateTime.now
-total_seconds = ((end_time - start_time) * 24 * 60 * 60).to_f
-minutes = (total_seconds / 60).to_i
-seconds = (total_seconds % 60).round
-
-puts "\e[34m"
-puts "===================="
-puts "Run started at #{start_time}"
-puts "Run ended at #{end_time}"
-puts "Total time: #{minutes} minutes and #{seconds} seconds"
-puts "===================="
-puts "\e[0m"
+LogTime.log_end_time(start_time)

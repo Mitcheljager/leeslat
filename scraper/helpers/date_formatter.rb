@@ -1,4 +1,3 @@
-# lib/date_formatter.rb
 require "date"
 
 module DateFormatter
