@@ -4,6 +4,7 @@ require_relative "../helpers/log_time"
 # This is a hash containing all collected ISBNs with a popularity score. Higher == better.
 isbn_list = Hash.new(0)
 
+start_time = DateTime.now
 index = 0
 
 # Bestseller60 - 60 entries
@@ -90,7 +91,6 @@ document.css(".ankeiler-wrapper [data-test-id='titleAndSubtitle'] a").each do |n
   index += 1
 end
 
-start_time = DateTime.now
 count = 0
 
 isbn_list = []
