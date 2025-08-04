@@ -3,7 +3,7 @@ class ActionsController < ApplicationController
 
   def index_by_isbn
     begin
-      output = `ruby #{Rails.root.join("scraper/index_book_by_isbn.rb")} #{params[:isbn]}`
+      output = `ruby #{Rails.root.join("scraper/index/index_book_by_isbn.rb")} #{params[:isbn]}`
       Rails.logger.info output
 
       @book = Book.find_by_isbn(params[:isbn])
