@@ -28,8 +28,6 @@ def attach_remote_image(book, url)
       content_type: response.headers["content-type"]
     )
 
-    book.cover_image.analyze
-
     puts "Image successfully attached for \"#{book.title}\""
 
     file.close
