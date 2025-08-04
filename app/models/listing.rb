@@ -24,10 +24,15 @@ class Listing < ApplicationRecord
     "€#{price_large},#{price_cents}"
   end
 
-  def shipping_label
+  def shipping_cost_actual
     # If the listing price includes shipping or if the price includes the sources free shipping cost threshold
-    return "Gratis verzending" if price_includes_shipping? || (source.shipping_cost_free_from_price > 0 && price >= source.shipping_cost_free_from_price) || source.shipping_cost == 0
-    "+€#{format("%.2f", source.shipping_cost).gsub(".", ",")} verzenden"
+    return 0 if price_includes_shipping? || (source.shipping_cost_free_from_price > 0 && price >= source.shipping_cost_free_from_price)
+    source.shipping_cost
+  end
+
+  def shipping_label
+    return "Gratis verzending" if shipping_cost_actual == 0
+    "+€#{format("%.2f", shipping_cost_actual).gsub(".", ",")} verzenden"
   end
 
   def condition_label

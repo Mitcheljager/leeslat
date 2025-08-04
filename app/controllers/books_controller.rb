@@ -25,7 +25,7 @@ class BooksController < ApplicationController
   def set_book
     isbn = params.expect([:slug_and_isbn]).split("-").last
     @book = Book.includes(:authors, listings: :source).find_by_isbn!(isbn)
-    @listings = @book.listings_with_price
+    @listings = @book.listings_with_price_sorted
   end
 
   def redirect_isbn
