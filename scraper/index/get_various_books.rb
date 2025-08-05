@@ -52,17 +52,12 @@ subpaths.each do |subpath|
   GC.start
 end
 
+# An ISBN has previously attempted to be indexed but failed. It could have failed because there was no Goodreads
+# entry, or because the book was an ebook.
+isbn_list.reject! { |isbn| SkippableISBN.exists?(isbn: isbn) }
+
 # Process all indexed ISBNs, skipping any that are invalid
 isbn_list.each_with_index do |isbn, index|
-  skippable = SkippableISBN.find_by_isbn(isbn)
-
-  # An ISBN has previously attempted to be indexed but failed. It could have failed because there was no Goodreads
-  # entry, or because the book was an ebook.
-  if skippable.present?
-    puts "Skipped #{isbn}"
-    next
-  end
-
   puts "\e[44m #{index} out of #{isbn_list.count} \e[0m"
 
   begin

@@ -88,17 +88,12 @@ document.css(".ankeiler-wrapper [data-test-id='titleAndSubtitle'] a").each do |n
   index += 1
 end
 
+# An ISBN has previously attempted to be indexed but failed. It could have failed because there was no Goodreads
+# entry, or because the book was an ebook.
+isbn_list.reject! { |isbn| SkippableISBN.exists?(isbn: isbn) }
+
 # Process all indexed ISBNs, skipping any that are invalid
 isbn_list.each_with_index do |(isbn, score), index|
-  skippable = SkippableISBN.find_by_isbn(isbn)
-
-  # An ISBN has previously attempted to be indexed but failed. It could have failed because there was no Goodreads
-  # entry, or because the book was an ebook.
-  if skippable.present?
-    puts "Skipped #{isbn}"
-    next
-  end
-
   puts "\e[44m #{index + 1} out of #{isbn_list.count} \e[0m"
 
   begin
