@@ -41,6 +41,7 @@ input {
     height: 1rem;
     width: 1rem;
     margin-top: 0.15rem;
+    cursor: pointer;
 
     &:checked {
       background: var(--text-color-base);
@@ -49,6 +50,28 @@ input {
       + span {
         color: var(--text-color-base);
       }
+    }
+  }
+}
+
+.checkbox-list {
+  position: relative;
+  padding-left: $margin * 2;
+
+  &::before {
+    @include pseudo-fill;
+    height: auto;
+    top: 0.3rem;
+    bottom: 0.15rem;
+    width: 2px;
+    background: var(--bg-content);
+    margin-left: calc($margin - 3px);
+  }
+
+  + .checkbox-list {
+    &::before {
+      top: -0.15rem;
+      bottom: 0.15rem;
     }
   }
 }
