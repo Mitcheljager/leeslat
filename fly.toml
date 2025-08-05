@@ -30,14 +30,14 @@ console_command = "/rails/bin/rails console"
 
 [[vm]]
   name = "app_vm"
-  memory = "768mb"
+  memory = "1024mb"
   cpu_kind = "shared"
   cpus = 1
   processes = ["app"]
 
 [[vm]]
   name = "worker_vm"
-  memory = "1024mb"
+  memory = "512mb"
   cpu_kind = "shared"
   cpus = 1
   processes = ["worker"]
