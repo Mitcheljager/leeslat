@@ -8,36 +8,28 @@ start_time = DateTime.now
 
 # Bol.com - 30 entries per page, 100 pages, many subpaths
 subpaths = [
-  "thrillers-en-spannende-boeken/2551",
-  "detectives/40637",
-  "horror-en-bovennatuurlijke-thrillers/40414",
-  "psychologische-thrillers/40643",
-  "literatuur-romans-boek/24410",
-  "geschiedenisboeken-boek/40347",
-  "boeken-over-religie-spiritualiteit-filosofie-boek/2562",
-  "boeken-over-wetenschap-en-natuur-boek/23952",
-  "literaire-klassiekers/40491",
-  "oorlogsromans/41285",
-  "romanceboeken/40494",
-  "streekromans/40498",
-  "speculatieve-romans/40495"
+  "thrillers-en-spannende-boeken/2551"
 ]
 
 subpaths.each do |subpath|
   # 8292 is English, 8293 is Dutch
   languages = ["8292", "8293"]
   languages.each do |language|
-    for page in 1..10 do
+    puts language
+    for page in 1..2 do
       # + 11209 is the category for books, which means we exclude Ebooks and Audiobooks
       document = get_document("https://www.bol.com/nl/nl/l/#{subpath}/#{language}+11209/?page=#{page}")
 
       next if document.nil?
 
-      document.css(".product-item__content").each do |node|
+      document.css(".product-item__content, #mainContent .flex-row .grid .min-w-none").each do |node|
         next if node.include?("Ebook") # Specifically Ebook, not e-book, as that would include the other variant sections
+
+        puts node
 
         # Find any 13 digit code, presumably the ISBN
         match = node.to_s.match(/\b\d{13}\b/)
+        puts match
         next unless match.present?
 
         isbn_list << match[0]

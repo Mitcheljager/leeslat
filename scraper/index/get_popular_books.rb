@@ -30,7 +30,7 @@ index = 0
 for page in 1..10 do
   # + 11209 is the category for books, which means we exclude Ebooks and Audiobooks
   document = get_document("https://www.bol.com/nl/nl/l/boeken/8299/11209/?page=#{page}")
-  document.css(".product-item__content").each do |node|
+  document.css(".product-item__content, #mainContent .flex-row .grid .min-w-none").each do |node|
     next if node.include?("Gesponsord")
     next if node.include?("Ebook") # Specifically Ebook, not e-book, as that would include the other variant sections
 
