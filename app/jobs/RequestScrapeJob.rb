@@ -1,4 +1,6 @@
 class RequestScrapeJob < ApplicationJob
+  queue_as :high_priority
+
   def perform(isbn, force: false)
     puts "Requesting scrape for #{isbn}"
 
