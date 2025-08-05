@@ -9,6 +9,9 @@ console_command = "/rails/bin/rails console"
 
 [build]
 
+[deploy]
+  release_command = "bundle exec rake db:migrate"
+
 [env]
   PORT = "8080"
   HTTP_PORT = "8080"
@@ -34,7 +37,7 @@ console_command = "/rails/bin/rails console"
 
 [[vm]]
   name = "worker_vm"
-  memory = "768mb"
+  memory = "512mb"
   cpu_kind = "shared"
   cpus = 1
   processes = ["worker"]
