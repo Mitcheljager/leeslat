@@ -26,14 +26,22 @@ console_command = "/rails/bin/rails console"
 
 [processes]
   app = "bundle exec rails server"
+  scraper = "bundle exec rails server"
   worker = "bundle exec rails solid_queue:start"
 
 [[vm]]
   name = "app_vm"
-  memory = "1024mb"
+  memory = "768mb"
   cpu_kind = "shared"
   cpus = 1
   processes = ["app"]
+
+[[vm]]
+  name = "scraper_vm"
+  memory = "1024mb"
+  cpu_kind = "shared"
+  cpus = 1
+  processes = ["scraper"]
 
 [[vm]]
   name = "worker_vm"
