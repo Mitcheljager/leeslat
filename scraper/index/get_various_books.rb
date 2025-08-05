@@ -1,6 +1,8 @@
 require_relative "../base"
 require_relative "../helpers/log_time"
 
+GC.enable
+
 isbn_list = []
 start_time = DateTime.now
 
@@ -25,7 +27,7 @@ subpaths.each do |subpath|
   # 8292 is English, 8293 is Dutch
   languages = ["8292", "8293"]
   languages.each do |language|
-    for page in 1..10 do
+    for page in 1..2 do
       # + 11209 is the category for books, which means we exclude Ebooks and Audiobooks
       document = get_document("https://www.bol.com/nl/nl/l/#{subpath}/#{language}+11209/?page=#{page}")
 
@@ -40,15 +42,18 @@ subpaths.each do |subpath|
 
         isbn_list << match[0]
       end
+
+      # Set document to nil so we garbage collect it later
+      document = nil
     end
   end
+
+  puts "Garbage collection..."
+  GC.start
 end
 
-count = 0
-
 # Process all indexed ISBNs, skipping any that are invalid
-isbn_list.each do |isbn|
-  count += 1
+isbn_list.each_with_index do |isbn, index|
   skippable = SkippableISBN.find_by_isbn(isbn)
 
   # An ISBN has previously attempted to be indexed but failed. It could have failed because there was no Goodreads
@@ -58,7 +63,7 @@ isbn_list.each do |isbn|
     next
   end
 
-  puts "\e[44m #{count} out of #{isbn_list.count} \e[0m"
+  puts "\e[44m #{index} out of #{isbn_list.count} \e[0m"
 
   begin
     book = get_book(isbn, attach_image: true)
@@ -73,9 +78,13 @@ isbn_list.each do |isbn|
     puts error.backtrace.join("\n") if error.class.to_s != "RuntimeError"
   end
 
-  # Wait 1 seconds to prevent hitting rate limits on the Google API, which is limited to 100 requests a minute.
-  # It's also limited to 1000 per day, but that's another issue.
-  # sleep 1
+  # Reset book and run Garbage collector for every 20 indexes
+  book = nil
+
+  if index % 20 == 0
+    puts "Garbage collection..."
+    GC.start
+  end
 end
 
 LogTime.log_end_time(start_time)
