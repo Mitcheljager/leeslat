@@ -73,6 +73,7 @@ class Book < ApplicationRecord
   end
 
   def should_show_scrape_message?
+    return false # Disabled for the time being
     requires_scrape? || is_scrape_ongoing?
   end
 

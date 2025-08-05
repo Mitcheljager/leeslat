@@ -2,7 +2,7 @@ class BooksController < ApplicationController
   before_action :set_book, only: [:show, :listings_summary_partial]
   before_action :redirect_isbn, only: [:index]
 
-  after_action :request_scrape, only: [:show]
+  # after_action :request_scrape, only: [:show] # Disabled for the time being
   after_action :request_description, only: [:show]
   after_action :request_cover, only: [:show]
 
@@ -41,6 +41,7 @@ class BooksController < ApplicationController
   end
 
   def request_scrape
+    return
     return unless @book.requires_scrape?
 
     puts "Requested new scrape"
