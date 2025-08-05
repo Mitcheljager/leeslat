@@ -18,21 +18,26 @@ def get_document(url, return_url: false, headers: {})
     "User-Agent" => user_agents.sample
   }
 
-  response = HTTParty.get(url, {
-    headers: default_headers.merge(headers)
-  })
+  begin
+    response = HTTParty.get(url, {
+      headers: default_headers.merge(headers)
+    })
 
-  if response.code == 200 || response.code == 202
-    body = Nokogiri::HTML(response.body)
+    if response.code == 200 || response.code == 202
+      body = Nokogiri::HTML(response.body)
 
-    if return_url
-      url = response.request.last_uri.to_s
-      [url, body]
+      if return_url
+        url = response.request.last_uri.to_s
+        [url, body]
+      else
+        body
+      end
     else
-      body
+      puts "Response for #{url} failed with code " + response.code.to_s
     end
-  else
-    puts "Response for #{url} failed with code " + response.code.to_s
+  ensure
+    # Set to nil to garbage collect later
+    response = nil
   end
 end
 

@@ -34,4 +34,6 @@ def attach_remote_image(book, url)
   else
     puts "Failed to fetch image: #{response.code}"
   end
+
+  response = nil
 end
