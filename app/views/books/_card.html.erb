@@ -3,7 +3,7 @@
     class: "card__image",
     style: book.cover_aspect_ratio.present? ? "--aspect-ratio: #{book.cover_aspect_ratio}" : nil,
     aria: { labelledby: book.isbn } do %>
-    <%= render "books/cover", book: book, small: true, image_variant: :small_wide, loading: "lazy" %>
+    <%= render "books/cover", book: book, small: true, image_variant: :small, loading: "lazy" %>
   <% end %>
 
   <%= link_to book, class: "card__content", aria: { labelledby: book.isbn } do %>
@@ -54,6 +54,6 @@
       </span>
     </span>
 
-    <%= image_tag rails_public_blob_url(book.cover_image.variant(:small_wide).processed), class: "card__blur", width: 120, height: 120, alt: "", loading: "lazy" if book.cover_image.attached? %>
+    <%= image_tag rails_public_blob_url(book.cover_image.variant(:small).processed), class: "card__blur", width: 120, height: 120, alt: "", loading: "lazy" if book.cover_image.attached? %>
   <% end %>
 </article>
