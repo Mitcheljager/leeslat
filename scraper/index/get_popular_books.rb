@@ -41,8 +41,6 @@ for page in 1..10 do
     score = [200 - (page * 30) - index * 3, 1].max
     isbn_list[match[0]] += score
 
-    puts score
-
     index += 1
   end
 end
@@ -90,11 +88,8 @@ document.css(".ankeiler-wrapper [data-test-id='titleAndSubtitle'] a").each do |n
   index += 1
 end
 
-count = 0
-
 # Process all indexed ISBNs, skipping any that are invalid
-isbn_list.each do |isbn, score|
-  count += 1
+isbn_list.each_with_index do |(isbn, score), index|
   skippable = SkippableISBN.find_by_isbn(isbn)
 
   # An ISBN has previously attempted to be indexed but failed. It could have failed because there was no Goodreads
@@ -104,7 +99,7 @@ isbn_list.each do |isbn, score|
     next
   end
 
-  puts "\e[44m #{count} out of #{isbn_list.count} \e[0m"
+  puts "\e[44m #{index} out of #{isbn_list.count} \e[0m"
 
   begin
     book = get_book(isbn, attach_image: true)
@@ -120,9 +115,13 @@ isbn_list.each do |isbn, score|
     puts error.backtrace.join("\n") if error.class.to_s != "RuntimeError"
   end
 
-  # Wait 1 seconds to prevent hitting rate limits on the Google API, which is limited to 100 requests a minute.
-  # It's also limited to 1000 per day, but that's another issue.
-  # sleep 1
+  # Reset book and run Garbage collector for every 20 indexes
+  book = nil
+
+  if index % 20 == 0
+    puts "Garbage collection..."
+    GC.start
+  end
 end
 
 LogTime.log_end_time(start_time)
