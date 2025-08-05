@@ -27,7 +27,7 @@ subpaths.each do |subpath|
   # 8292 is English, 8293 is Dutch
   languages = ["8292", "8293"]
   languages.each do |language|
-    for page in 1..2 do
+    for page in 1..10 do
       # + 11209 is the category for books, which means we exclude Ebooks and Audiobooks
       document = get_document("https://www.bol.com/nl/nl/l/#{subpath}/#{language}+11209/?page=#{page}")
 
