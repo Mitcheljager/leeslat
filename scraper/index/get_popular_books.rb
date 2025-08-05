@@ -99,7 +99,7 @@ isbn_list.each_with_index do |(isbn, score), index|
     next
   end
 
-  puts "\e[44m #{index} out of #{isbn_list.count} \e[0m"
+  puts "\e[44m #{index + 1} out of #{isbn_list.count} \e[0m"
 
   begin
     book = get_book(isbn, attach_image: true)
@@ -123,5 +123,9 @@ isbn_list.each_with_index do |(isbn, score), index|
     GC.start
   end
 end
+
+# Reset the hotness of all books with hotness that were not included in the list above.
+isbns = isbn_list.map(&:first)
+Book.where.not(isbn: isbns).where.not(hotness: 0).update_all(hotness: 0)
 
 LogTime.log_end_time(start_time)
