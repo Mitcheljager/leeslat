@@ -117,11 +117,13 @@ def parse_authors_for_book(book, authors)
   authors.each do |author_name|
     # Remove anything in parenthesis "Name (Editor)", trim white space, and remove subsequent whitespace
     author_name = author_name.sub(/\s*\(.*\)\s*$/, "").strip.squeeze(" ")
+    slug = author_name.parameterize
 
-    author = Author.where("LOWER(name) = ?", author_name.downcase).first_or_initialize
-    author.name = author_name
-    author.slug = author_name.parameterize
-    author.save!
+    author = Author.find_or_create_by!(slug: slug) do |author|
+      author.name = author_name
+
+      puts "Created author: #{author_name}"
+    end
 
     book.authors << author unless book.authors.include?(author)
   end
