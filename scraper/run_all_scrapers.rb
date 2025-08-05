@@ -186,6 +186,12 @@ else
     puts "-----------------------------------------------------"
 
     run_all_scrapers(book.isbn, sources_to_run)
+
+    # Run garbage collection after every 10 books to clear up memory from each run
+    if index % 10 == 0
+      puts "Garbage collection..."
+      GC.start
+    end
   end
 end
 
