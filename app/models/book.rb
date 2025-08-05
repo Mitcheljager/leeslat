@@ -119,7 +119,7 @@ class Book < ApplicationRecord
 
   # TODO: Add proper translation keys, this will do just fine for now though.
   def language_label
-    language === "en" ? "Engels" : "Nederlands"
+    language === "english" ? "Engels" : "Nederlands"
   end
 
   def format_label
