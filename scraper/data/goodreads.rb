@@ -29,14 +29,14 @@ def get_goodreads_data(isbn)
   published_date = publication_time ? Time.at(publication_time / 1000).to_date.strftime("%Y-%m-%d") : nil
 
   language = nil
-  language = "nl" if language_text.include?("Dutch")
-  language = "en" if language_text.include?("English")
+  language = "nl" if language_text&.include?("Dutch")
+  language = "en" if language_text&.include?("English")
 
   # We could get these values from the JSON object above, but this felt pretty easy
   format_text = document.css("[data-testid='pagesFormat']").text
   format = "unknown"
-  format = "paperback" if format_text.include?("Paperback")
-  format = "hardcover" if format_text.include?("Hardcover")
+  format = "paperback" if format_text&.include?("Paperback")
+  format = "hardcover" if format_text&.include?("Hardcover")
 
   image_url = document.css(".BookCover__image img")&.first&.attribute("src")&.value
   image_url = nil if image_url&.include?("no-cover")
