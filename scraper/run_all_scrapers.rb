@@ -72,8 +72,9 @@ def run_all_scrapers(isbn, sources_to_run)
     run_scraper("Voordeelboekenonline.nl", sources_to_run, isbn, title) { scrape_voordeelboekenonline(isbn) }
     # [Broken, CF 403] run_scraper("Libris", isbn, title)                  { scrape_libris(isbn) }
   rescue => error
-    puts "Error in run_all_scrapers"
-    puts error
+    Rails.logger.error("Error in run_all_scrapers")
+    Rails.logger.error("#{error.class}: #{error.message}")
+    Rails.logger.error(error.backtrace.join("\n")) if error.backtrace
   ensure
     end_book(isbn)
   end
