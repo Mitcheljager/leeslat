@@ -44,6 +44,7 @@ def run_scraper(source_name, sources_to_run, isbn, title)
     save_unsuccessful_result(source_name, isbn)
     update_listing_scraping_status(source_name, isbn, was_successful: false)
   ensure
+    result = nil
     puts "---"
   end
 end
