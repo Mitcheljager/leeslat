@@ -77,7 +77,7 @@ export default [{
 
     "no-multiple-empty-lines": ["warn", {
       max: 1
-    }]
+    }],
   }
 }, ...compat.extends("plugin:@typescript-eslint/recommended").map(config => ({
   ...config,
@@ -112,7 +112,24 @@ export default [{
       argsIgnorePattern: "^_",
       varsIgnorePattern: "^_",
       caughtErrorsIgnorePattern: "^_"
-    }]
+    }],
+
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "variableLike",
+        "format": ["snake_case"]
+      },
+      {
+        "selector": "property",
+        "format": ["snake_case"],
+        "modifiers": ["public"]
+      },
+      {
+        "selector": "parameter",
+        "format": ["snake_case"]
+      }
+    ]
   }
 }, {
   files: ["**/*.js"],

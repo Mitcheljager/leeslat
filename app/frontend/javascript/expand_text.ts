@@ -9,12 +9,12 @@ export default class expand_text {
 
   toggle(element: HTMLButtonElement): void {
     const target = element.getAttribute("aria-controls") as string;
-    const targetElement = document.getElementById(target);
+    const target_element = document.getElementById(target);
 
-    if (!targetElement) return;
+    if (!target_element) return;
 
-    targetElement.classList.toggle("expanded");
-    const expanded = targetElement.classList.contains("expanded");
+    target_element.classList.toggle("expanded");
+    const expanded = target_element.classList.contains("expanded");
 
     element.ariaExpanded = expanded.toString();
 

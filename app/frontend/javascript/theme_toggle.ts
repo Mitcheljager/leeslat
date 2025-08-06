@@ -26,9 +26,9 @@ export default class theme_toggle {
     toggle_button.maybe_add_event_listener("click", () => {
       setTimeout(() => {
         fallback_view_transition(() => {
-          const currentTheme = theme_toggle.html_element.style.getPropertyValue("color-scheme") as Theme;
+          const current_theme = theme_toggle.html_element.style.getPropertyValue("color-scheme") as Theme;
 
-          theme_toggle.theme = currentTheme === "light" ? "dark" : "light";
+          theme_toggle.theme = current_theme === "light" ? "dark" : "light";
           theme_toggle.html_element.style.setProperty("color-scheme", theme_toggle.theme);
 
           this.set_cookie();
