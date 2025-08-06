@@ -1,4 +1,4 @@
-require_relative "../base"
+require_relative "../get_document"
 require "nokogiri"
 
 def get_goodreads_data(isbn)

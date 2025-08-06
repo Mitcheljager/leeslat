@@ -1,5 +1,4 @@
-require_relative "../base"
-require "nokogiri"
+require_relative "../get_document"
 
 def scrape_broese(isbn)
   # Broese is weird and doesn't render any content on it's show pages during SSR, instead it's some Vue template.

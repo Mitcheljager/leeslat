@@ -1,4 +1,5 @@
-require_relative "../base"
+require_relative "../get_book"
+require_relative "../get_document"
 require_relative "../helpers/log_time"
 
 GC.enable

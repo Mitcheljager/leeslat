@@ -1,5 +1,6 @@
-require_relative "base"
-require_relative "./helpers/log_time"
+require_relative "../config/environment"
+require_relative "get_book"
+require_relative "helpers/log_time"
 require_relative "sources/amazon"
 require_relative "sources/amazon_retourdeals"
 require_relative "sources/boekenbalie"
@@ -70,7 +71,9 @@ def run_all_scrapers(isbn, sources_to_run)
     run_scraper("Readshop", sources_to_run, isbn, title)                { scrape_readshop(isbn, title) }
     run_scraper("Voordeelboekenonline.nl", sources_to_run, isbn, title) { scrape_voordeelboekenonline(isbn) }
     # [Broken, CF 403] run_scraper("Libris", isbn, title)                  { scrape_libris(isbn) }
-  rescue
+  rescue => error
+    puts "Error in run_all_scrapers"
+    puts error
   ensure
     end_book(isbn)
   end

@@ -1,5 +1,4 @@
-require_relative "../base"
-require "nokogiri"
+require_relative "../get_document"
 
 def scrape_bol(isbn)
   listing = find_listing_for_isbn_and_source_name(isbn, "Bol.com")

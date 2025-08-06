@@ -1,6 +1,5 @@
-require_relative "../base"
+require_relative "../get_document"
 require_relative "../helpers/date_formatter"
-require "nokogiri"
 
 def scrape_boekennl(isbn, title)
   listing = find_listing_for_isbn_and_source_name(isbn, "Boeken.nl")

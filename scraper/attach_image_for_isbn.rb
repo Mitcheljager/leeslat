@@ -1,7 +1,7 @@
+require_relative "../config/environment"
 require_relative "data/goodreads"
+require_relative "get_book"
 require_relative "attach_remote_image"
-require "httparty"
-require "tempfile"
 
 isbn = ARGV[0]
 

@@ -1,5 +1,4 @@
-require_relative "../base"
-require "nokogiri"
+require_relative "../get_document"
 
 # This is largely the same as the Bruna scraper. It has some key differences in the price label.
 def scrape_readshop(isbn, title)

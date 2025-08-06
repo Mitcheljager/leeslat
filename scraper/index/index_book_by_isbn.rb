@@ -1,4 +1,4 @@
-require_relative "../base"
+require_relative "../get_book"
 
 isbn = ARGV[0]
 

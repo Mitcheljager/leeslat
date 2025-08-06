@@ -1,3 +1,6 @@
+require "httparty"
+require "tempfile"
+
 def attach_remote_image(book, url)
   response = HTTParty.get(url)
 

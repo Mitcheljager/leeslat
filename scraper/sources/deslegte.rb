@@ -1,5 +1,4 @@
-require_relative "../base"
-require "nokogiri"
+require_relative "../get_document"
 
 # TODO: De Slegte has different shipping costs depending on the order.
 # Used, ramsj, study: 2.50 + 1 per book

@@ -1,3 +1,4 @@
+require_relative "get_book"
 require_relative "data/goodreads"
 
 arguments = ARGV.map { |a| a.split("=", 2) }.to_h
@@ -8,7 +9,7 @@ def find_genres_for_book(book)
   parse_genres_for_book(book, data[:genres]) if data[:genres].any?
 end
 
-if isbn
+if isbn.present?
   book = Book.find_by_isbn(isbn)
   find_genres_for_book(book)
 else
