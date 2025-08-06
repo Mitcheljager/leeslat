@@ -8,7 +8,7 @@
 
   <%= link_to book, class: "card__content", aria: { labelledby: book.isbn } do %>
     <span class="card__heading line-clamp line-clamp--line-1" id="<%= book.isbn %>" role="heading" aria-level="2">
-      <%= book.title %>
+      <%= book.title %><%= ": #{book.subtitle}" if book.subtitle %>
     </span>
 
     <span class="font-small line-clamp line-clamp--line-1"><%= human_list(book.authors.pluck(:name)) %></span>
