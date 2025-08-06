@@ -7,7 +7,7 @@
   <% end %>
 
   <%= link_to book, class: "card__content", aria: { labelledby: book.isbn } do %>
-    <span class="card__heading line-clamp line-clamp--line-1" id="<%= book.isbn %>" role="heading" aria-label="2">
+    <span class="card__heading line-clamp line-clamp--line-1" id="<%= book.isbn %>" role="heading" aria-level="2">
       <%= book.title %>
     </span>
 
