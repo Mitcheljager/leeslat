@@ -49,3 +49,7 @@ console_command = "/rails/bin/rails console"
   cpu_kind = "shared"
   cpus = 1
   processes = ["worker"]
+
+[[restart]]
+  policy = "never"
+  processes = ["scraper"]
