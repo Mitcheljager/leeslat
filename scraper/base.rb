@@ -38,6 +38,7 @@ def get_document(url, return_url: false, headers: {})
   ensure
     # Set to nil to garbage collect later
     response = nil
+    body = nil
   end
 end
 
