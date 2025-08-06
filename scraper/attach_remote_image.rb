@@ -3,8 +3,13 @@ def attach_remote_image(book, url)
 
   book.update(cover_last_scraped_at: DateTime.now)
 
-  if response.code == 200
-    file = Tempfile.new(["downloaded", File.extname(url)])
+  if response.code != 200
+    puts "Failed to fetch image: #{response.code}"
+    response = nil
+    return
+  end
+
+  Tempfile.open(["downloaded", File.extname(url)]) do |file|
     file.binmode
     file.write(response.body)
     file.rewind
@@ -30,9 +35,9 @@ def attach_remote_image(book, url)
 
     puts "Image successfully attached for \"#{book.title}\""
 
-    file.close
-  else
-    puts "Failed to fetch image: #{response.code}"
+    # Reset for garbage collection
+    image.destroy! rescue nil
+    image = nil
   end
 
   response = nil
