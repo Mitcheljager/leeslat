@@ -1,7 +1,7 @@
 require_relative "../base"
 require "nokogiri"
 
-# This is the same as the Bruna scraper. Totally and lazily copy pasted.
+# This is largely the same as the Bruna scraper. It has some key differences in the price label.
 def scrape_readshop(isbn, title)
   listing = find_listing_for_isbn_and_source_name(isbn, "Readshop")
 
@@ -18,9 +18,9 @@ def scrape_readshop(isbn, title)
 
   return { url: nil, available: false } if url.blank? || !url.include?("/boeken/") || document.blank?
 
-  price = document.css(".price-block .colored.huge").first.text.strip.tr(",", ".")
-  description = document.css(".description .line-clamp-8").first.text.split("Veelgestelde vragen").first.strip
-  number_of_pages_label = document.css(".product-meta-description div:nth-child(3)").first
+  price = document.at_css(".price-block .colored.huge").text.strip.tr(",", ".")
+  description = document.at_css(".description .line-clamp-8")&.text&.split("Veelgestelde vragen")&.first&.strip
+  number_of_pages_label = document.at_css(".product-meta-description div:nth-child(3)")
   number_of_pages = number_of_pages_label&.text&.strip
   available = !document.text.include?("Tijdelijk niet voorradig")
 
