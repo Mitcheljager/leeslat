@@ -1,7 +1,7 @@
 require "httparty"
 require "nokogiri"
 
-def get_document(url, return_url: false, headers: {})
+def get_document(url, return_url: false, headers: {}, timeout: 10)
   puts "Fetching URL: #{url}"
 
   user_agents = [
@@ -16,9 +16,7 @@ def get_document(url, return_url: false, headers: {})
   }
 
   begin
-    response = HTTParty.get(url, {
-      headers: default_headers.merge(headers)
-    })
+    response = HTTParty.get(url, headers: default_headers.merge(headers), timeout: timeout)
 
     if response.code == 200 || response.code == 202
       body = Nokogiri::HTML(response.body)
