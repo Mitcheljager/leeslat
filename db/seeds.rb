@@ -169,8 +169,8 @@ create_genre("Psychologische Thriller", "psychologische-thriller", "thrillers", 
 
 # Scifi
 create_genre("Scifi", "scifi", "fictie", keywords: "Sci-fi, Science Fiction, Sciencefiction")
-create_genre("Dystopisch", "dystopisch", "scifi", keywords: "Dystopia")
-create_genre("Utopisch", "utopisch", "scifi", keywords: "Utopia")
+create_genre("Dystopisch", "dystopisch", "scifi", keywords: "Dystopia, Dystopian")
+create_genre("Utopisch", "utopisch", "scifi", keywords: "Utopia, Utopian")
 create_genre("Apocalyptisch", "apocalyptisch", "scifi", keywords: "Apocalypse")
 create_genre("Space opera", "space-opera", "scifi", keywords: "Space Opera")
 create_genre("Tijdreizen", "tijdreizen", "scifi", keywords: "Timetravel, Time Travel")
