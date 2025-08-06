@@ -35,6 +35,8 @@ def get_document(url, return_url: false, headers: {})
     else
       puts "Response for #{url} failed with code " + response.code.to_s
     end
+  rescue
+    puts "Response for #{url} resulted in an error"
   ensure
     # Set to nil to garbage collect later
     response = nil
@@ -52,26 +54,34 @@ def get_search_document(source_url, isbn, headers: {})
     "X-Subscription-Token" => ENV["BRAVE_API_KEY"]
   }
 
-  response = HTTParty.get(url, query: { q: query, count: 1, country: "nl" }, headers: headers)
+  begin
+    response = HTTParty.get(url, query: { q: query, count: 1, country: "nl" }, headers: headers)
 
-  if response.code != 200
-    puts "Brave API error: #{response.code} - #{response.body}"
-    return nil
+    if response.code != 200
+      puts "Brave API error: #{response.code} - #{response.body}"
+      return nil
+    end
+
+    results = JSON.parse(response.body)
+    first_result = results.dig("web", "results", 0)
+
+    return nil unless first_result
+
+    url = first_result["url"]
+    title = first_result["title"]
+
+    puts "Found via Brave: #{title} (#{url})"
+
+    url, document = get_document(url, return_url: true, headers: headers)
+
+    [url, document]
+  rescue
+    puts "Response for #{url} resulted in an error"
+  ensure
+    # Set to nil to garbage collect later
+    response = nil
+    document = nil
   end
-
-  results = JSON.parse(response.body)
-  first_result = results.dig("web", "results", 0)
-
-  return nil unless first_result
-
-  url = first_result["url"]
-  title = first_result["title"]
-
-  puts "Found via Brave: #{title} (#{url})"
-
-  url, document = get_document(url, return_url: true, headers: headers)
-
-  [url, document]
 end
 
 def get_book(isbn, attach_image: false)
