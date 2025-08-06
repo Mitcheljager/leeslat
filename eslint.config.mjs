@@ -77,7 +77,7 @@ export default [{
 
     "no-multiple-empty-lines": ["warn", {
       max: 1
-    }],
+    }]
   }
 }, ...compat.extends("plugin:@typescript-eslint/recommended").map(config => ({
   ...config,
