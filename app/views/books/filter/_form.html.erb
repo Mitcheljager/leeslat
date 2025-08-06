@@ -80,7 +80,7 @@
     <%= render collection: @genres, partial: "books/filter/filter_genre", as: :genre %>
   </div>
 
-  <% # There's 2 different submit buttons, one for mobile, where the filter does not auto submit, and one for noscript.
+  <%# There's 2 different submit buttons, one for mobile, where the filter does not auto submit, and one for noscript.
     # Visually they are identical but only 1 should show at a time %>
 
   <%= submit_tag "Filter toepassen", class: "button button--primary button--full-width filter__submit mt-2", name: nil, data: { role: "filter_submit", turbo_submits_with: "..." } %>
