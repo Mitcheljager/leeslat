@@ -15,7 +15,7 @@ const compat = new FlatCompat({
 });
 
 export default [{
-  ignores: ["public", "**/zez-ui"]
+  ignores: ["public"]
 }, {
   languageOptions: {
     globals: {
