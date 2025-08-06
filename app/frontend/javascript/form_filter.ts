@@ -25,8 +25,8 @@ export default class form_filter {
 
     const params = this.form_data_to_params(form_data);
 
-    const urlParams = new URLSearchParams(params as any);
-    const url = `${form.action}?${urlParams.toString()}`;
+    const url_params = new URLSearchParams(params as any);
+    const url = `${form.action}?${url_params.toString()}`;
 
     Turbo.visit(url, { frame: "form_filter_content" });
   }
@@ -43,27 +43,27 @@ export default class form_filter {
   // Remove empty values and values that match min/max values of inputs.
   // The goal is to keep the URL as clean as possible, removing anything that
   // doesn't actually do anything.
-  private form_data_to_params(form_data: FormData): Record<string, FormDataEntryValue> {
-    const params = Object.fromEntries(form_data);
+  private form_data_to_params(form_data: FormData): [string, FormDataEntryValue][] {
+    const params = form_data.entries();
+    const cleaned_params: [string, FormDataEntryValue][] = [];
 
-    for (const key in params) {
-      const value = params[key];
+    for (const entry of params) {
+      const [key, value] = entry;
 
-      if (!value) {
-        delete params[key];
-        continue;
-      }
+      if (!value) continue;
 
       const matching_input = document.querySelector(`[name="${key}"]`) as HTMLInputElement;
 
       if (!matching_input) continue;
 
       if (matching_input.type === "number") {
-        if (matching_input.min === value) delete params[key];
-        if (matching_input.max === value) delete params[key];
+        if (matching_input.min === value) continue;
+        if (matching_input.max === value) continue;
       }
+
+      cleaned_params.push(entry);
     }
 
-    return params;
+    return cleaned_params;
   }
 }
