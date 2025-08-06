@@ -49,12 +49,12 @@ export default class theme_toggle {
     document.cookie = `theme=${theme_toggle.theme}; path=/; max-age=31536000`;
   }
 
-  private toggle_theme_images() {
-    const elements = Array.from(document.querySelectorAll("[data-theme]")) as (HTMLImageElement | HTMLSourceElement)[]
+  private toggle_theme_images(): void {
+    const elements = Array.from(document.querySelectorAll("[data-theme]")) as (HTMLImageElement | HTMLSourceElement)[];
 
     elements.forEach(element => {
-      if (element.dataset.src) element.src = element.dataset.src
-      if (element.dataset.srcset) element.srcset = element.dataset.srcset
-    })
+      if (element.dataset.src) element.src = element.dataset.src;
+      if (element.dataset.srcset) element.srcset = element.dataset.srcset;
+    });
   }
 }
