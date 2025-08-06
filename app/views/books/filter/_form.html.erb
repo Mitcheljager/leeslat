@@ -32,7 +32,7 @@
     <% Listing.conditions.keys.each do |condition| %>
       <% next unless condition_labels[condition] %>
       <%= label_tag "", class: "checkbox-group" do %>
-        <%= check_box_tag "conditions[]", condition, filter_params[:conditions]&.include?(condition) %>
+        <%= check_box_tag "conditions[]", condition, filter_params[:conditions]&.include?(condition), id: nil %>
         <span><%= condition_labels[condition] %></span>
       <% end %>
     <% end %>
@@ -44,7 +44,7 @@
     <% language_labels = { "dutch" => "Nederlands", "english" => "Engels" } %>
     <% Book.languages.keys.each do |language| %>
       <%= label_tag "", class: "checkbox-group" do %>
-        <%= check_box_tag "languages[]", language, filter_params[:languages]&.include?(language) %>
+        <%= check_box_tag "languages[]", language, filter_params[:languages]&.include?(language), id: nil %>
         <span><%= language_labels[language] %></span>
       <% end %>
     <% end %>
@@ -56,7 +56,7 @@
     <% format_labels = { "hardcover" => "Hardcover", "paperback" => "Paperback", "unknown" => "Overigen" } %>
     <% Book.formats.keys.reverse.each do |format| %>
       <%= label_tag "", class: "checkbox-group" do %>
-        <%= check_box_tag "formats[]", format, filter_params[:formats]&.include?(format) %>
+        <%= check_box_tag "formats[]", format, filter_params[:formats]&.include?(format), id: nil %>
         <span><%= format_labels[format] %></span>
       <% end %>
     <% end %>
