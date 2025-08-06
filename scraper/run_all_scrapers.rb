@@ -15,10 +15,6 @@ require_relative "sources/paagman"
 require_relative "sources/readshop"
 require_relative "sources/voordeelboekenonline"
 
-arguments = ARGV.map { |a| a.split("=", 2) }.to_h
-isbn = arguments["isbn"]
-sources_to_run = arguments["sources"]&.split(",") || []
-
 puts "Running scrapers..."
 
 def run_scraper(source_name, sources_to_run, isbn, title)
@@ -178,12 +174,20 @@ end
 
 start_time = DateTime.now
 
+arguments = ARGV.map { |a| a.split("=", 2) }.to_h
+isbn = arguments["isbn"]
+sources_to_run = arguments["sources"]&.split(",") || []
+hours_ago = arguments["hours_ago"]&.to_i
+
 if isbn.present?
   run_all_scrapers(isbn, sources_to_run)
 else
-  Book.all.each_with_index do |book, index|
+  hours_ago_time = hours_ago.present? ? Time.now - hours_ago.hours : nil
+  books = hours_ago_time.present? ? Book.where('last_scrape_finished_at < ? OR last_scrape_finished_at IS NULL', hours_ago_time) : Book.all
+
+  books.each_with_index do |book, index|
     puts "-----------------------------------------------------"
-    puts "Running scrapers for \e[35m\"#{book.title}\"\e[0m | \e[4m#{book.isbn}\e[0m | \e[44m #{index + 1} out of #{Book.all.size} \e[0m"
+    puts "Running scrapers for \e[35m\"#{book.title}\"\e[0m | \e[4m#{book.isbn}\e[0m | \e[44m #{index + 1} out of #{books.size} \e[0m"
     puts "-----------------------------------------------------"
 
     run_all_scrapers(book.isbn, sources_to_run)
