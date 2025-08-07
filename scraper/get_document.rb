@@ -43,17 +43,21 @@ end
 # Used as a fallback if accessing a URL directly via an inferred path is not possible
 def get_search_document(source_url, isbn)
   query = "\"#{isbn}\" site:#{source_url}"
-  url = "https://www.googleapis.com/customsearch/v1"
+  url = "https://api.search.brave.com/res/v1/web/search"
+
+  headers = {
+    "Accept" => "application/json",
+    "X-Subscription-Token" => ENV["BRAVE_API_KEY"]
+  }
 
   params = {
-    key: ENV["GOOGLE_SEARCH_API_KEY"],
-    cx: ENV["GOOGLE_SEARCH_CX"],
+    country: "nl",
     q: query,
-    num: 1
+    count: 1
   }
 
   begin
-    response = HTTParty.get(url, query: params)
+    response = HTTParty.get(url, query: params, headers:)
 
     if response.code != 200
       puts "Google API error: #{response.code} - #{response.body}"
@@ -61,17 +65,17 @@ def get_search_document(source_url, isbn)
     end
 
     results = JSON.parse(response.body)
-    first_result = results.dig("items", 0)
+    first_result = results.dig("web", "results", 0)
 
     if !first_result
-      puts "Google API returned no results for #{isbn}"
+      puts "Brave API returned no results for #{isbn}"
       return nil
     end
 
-    url = first_result["link"]
+    url = first_result["url"]
     title = first_result["title"]
 
-    puts "Found via Google: #{title} (#{url})"
+    puts "Found via Brave: #{title} (#{url})"
 
     url, document = get_document(url, return_url: true)
 
