@@ -16,7 +16,6 @@ def scrape_boekenbalie(isbn, title)
 
   return { url: nil, available: false } if document.nil? || document.text.include?("Pagina niet gevonden")
 
-
   description = document.css(".js-product-detail-description-text").first.text.strip
   number_of_pages_label = document.at_css(".product-detail-properties-label:contains('Aantal pagina')")
   number_of_pages = number_of_pages_label&.next_element&.text&.strip
@@ -24,7 +23,7 @@ def scrape_boekenbalie(isbn, title)
 
   return { url:, available: false } if !available
 
-  price = document.css(".product-detail-price").first.text.strip.gsub(",", ".")
+  price = document.css(".product-detail-price span").last.text.strip.gsub(",", ".")
 
   { url:, price:, description:, number_of_pages:, condition: :used, available: available }
 end
