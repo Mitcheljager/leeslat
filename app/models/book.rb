@@ -148,11 +148,7 @@ class Book < ApplicationRecord
               multi_match: {
                 query: query,
                 fields: [
-                  "title^4",
-                  "authors^3",
-                  "keywords^2",
-                  "genres^2",
-                  "genre_keywords"
+                  "title"
                 ],
                 type: "cross_fields",
                 operator: "and",
