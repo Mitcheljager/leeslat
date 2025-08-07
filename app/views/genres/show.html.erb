@@ -1,12 +1,22 @@
 <div class="layout">
   <h1 class="heading wavy-underline"><%= @genre.name %></h1>
 
+  <% if @subgenres.any? %>
+    <nav class="tags mt-4">
+      <% cache ["genre-tags", @genre.id] do %>
+        <% @subgenres.order(name: :asc).each do |genre| %>
+          <%= link_to genre.name, genre, class: "tag tag--large", data: { turbo_prefetch: false } if genre.books.any? %>
+        <% end %>
+      <% end %>
+    </nav>
+  <% end %>
+
   <% if @hot_books.any? %>
     <section class="mt-8">
       <h2 class="mb-4">Populaire op het moment.</h2>
 
       <div class="cards">
-        <% cache(["genre-top-books", @genre.id, @hot_books.maximum(:updated_at)], expires_in: 4.hours) do %>
+        <% cache ["genre-top-books", @genre.id, @hot_books.maximum(:updated_at)], expires_in: 4.hours do %>
           <%= render collection: @hot_books, partial: "books/card", as: :book %>
         <% end %>
       </div>
@@ -15,13 +25,13 @@
     </section>
   <% end %>
 
-  <% @subgenres.each do |subgenre| %>
+  <% @subgenres.order(books_count: :desc).limit(4).each do |subgenre| %>
     <% if subgenre.books.any? %>
       <section class="mt-8">
         <h2 class="mb-4"><%= subgenre.name %></h2>
 
         <div class="cards">
-          <% cache(["genre-top-books", subgenre.id], expires_in: 4.hours) do %>
+          <% cache ["genre-top-books", subgenre.id], expires_in: 4.hours do %>
             <%= render collection: subgenre.books.limit(8), partial: "books/card", as: :book %>
           <% end %>
         </div>

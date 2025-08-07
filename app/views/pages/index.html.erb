@@ -16,7 +16,7 @@
     <h2 class="mb-4">Iedereen leest deze.</h2>
 
     <div class="cards">
-      <% cache(["hot-books", @hot_books.maximum(:updated_at)], expires_in: 4.hours) do %>
+      <% cache ["hot-books", @hot_books.maximum(:updated_at)], expires_in: 4.hours do %>
         <%= render collection: @hot_books, partial: "books/card", as: :book %>
       <% end %>
     </div>
@@ -28,7 +28,7 @@
     <h2 class="mb-4">Zin in een andere wereld?</h2>
 
     <div class="cards">
-      <% cache(["hot-fantasy-books", @fantasy_books.maximum(:updated_at)], expires_in: 4.hours) do %>
+      <% cache ["hot-fantasy-books", @fantasy_books.maximum(:updated_at)], expires_in: 4.hours do %>
         <%= render collection: @fantasy_books, partial: "books/card", as: :book %>
       <% end %>
     </div>
@@ -40,7 +40,7 @@
     <h2 class="mb-4">Misschien iets mysterieus?</h2>
 
     <div class="cards">
-      <% cache(["hot-mystery-books", @mystery_books.maximum(:updated_at)], expires_in: 4.hours) do %>
+      <% cache ["hot-mystery-books", @mystery_books.maximum(:updated_at)], expires_in: 4.hours do %>
         <%= render collection: @mystery_books, partial: "books/card", as: :book %>
       <% end %>
     </div>
@@ -52,7 +52,7 @@
     <h2 class="mb-4">Aan het koken?</h2>
 
     <div class="cards">
-      <% cache(["hot-cook-books", @cook_books.maximum(:updated_at)], expires_in: 4.hours) do %>
+      <% cache ["hot-cook-books", @cook_books.maximum(:updated_at)], expires_in: 4.hours do %>
         <%= render collection: @cook_books, partial: "books/card", as: :book %>
       <% end %>
     </div>

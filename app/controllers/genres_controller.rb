@@ -3,7 +3,7 @@ class GenresController < ApplicationController
 
   def show
     @hot_books = @genre.books.includes(:authors, :listings).order(hotness: :desc).limit(8)
-    @subgenres = @genre.subgenres.order(books_count: :desc).limit(4)
+    @subgenres = @genre.subgenres
   end
 
   private
