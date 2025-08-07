@@ -13,7 +13,7 @@ class Book < ApplicationRecord
   has_many :book_authors, dependent: :destroy
   has_many :authors, through: :book_authors
   has_many :book_genres, dependent: :destroy
-  has_many :genres, through: :book_genres, counter_cache: true
+  has_many :genres, through: :book_genres
 
   has_one_attached :cover_image do |attachable|
     attachable.variant(:large, resize_to_limit: [300, 500], quality: 80, format: :webp, preprocessed: true)
