@@ -21,7 +21,7 @@ def scrape_boekennl(isbn, title)
 
   # Boeken.nl takes about 15 seconds to timeout when a request is not found.
   # Regular requests are much faster, so if it takes long we can make an guess that the book was not found.
-  document = get_document(url, timeout: 5)
+  document = get_document(url, timeout: 3)
 
   # Document was not an actual page, instead it fell back to some overview page
   # In this case we use a search engine to find the actual page, if it exists

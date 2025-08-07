@@ -1,7 +1,7 @@
 require "httparty"
 require "nokogiri"
 
-def get_document(url, return_url: false, headers: {}, timeout: 10)
+def get_document(url, return_url: false, headers: {}, timeout: 5)
   puts "Fetching URL: #{url}"
 
   user_agents = [
