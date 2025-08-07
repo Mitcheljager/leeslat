@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_07_202614) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_07_202925) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -137,6 +137,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_07_202614) do
     t.string "keywords"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "books_count", default: 0, null: false
     t.index ["parent_genre_id"], name: "index_genres_on_parent_genre_id"
   end
 
