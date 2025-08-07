@@ -116,6 +116,15 @@ sources = [
     shipping_cost_currency: "EUR",
     shipping_cost_free_from_price: 20.0,
     shipping_cost_free_from_quantity: 0
+  },
+  {
+    name: "Booknext",
+    slug: "booknext",
+    base_url: "https://www.booknext.nl",
+    shipping_cost: 1.95,
+    shipping_cost_currency: "EUR",
+    shipping_cost_free_from_price: 0,
+    shipping_cost_free_from_quantity: 0
   }
 ]
 
