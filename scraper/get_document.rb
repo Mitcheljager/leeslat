@@ -29,6 +29,8 @@ def get_document(url, return_url: false, headers: {}, timeout: 5)
       end
     else
       puts "Response for #{url} failed with code " + response.code.to_s
+      puts "Response headers: #{response.headers.inspect}"
+      puts "Response body: #{response.body.strip[0..300]}..." unless response.body.nil?
     end
   rescue => error
     puts "Response for #{url} resulted in an error"
