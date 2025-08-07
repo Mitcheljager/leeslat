@@ -50,6 +50,3 @@ console_command = "/rails/bin/rails console"
   cpus = 1
   processes = ["worker"]
 
-[[restart]]
-  policy = "never"
-  processes = ["scraper"]
