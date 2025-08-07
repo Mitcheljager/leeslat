@@ -25,7 +25,7 @@ def scrape_boekennl(isbn, title)
 
   # Document was not an actual page, instead it fell back to some overview page
   # In this case we use a search engine to find the actual page, if it exists
-  if true || !document&.text&.include?("Beoordelingen")
+  if !document&.text&.include?("Beoordelingen")
     return { url: nil, available: false } if listing&.last_search_api_request_at.present? && listing&.last_search_api_request_at > 4.weeks.ago
 
     url, document = get_search_document("boeken.nl", isbn)
