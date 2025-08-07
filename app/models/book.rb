@@ -73,8 +73,10 @@ class Book < ApplicationRecord
   end
 
   def should_show_scrape_message?
-    return false # Disabled for the time being
-    requires_scrape? || is_scrape_ongoing?
+    (requires_scrape? || is_scrape_ongoing?) &&
+    # Only show message if book has never been scraped or last scrape is more than 2 days ago.
+    # A scrape might still happen if it's earlier (see requires_scrape?), but we won't show a message or update the page.
+    (last_scrape_finished_at.nil? || (last_scrape_finished_at.present? && last_scrape_finished_at < 2.days.ago))
   end
 
   # Returns a - if no number of pages are given, otherwise return a number with "." for the thousands delimiter,

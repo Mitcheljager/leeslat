@@ -64,6 +64,10 @@
         data-url="<%= book_listings_summary_path %>">
         <%= render "book_listings_summary" %>
       </div>
+
+      <% if @book.requires_scrape? %>
+        <div data-action="silently_fetch" data-url="<%= book_request_scrape_path(@book) %>"></div>
+      <% end %>
     </div>
 
     <div class="detail__cutout"></div>

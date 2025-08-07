@@ -1,8 +1,7 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :listings_summary_partial]
+  before_action :set_book, only: [:show, :listings_summary_partial, :request_scrape]
   before_action :redirect_isbn, only: [:index]
 
-  # after_action :request_scrape, only: [:show] # Disabled for the time being
   after_action :request_description, only: [:show]
   after_action :request_cover, only: [:show]
 
@@ -12,6 +11,16 @@ class BooksController < ApplicationController
   end
 
   def show
+  end
+
+  # A js request is made to this method when book.requires_scrape? is true.
+  # This is done through js rather than before_action so as not to call it on prefetch or when bots visit the page.
+  def request_scrape
+    return unless @book.requires_scrape?
+
+    puts "Requested new scrape"
+
+    RequestScrapeJob.perform_later(@book.isbn)
   end
 
   def listings_summary_partial
@@ -38,15 +47,6 @@ class BooksController < ApplicationController
     book = Book.find_by_isbn(params[:query])
 
     redirect_to book if book.present?
-  end
-
-  def request_scrape
-    return
-    return unless @book.requires_scrape?
-
-    puts "Requested new scrape"
-
-    RequestScrapeJob.perform_later(@book.isbn)
   end
 
   def request_description

@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get "boeken", to: "books#index", as: :books, concerns: :paginatable
 
   get "book/listings/:slug_and_isbn", to: "books#listings_summary_partial", as: :book_listings_summary
+  get "book/request_scrape/:slug_and_isbn", to: "books#request_scrape", as: :book_request_scrape
 
   # Actions
   get "actions/index_by_isbn/:isbn", to: "actions#index_by_isbn"
