@@ -15,7 +15,9 @@
   <h2 class="mb-4">Iedereen leest deze.</h2>
 
   <div class="cards">
-    <%= render collection: @books, partial: "books/card", as: :book %>
+    <% cache(["hot-books", @books.maximum(:updated_at)], expires_in: 4.hours) do %>
+      <%= render collection: @books, partial: "books/card", as: :book %>
+    <% end %>
   </div>
 
   <%= link_to "Bekijk ze allemaal", books_path, class: "button button--large mt-2" %>
