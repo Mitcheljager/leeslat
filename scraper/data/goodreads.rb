@@ -23,8 +23,9 @@ def get_goodreads_data(isbn)
   genres = extract_book_genres(json["props"]["pageProps"]["apolloState"])
   title = extract_book_title(json["props"]["pageProps"]["apolloState"])
 
-  is_ebook = json_details["format"].include?("Kindle") || json_details["format"].include?("ebook")
-  language_text = json_details["language"]["name"]
+  # Format can be nil in some cases
+  is_ebook = json_details["format"]&.include?("Kindle") || json_details["format"]&.include?("ebook") || false
+  language_text = json_details["language"]&.[]("name")
   publication_time = json_details["publicationTime"]
   published_date = publication_time ? Time.at(publication_time / 1000).to_date.strftime("%Y-%m-%d") : nil
 
@@ -41,6 +42,11 @@ def get_goodreads_data(isbn)
   image_url = document.css(".BookCover__image img")&.first&.attribute("src")&.value
   image_url = nil if image_url&.include?("no-cover")
 
+  puts format
+  puts is_ebook
+  puts title
+  puts language
+
   { genres:, format:, image_url:, is_ebook:, title:, language:, authors:, published_date: }
 end
 
@@ -50,12 +56,11 @@ def extract_first_book_details(json)
   json.each do |key, value|
     next unless key.start_with?("Book:")
     next unless value["details"].present?
-    next unless value["details"]["format"].present?
 
     return value["details"]
   end
 
-  nil
+  {}
 end
 
 # Each page contains multiple contributors, each contributor with a name value is assumed
