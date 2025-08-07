@@ -7,8 +7,11 @@ def scrape_broese(isbn)
 
   # This user agent seems like the only one in base.rb that goes through, others get a 403
   headers = { "User-Agent" => "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0" }
-  document = get_document("https://www.broese.nl/zoek?q=#{isbn}", return_url: false, headers:)
-  url = document&.at_css(".book .cover a")&.get_attribute("href")
+  base_url = 'https://www.broese.nl'
+
+  document = get_document(base_url + "/zoek?q=#{isbn}", return_url: false, headers:)
+  first_url = document&.at_css(".book .cover a")&.get_attribute("href")
+  url = first_url.present? ? (base_url + first_url) : nil
 
   return { url: nil, available: false } if url.blank? || !document&.text&.include?(isbn)
 
