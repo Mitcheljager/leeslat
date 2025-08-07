@@ -25,7 +25,12 @@ def scrape_boekennl(isbn, title)
 
   # Document was not an actual page, instead it fell back to some overview page
   # In this case we use a search engine to find the actual page, if it exists
-  url, document = get_search_document("boeken.nl", isbn) unless document&.text&.include?("Beoordelingen")
+  if true || !document&.text&.include?("Beoordelingen")
+    return { url: nil, available: false } if listing&.last_search_api_request_at.present? && listing&.last_search_api_request_at > 4.weeks.ago
+
+    url, document = get_search_document("boeken.nl", isbn)
+    last_search_api_request_at = DateTime.now
+  end
 
   return { url: nil, available: false } if url.blank? || document.blank?
 
@@ -39,5 +44,5 @@ def scrape_boekennl(isbn, title)
 
   published_date_text = DateFormatter.format_published_date_text(document.css(".field-name-field-publishing-date .date-display-single").first&.text&.strip)
 
-  { url:, price:, description:, number_of_pages:, available: !price.blank?, condition: :new, published_date_text: }
+  { url:, price:, description:, number_of_pages:, available: !price.blank?, condition: :new, published_date_text:, last_search_api_request_at: }
 end
