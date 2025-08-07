@@ -2,8 +2,8 @@ class BooksController < ApplicationController
   before_action :set_book, only: [:show, :listings_summary_partial, :request_scrape]
   before_action :redirect_isbn, only: [:index]
 
-  after_action :request_description, only: [:show]
-  after_action :request_cover, only: [:show]
+  # after_action :request_description, only: [:show]
+  # after_action :request_cover, only: [:show]
 
   def index
     @books = BookFilter.new(Book.all, filter_params).filter.page(params[:page])
