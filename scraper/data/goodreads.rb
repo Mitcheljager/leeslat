@@ -42,11 +42,6 @@ def get_goodreads_data(isbn)
   image_url = document.css(".BookCover__image img")&.first&.attribute("src")&.value
   image_url = nil if image_url&.include?("no-cover")
 
-  puts format
-  puts is_ebook
-  puts title
-  puts language
-
   { genres:, format:, image_url:, is_ebook:, title:, language:, authors:, published_date: }
 end
 
