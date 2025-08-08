@@ -48,7 +48,7 @@ class BookFilter
 
     genre_ids = Genre.where(slug: Array(params[:genres])).pluck(:id)
     # Filter books that contain all selected genres
-    @books = books.joins(:genres).where(genres: { id: genre_ids }).group("books.id").having("COUNT(DISTINCT genres.id) = ?", genre_ids.size)
+    @books = books.select("books.*").joins(:genres).where(genres: { id: genre_ids }).group("books.id").having("COUNT(DISTINCT genres.id) = ?", genre_ids.size)
   end
 
   def filter_by_formats
