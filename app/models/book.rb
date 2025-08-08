@@ -36,6 +36,11 @@ class Book < ApplicationRecord
     "#{title.parameterize}-#{isbn}"
   end
 
+  def self.full_join
+    self.includes(:authors, listings: :source, cover_image_attachment: :blob)
+        .references(:authors, :listings, :source)
+  end
+
   def listings_with_price
     listings.includes(:source).where.not(price: 0).where(available: true)
   end

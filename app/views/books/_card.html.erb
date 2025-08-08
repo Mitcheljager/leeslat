@@ -36,14 +36,16 @@
     </span>
 
     <span class="card__tray">
-      <% if book.listings_with_price.any? %>
+      <% listings = book.listings_with_price.to_a %>
+
+      <% if listings.any? %>
         <span class="card__note">
-          <em>Bij <%= book.listings_with_price.size %> verkoper<%= "s" if book.listings_with_price.many? %></em>
+          <em>Bij <%= listings.size %> verkoper<%= "s" if listings.many? %></em>
         </span>
       <% end %>
 
       <span class="card__price">
-        <% if book.listings_with_price.any? %>
+        <% if listings.any? %>
           Vanaf
           <%= render "listings/price", listing: book.cheapest_listing %>
         <% elsif book.last_scrape_finished_at.nil? %>

@@ -6,8 +6,9 @@ class BooksController < ApplicationController
   # after_action :request_cover, only: [:show]
 
   def index
-    @books = BookFilter.new(Book.all, filter_params).filter.page(params[:page])
-    @genres = Genre.where(parent_genre_id: nil)
+    @books = BookFilter.new(Book.full_join, filter_params).filter.page(params[:page])
+
+    @genres = Genre.includes(subgenres: { subgenres: { subgenres: :subgenres } }).where(parent_genre_id: nil)
   end
 
   def show
@@ -33,7 +34,7 @@ class BooksController < ApplicationController
 
   def set_book
     isbn = params.expect([:slug_and_isbn]).split("-").last
-    @book = Book.includes(:authors, listings: :source).find_by_isbn!(isbn)
+    @book = Book.full_join.find_by_isbn!(isbn)
     @listings = @book.listings_with_price_sorted
   end
 
