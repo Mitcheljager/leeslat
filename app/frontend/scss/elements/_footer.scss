@@ -51,11 +51,9 @@
   text-decoration: none;
   font-family: $font-stack-bold;
   font-weight: bold;
-  color: var(--text-color-alt);
 
   @include hover-stack {
     text-decoration: underline;
     text-decoration-thickness: 2px;
-    color: var(--text-color);
   }
 }
