@@ -73,6 +73,10 @@ figure {
   margin: 0;
 }
 
+img {
+  white-space: wrap;
+}
+
 .layout {
   @include max-width;
   padding-bottom: $margin * 10;
