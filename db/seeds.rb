@@ -172,7 +172,7 @@ create_genre("Noir", "noir", "detective", keywords: "Noir")
 create_genre("Mysterie", "mysterie", "thrillers", keywords: "Mystery")
 create_genre("Spannend", "spanning", "thrillers", keywords: "Suspense")
 create_genre("Misdaad", "misdaad", "thrillers", keywords: "Crime")
-create_genre("Spionage", "spionage", "thrillers", keywords: "Spy, Espionage")
+create_genre("Spionage", "spionage", "thrillers", keywords: "Spy, Espionage, Spy Thriller")
 create_genre("Psychologische Thriller", "psychologische-thriller", "thrillers", keywords: "Psychological Thriller, Psychological")
 
 # Scifi
