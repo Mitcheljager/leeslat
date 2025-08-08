@@ -77,7 +77,9 @@
   <h2 class="filter__heading mt-4">Genres.</h2>
 
   <div>
-    <%= render collection: @genres, partial: "books/filter/filter_genre", as: :genre %>
+    <% cache_unless filter_params[:genres].present?, "filter-genres" do %>
+      <%= render collection: @genres, partial: "books/filter/filter_genre", as: :genre %>
+    <% end %>
   </div>
 
   <%# There's 2 different submit buttons, one for mobile, where the filter does not auto submit, and one for noscript.
