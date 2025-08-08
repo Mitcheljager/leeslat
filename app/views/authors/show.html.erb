@@ -4,6 +4,6 @@
   <h1 class="heading">Boeken door <span class="wavy-underline"><%= @author.name %></span></h1>
 
   <div class="cards">
-    <%= render collection: @books, partial: "books/card", as: :book, cached: true %>
+    <%= render collection: @books, partial: "books/card", as: :book %>
   </div>
 </div>
