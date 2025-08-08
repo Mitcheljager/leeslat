@@ -65,7 +65,7 @@ else
   books = Book.where(description: nil).where("hotness >= ?", min_hotness)
 
   books.each_with_index do |book, index|
-    puts "\e[44m #{index} out of #{books.size} \e[0m"
+    puts "\e[44m #{index + 1} out of #{books.size} \e[0m"
 
     get_openai_description(book, client)
 
