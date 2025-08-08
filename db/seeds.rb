@@ -158,12 +158,11 @@ create_genre("Kookboeken", "kookboeken", nil, keywords: "Cookbooks")
 ## Fiction
 
 # Novel
-create_genre("Romans", "romans", "fictie", keywords: "Novel")
+create_genre("Romans", "romans", "fictie", keywords: "Novel, Novels")
 create_genre("Novella", "novella", "fictie", keywords: "Novella")
 create_genre("Korte verhalen", "korte-verhalen", "fictie", keywords: "Short Stories, Collections, Short Story Collection")
 create_genre("Literaire romans", "literaire-romans", "romans", keywords: "Literature")
 create_genre("Historische romans", "historische-romans", "romans", keywords: "Historical Fiction")
-create_genre("Klassieke romans", "klassieke-romans", "romans", keywords: "Classic Fiction")
 
 # Thriller
 create_genre("Thrillers", "thrillers", "fictie", keywords: "Thrillers, Thriller")
