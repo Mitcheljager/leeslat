@@ -70,9 +70,9 @@ class BookFilter
 
   def sort
     if params[:sort] == "new"
-      @books = books.order(Arel.sql("published_date_text DESC"))
+      @books = books.order(Arel.sql("books.published_date_text DESC"))
     elsif params[:sort] == "old"
-      @books = books.order(Arel.sql("published_date_text ASC"))
+      @books = books.order(Arel.sql("books.published_date_text ASC"))
     elsif params[:sort] == "latest"
       @books = books.order(created_at: :desc)
     elsif params[:query].present?
