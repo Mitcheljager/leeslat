@@ -49,7 +49,9 @@ end
 
 client = OpenAI::Client.new(access_token: ENV["OPENAI_API_KEY"], log_errors: true)
 
-isbn = ARGV[0]
+arguments = ARGV.map { |a| a.split("=", 2) }.to_h
+isbn = arguments["isbn"]
+min_hotness = arguments["min_hotness"] || 0
 
 if isbn.present?
   book = Book.find_by_isbn(isbn)
@@ -60,7 +62,7 @@ if isbn.present?
     get_openai_description(book, client)
   end
 else
-  books = Book.where(description: nil)
+  books = Book.where(description: nil).where("hotness >= ?", min_hotness)
 
   books.each_with_index do |book, index|
     puts "\e[44m #{index} out of #{books.size} \e[0m"
