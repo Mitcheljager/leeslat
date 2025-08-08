@@ -20,7 +20,7 @@
 
     <%= turbo_frame_tag "form_filter_content", data: { turbo_action: "replace", turbo_fade: true }, target: "_top" do %>
       <section class="filter-columns__content cards">
-        <%= render collection: @books, partial: "books/card", as: :book %>
+        <%= render collection: @books, partial: "books/card", as: :book, cached: true %>
       </section>
 
       <nav class="filter-columns__pagination">

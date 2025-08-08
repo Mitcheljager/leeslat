@@ -17,7 +17,7 @@
 
     <div class="cards">
       <% cache ["hot-books", @hot_books.maximum(:updated_at)], expires_in: 4.hours do %>
-        <%= render collection: @hot_books, partial: "books/card", as: :book %>
+        <%= render collection: @hot_books, partial: "books/card", as: :book, cached: true %>
       <% end %>
     </div>
 
@@ -29,7 +29,7 @@
 
     <div class="cards">
       <% cache ["hot-fantasy-books", @fantasy_books.maximum(:updated_at)], expires_in: 4.hours do %>
-        <%= render collection: @fantasy_books, partial: "books/card", as: :book %>
+        <%= render collection: @fantasy_books, partial: "books/card", as: :book, cached: true %>
       <% end %>
     </div>
 
@@ -41,7 +41,7 @@
 
     <div class="cards">
       <% cache ["hot-mystery-books", @mystery_books.maximum(:updated_at)], expires_in: 4.hours do %>
-        <%= render collection: @mystery_books, partial: "books/card", as: :book %>
+        <%= render collection: @mystery_books, partial: "books/card", as: :book, cached: true %>
       <% end %>
     </div>
 
@@ -53,7 +53,7 @@
 
     <div class="cards">
       <% cache ["hot-cook-books", @cook_books.maximum(:updated_at)], expires_in: 4.hours do %>
-        <%= render collection: @cook_books, partial: "books/card", as: :book %>
+        <%= render collection: @cook_books, partial: "books/card", as: :book, cached: true %>
       <% end %>
     </div>
 

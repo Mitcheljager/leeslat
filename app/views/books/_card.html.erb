@@ -1,63 +1,61 @@
-<% cache ["card", book.id, book.last_scrape_finished_at, book.updated_at] do %>
-  <article class="card">
-    <%= link_to book,
-      class: "card__image",
-      style: book.cover_aspect_ratio.present? ? "--aspect-ratio: #{book.cover_aspect_ratio}" : nil,
-      aria: { labelledby: book.isbn } do %>
-      <%= render "books/cover", book: book, small: true, image_variant: :small, loading: "lazy" %>
-    <% end %>
+<article class="card">
+  <%= link_to book,
+    class: "card__image",
+    style: book.cover_aspect_ratio.present? ? "--aspect-ratio: #{book.cover_aspect_ratio}" : nil,
+    aria: { labelledby: book.isbn } do %>
+    <%= render "books/cover", book: book, small: true, image_variant: :small, loading: "lazy" %>
+  <% end %>
 
-    <%= link_to book, class: "card__content", aria: { labelledby: book.isbn } do %>
-      <span class="card__heading line-clamp line-clamp--line-1" id="<%= book.isbn %>" role="heading" aria-level="2">
-        <%= book.title %><%= ": #{book.subtitle}" if book.subtitle %>
+  <%= link_to book, class: "card__content", aria: { labelledby: book.isbn } do %>
+    <span class="card__heading line-clamp line-clamp--line-1" id="<%= book.isbn %>" role="heading" aria-level="2">
+      <%= book.title %><%= ": #{book.subtitle}" if book.subtitle %>
+    </span>
+
+    <span class="font-small line-clamp line-clamp--line-1"><%= human_list(book.authors.pluck(:name)) %></span>
+
+    <span class="card__details" role="complementary">
+      <span>
+        <%= book.language_label %>
       </span>
 
-      <span class="font-small line-clamp line-clamp--line-1"><%= human_list(book.authors.pluck(:name)) %></span>
+      <% if !book.unknown_format? %>
+        <span class="separator"></span>
 
-      <span class="card__details" role="complementary">
         <span>
-          <%= book.language_label %>
+          <%= book.format_label %>
         </span>
+      <% end %>
 
-        <% if !book.unknown_format? %>
-          <span class="separator"></span>
+      <% if book.published_year.present? %>
+        <span class="separator"></span>
 
-          <span>
-            <%= book.format_label %>
-          </span>
-        <% end %>
+        <span>
+          <%= book.published_year %>
+        </span>
+      <% end %>
+    </span>
 
-        <% if book.published_year.present? %>
-          <span class="separator"></span>
+    <span class="card__tray">
+      <% listings = book.listings_with_price.to_a %>
 
-          <span>
-            <%= book.published_year %>
-          </span>
-        <% end %>
-      </span>
+      <% if listings.any? %>
+        <span class="card__note">
+          <em>Bij <%= listings.size %> verkoper<%= "s" if listings.many? %></em>
+        </span>
+      <% end %>
 
-      <span class="card__tray">
-        <% listings = book.listings_with_price.to_a %>
-
+      <span class="card__price">
         <% if listings.any? %>
-          <span class="card__note">
-            <em>Bij <%= listings.size %> verkoper<%= "s" if listings.many? %></em>
-          </span>
+          Vanaf
+          <%= render "listings/price", listing: book.cheapest_listing %>
+        <% elsif book.last_scrape_finished_at.nil? %>
+          <em>Onbekend</em>
+        <% else %>
+          <em>Niet beschikbaar</em>
         <% end %>
-
-        <span class="card__price">
-          <% if listings.any? %>
-            Vanaf
-            <%= render "listings/price", listing: book.cheapest_listing %>
-          <% elsif book.last_scrape_finished_at.nil? %>
-            <em>Onbekend</em>
-          <% else %>
-            <em>Niet beschikbaar</em>
-          <% end %>
-        </span>
       </span>
+    </span>
 
-      <%= image_tag rails_public_blob_url(book.cover_image.variant(:small).processed), class: "card__blur", width: 120, height: 120, alt: "", loading: "lazy" if book.cover_image.attached? %>
-    <% end %>
-  </article>
-<% end %>
+    <%= image_tag rails_public_blob_url(book.cover_image.variant(:small).processed), class: "card__blur", width: 120, height: 120, alt: "", loading: "lazy" if book.cover_image.attached? %>
+  <% end %>
+</article>
