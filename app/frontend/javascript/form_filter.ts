@@ -21,14 +21,18 @@ export default class form_filter {
   private submit(form: HTMLFormElement): void {
     if (this.is_submit_button_visible(form)) return;
 
-    const form_data = new FormData(form);
+    // Wait one frame so that checkboxes that are updated in bulk all have their state changed
+    // before actually processing the form.
+    requestAnimationFrame(() => {
+      const form_data = new FormData(form);
 
-    const params = this.form_data_to_params(form_data);
+      const params = this.form_data_to_params(form_data);
 
-    const url_params = new URLSearchParams(params as any);
-    const url = `${form.action}?${url_params.toString()}`;
+      const url_params = new URLSearchParams(params as any);
+      const url = `${form.action}?${url_params.toString()}`;
 
-    Turbo.visit(url, { frame: "form_filter_content" });
+      Turbo.visit(url, { frame: "form_filter_content" });
+    })
   }
 
   // If the submit button is visible we forgo the whole auto submitting thing.
