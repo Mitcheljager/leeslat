@@ -8,8 +8,26 @@
     <div class="footer__info">
       <h2>GewoonBoeken.nl</h2>
 
-      <nav>
-        <%= link_to "Over ons", about_path %>
+      <nav class="footer__navigation">
+        <div class="footer__column">
+          <%= link_to "Over ons", about_path, class: "footer__item" %>
+        </div>
+
+        <div class="footer__column">
+          <%= link_to "Fictie", genre_path("fictie"), class: "footer__item", data: { turbo_prefetch: false } %>
+          <%= link_to "Thrillers", genre_path("thrillers"), class: "footer__item", data: { turbo_prefetch: false } %>
+          <%= link_to "Mysterie", genre_path("mysterie"), class: "footer__item", data: { turbo_prefetch: false } %>
+          <%= link_to "Fantasy", genre_path("fantasy"), class: "footer__item", data: { turbo_prefetch: false } %>
+          <%= link_to "Young Adult", genre_path("young-adult"), class: "footer__item", data: { turbo_prefetch: false } %>
+        </div>
+
+        <div class="footer__column">
+          <%= link_to "Non-fictie", genre_path("non-fictie"), class: "footer__item", data: { turbo_prefetch: false } %>
+          <%= link_to "Biografieën", genre_path("biografieen"), class: "footer__item", data: { turbo_prefetch: false } %>
+          <%= link_to "Kookboeken", genre_path("kookboeken"), class: "footer__item", data: { turbo_prefetch: false } %>
+          <%= link_to "Reizen & Cultuur", genre_path("reizen-cultuur"), class: "footer__item", data: { turbo_prefetch: false } %>
+          <%= link_to "Wetenschap & Natuur", genre_path("wetenschap-natuur"), class: "footer__item", data: { turbo_prefetch: false } %>
+        </div>
       </nav>
     </div>
   </div>

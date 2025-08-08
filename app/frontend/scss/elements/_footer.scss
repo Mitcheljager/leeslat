@@ -20,9 +20,42 @@
 
 .footer__image {
   display: none;
-  margin-top: $margin * -16;
+  margin-top: max($margin * -16, -15vw);
+  width: 100%;
+  max-width: min(350px, 30vw);
 
   @include breakpoint(desktop) {
     display: block;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.footer__navigation {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 40rem;
+  gap: $margin * 4;
+}
+
+.footer__column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer__item {
+  text-decoration: none;
+  font-family: $font-stack-bold;
+  font-weight: bold;
+  color: var(--text-color-alt);
+
+  @include hover-stack {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    color: var(--text-color);
   }
 }
