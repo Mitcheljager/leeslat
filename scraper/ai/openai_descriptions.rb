@@ -1,4 +1,5 @@
 require_relative "../../config/environment"
+require_relative "../helpers/log_time"
 require "openai"
 
 def get_openai_description(book, client)
@@ -47,6 +48,8 @@ def get_openai_description(book, client)
   end
 end
 
+start_time = DateTime.now
+
 client = OpenAI::Client.new(access_token: ENV["OPENAI_API_KEY"], log_errors: true)
 
 arguments = ARGV.map { |a| a.split("=", 2) }.to_h
@@ -75,3 +78,5 @@ else
     end
   end
 end
+
+LogTime.log_end_time(start_time)
