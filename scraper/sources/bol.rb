@@ -40,7 +40,7 @@ def scrape_bol(isbn)
 
   # Only return listing for books actually sold by Bol.com, partners are handled separately.
   # Also skip books that are marked as "Niet leverbaar".
-  available = document.at_css(".product-seller")&.text&.include?("Verkoop door bol") && !document.text.include?("Niet leverbaar")
+  available = (document.at_css(".product-seller")&.text&.include?("Verkoop door bol") || document.at_css(".buy-block__usps")&.text&.include?("verstuurd door bol")) && !document.text.include?("Niet leverbaar")
 
   return { url:, available: false, description:, number_of_pages: } if !available
 
