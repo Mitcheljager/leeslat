@@ -48,8 +48,8 @@ end
 
 index = 0
 
-# Boeken.nl - 100 entries per page, 2 pages
-for page in 1..2 do
+# Boeken.nl - 100 entries per page, 2 pages, starts at 0
+for page in 0..1 do
   document = get_document("https://www.boeken.nl/boeken/top-100?page=#{page}&mefibs-form-view-options-bottom-keys=&mefibs-form-view-options-bottom-items_per_page=100&mefibs-form-view-options-bottom-mefibs_block_id=view_options_bottom")
   document.css(".views-row a").each do |node|
     # The only place the isbn is present on these overview pages is in the URLs of each book
@@ -61,7 +61,7 @@ for page in 1..2 do
 
     next if isbn.blank?
 
-    score = [200 - (index * 2), 1].max
+    score = [200 - index, 1].max
     isbn_list[isbn] += score
 
     index += 1
