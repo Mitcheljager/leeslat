@@ -31,6 +31,8 @@ index = 0
 for page in 1..10 do
   # + 11209 is the category for books, which means we exclude Ebooks and Audiobooks
   document = get_document("https://www.bol.com/nl/nl/l/boeken/8299/11209/?page=#{page}")
+  next if document.nil?
+
   document.css(".product-item__content, #mainContent .flex-row .grid .min-w-none").each do |node|
     next if node.include?("Gesponsord")
     next if node.include?("Ebook") # Specifically Ebook, not e-book, as that would include the other variant sections
@@ -54,11 +56,9 @@ for page in 0..2 do
   document.css(".views-row a").each do |node|
     # The only place the isbn is present on these overview pages is in the URLs of each book
     url = node.attribute("href").value
-
     next if url.blank?
 
     isbn = url.match(%r{/(\d{10,13})/})&.captures&.first
-
     next if isbn.blank?
 
     score = [200 - index, 1].max
@@ -80,7 +80,6 @@ document.css(".ankeiler-wrapper [data-test-id='titleAndSubtitle'] a").each do |n
   next if !url.include?("/boeken/")
 
   isbn = url.match(/(\d{10,13})(?:$|\D)/)&.captures&.first
-
   next if isbn.blank?
 
   score = [200 - (index * 2), 1].max
