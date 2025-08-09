@@ -18,6 +18,7 @@
     grid-template:
       "heading image"
       "subheading image";
+    grid-template-columns: clamp(20rem, 35vw, 30rem) auto;
     align-items: center;
     gap: 0 $margin * 2;
     padding-top: $margin * 8;
