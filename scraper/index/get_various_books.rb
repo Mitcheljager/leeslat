@@ -64,7 +64,7 @@ for page in 0..50 do
     url = node.attribute("href").value
     next if url.blank?
 
-    isbn = url.match(%r{/(\d{10,13})/})&.captures&.first
+    isbn = url.match(%r{/(\d{13})/})&.captures&.first
     next if isbn.blank?
 
     isbn_list << isbn
