@@ -24,7 +24,7 @@ class Book < ApplicationRecord
   enum :language, { dutch: "nl", english: "en" }
 
   validates :title, presence: true
-  validates :isbn, presence: true, uniqueness: true, format: { with: /\A[0-9]+\z/ }
+  validates :isbn, presence: true, uniqueness: true, format: { with: /\A\d{13}\z/ }
   validates :format, inclusion: { in: Book.formats.keys }
   validates :language, inclusion: { in: Book.languages.keys }, allow_nil: true
   validates :published_date_text, format: { with: /\A[0-9\-]+\z/ }, allow_nil: true, allow_blank: true
