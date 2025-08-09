@@ -91,7 +91,7 @@ isbn_list.each_slice(batch_size).with_index do |batch, batch_index|
   puts "\e[45m Processing batch #{batch_index + 1} / #{(isbn_list.size / batch_size).ceil} \e[0m"
 
   batch.each do |isbn|
-    puts "\e[44m #{index} out of #{isbn_list.count} \e[0m"
+    puts "\e[44m #{total_index} out of #{isbn_list.count} \e[0m"
 
     ActiveRecord::Base.connection_pool.with_connection do
       begin
