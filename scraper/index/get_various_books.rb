@@ -82,30 +82,39 @@ end
 # entry, or because the book was an ebook.
 isbn_list.reject! { |isbn| SkippableISBN.exists?(isbn: isbn) }
 
+puts isbn_list.size
+
 # Process all indexed ISBNs, skipping any that are invalid
-isbn_list.each_with_index do |isbn, index|
-  puts "\e[44m #{index} out of #{isbn_list.count} \e[0m"
+batch_size = 20
+total_index = 0
+isbn_list.each_slice(batch_size).with_index do |batch, batch_index|
+  puts "\e[45m Processing batch #{batch_index + 1} / #{(isbn_list.size / batch_size).ceil} \e[0m"
 
-  begin
-    book = get_book(isbn, attach_image: true)
+  batch.each do |isbn|
+    puts "\e[44m #{index} out of #{isbn_list.count} \e[0m"
 
-    raise "No book was returned from get_book with isbn #{isbn}" if book.nil?
-  rescue => error
-    puts "Book with #{isbn} failed to be indexed from get_various_books.rb"
-    puts error
+    ActiveRecord::Base.connection_pool.with_connection do
+      begin
+        book = get_book(isbn, attach_image: true)
 
-    # Show full backtrace but skip for RuntimeErrors, as those would have been manually triggered "raise" errors,
-    # which we can safely(?) ignore.
-    puts error.backtrace.join("\n") if error.class.to_s != "RuntimeError"
+        raise "No book was returned from get_book with isbn #{isbn}" if book.nil?
+      rescue => error
+        puts "Book with #{isbn} failed to be indexed from get_various_books.rb"
+        puts error
+
+        # Show full backtrace but skip for RuntimeErrors, as those would have been manually triggered "raise" errors,
+        # which we can safely(?) ignore.
+        puts error.backtrace.join("\n") if error.class.to_s != "RuntimeError"
+      ensure
+        total_index += 1
+        # Reset for garbage collection later
+        book = nil
+      end
+    end
   end
 
-  # Reset book and run Garbage collector for every 20 indexes
-  book = nil
-
-  if index % 20 == 0
-    puts "Garbage collection..."
-    GC.start
-  end
+  puts "Garbage collection..."
+  GC.start
 end
 
 LogTime.log_end_time(start_time)
