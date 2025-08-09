@@ -59,7 +59,7 @@ for page in 0..50 do
   document = get_document("https://www.boeken.nl/boeken?page=#{page}&field_format_tid_entityreference_filter%5B0%5D=18&field_format_tid_entityreference_filter%5B1%5D=655&nxte_complete_price%5Bmin%5D=&nxte_complete_price%5Bmax%5D=&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B0%5D=18&mefibs-form-view-filters-field_format_tid_entityreference_filter%5B1%5D=655&mefibs-form-view-filters-nxte_complete_price%5Bmin%5D=&mefibs-form-view-filters-nxte_complete_price%5Bmax%5D=&mefibs-form-view-filters-keys_optional=&mefibs-form-view-filters-sort_by=popularity&mefibs-form-view-filters-items_per_page=100&mefibs-form-view-filters-mefibs_block_id=view_filters", timeout: 10)
   next if document.nil?
 
-  document.css(".views-row a").each do |node|
+  document.css(".views-row h3 a").each do |node|
     # The only place the isbn is present on these overview pages is in the URLs of each book
     url = node.attribute("href").value
     next if url.blank?
